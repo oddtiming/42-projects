@@ -35,7 +35,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
-
+void	ft_putnbr_fd(int n, int fd);
 //To test function pointers//
 char	ft_touppcase(unsigned int i, char c)
 {
@@ -508,4 +508,18 @@ int	main(void)
 	ft_putendl_fd(s1, fd);
 	printf("\n");
 
+
+	int	nb = 1235124;
+	fd = 1;
+	printf("For fd = %d && nb = %d, output is :\n", fd, nb);
+	ft_putnbr_fd(nb, fd);
+	printf("\n");
+	nb = 0;
+	printf("For fd = %d && nb = %d, output is :\n", fd, nb);
+	ft_putnbr_fd(nb, fd);
+	printf("\n");
+	nb = INT_MIN;
+	printf("For fd = %d && nb = %d, output is :\n", fd, nb);
+	ft_putnbr_fd(nb, fd);
+	printf("\n\n");
 }

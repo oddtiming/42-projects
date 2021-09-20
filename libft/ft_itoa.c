@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyahoui- <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 12:34:58 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/19 14:06:48 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/20 13:38:47 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <limits.h>
 
-int	power_calc(int base, int power)
+static int	power_calc(int base, int power)
 {
 	if (power < 0)
 		return (0);
@@ -23,7 +23,7 @@ int	power_calc(int base, int power)
 	return (base * power_calc(base, power - 1));
 }
 
-int	get_a_len(int n)
+static int	get_a_len(int n)
 {
 	int	a_len;
 
