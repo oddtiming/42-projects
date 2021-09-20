@@ -59,11 +59,13 @@ void	ft_lstadd_front_test(void)
 		ptr_head = ptr_head->next;
 	}
 	ptr_head = first_node;
+	printf("Initial value of first_node->content: '%d'\n", *(int *)first_node->content);
 	for (i = 0; i < nb_structs; i++)
 	{
 		printf("Content[%d] = '%d'\n", i, *(int *)(ptr_head->content));
 		ptr_head = ptr_head->next;
 	}
+	printf("After printing value of first_node->content: '%d'\n", *(int *)first_node->content);
 	ft_lstadd_front(&first_node, ft_lstnew(&nb_structs));
 	printf("\nAfter ft_lstadd_front:\n");
 	ptr_head = first_node;
