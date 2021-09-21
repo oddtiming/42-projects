@@ -17,14 +17,14 @@
 size_t	ft_strlen(char const*s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 
-int	is_set(char const s, char const c)
+static int	is_set(char const s, char const c)
 {
 	if (s == c && c)
 		return (1);
 	return (0);
 }
 
-size_t	get_chunk_len(char const **s, char c)
+static size_t	get_chunk_len(char const **s, char c)
 {
 	size_t	len;
 
@@ -43,7 +43,7 @@ size_t	get_chunk_len(char const **s, char c)
 	return (len);
 }
 
-size_t	get_nb_chunks(char const *s, char const c)
+static size_t	get_nb_chunks(char const *s, char const c)
 {
 	size_t	nb_chunks;
 	int		is_chunk;

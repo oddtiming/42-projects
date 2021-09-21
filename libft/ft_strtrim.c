@@ -3,7 +3,7 @@
 
 size_t	ft_strlen(const char *s);
 
-int	is_set(char c, char const *set)
+static int	is_set(char c, char const *set)
 {
 	while (*set)
 	{
@@ -14,7 +14,7 @@ int	is_set(char c, char const *set)
 	return (0);
 }
 
-size_t	get_trim_len(char const *s1, char const *set, size_t init_len)
+static size_t	get_trim_len(char const *s1, char const *set, size_t init_len)
 {
 	size_t	trim_len;
 	
