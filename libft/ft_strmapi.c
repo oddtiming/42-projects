@@ -6,15 +6,11 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 14:34:09 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/20 12:30:22 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/21 19:13:39 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-size_t	ft_strlen(const char *s);
+#include "libft.h"
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
