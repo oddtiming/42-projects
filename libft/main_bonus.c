@@ -24,6 +24,25 @@ void	lst_touppcase(void *data)
 		i++;
 	}
 }
+
+//Try with no duplicate
+void	*lst_fct_simple(void *data)
+{
+	int		i;
+	char	*str_ptr;
+
+	i = 0;
+	str_ptr = (char *)data;
+	if (!data)
+		return ;
+	while (str_ptr[i])
+	{
+		if (str_ptr[i] >= 'a' && str_ptr[i] <= 'z')
+			str_ptr[i] -= 32;
+		i++;
+	}
+	return (str_ptr);
+}
 /*
 void	*lst_touppcase_map(void *data)
 {
@@ -501,15 +520,68 @@ void	ft_lstmap_test(void *(*map_fct)(void *), void (*del)(void *))
 	ft_lstclear(&ptr_head, &lst_del_fct);
 }
 
+void	ft_lstmap_test_simple(void *(*map_fct)(void *), void (*del)(void *))
+{
+	printf("-------------------------\n###SIMPLE Tests for ft_lstmap###\n-------------------------\n");
+	t_list	*first_node;
+	t_list	*ptr_head;
+	char	*s0;
+	char	*s1;
+	char	*s2;
+	char	*strs[5];
+	int		nb_stucts;
+	
+	nb_structs = 5;
+	s0 = ft_strdup("This is the 1st string");
+	s1 = ft_strdup("TEST");
+	s2 = ft_strdup("This is the 3rd string");
+	s3 = ft_strdup("This is the 4th string");
+	s4 = ft_strdup("This is the 5th string");
+	strs[0] = s0;
+	strs[1] = s1;
+	strs[2] = s2;
+	strs[3] = s3;
+	strs[4] = s4;
+	
+	ptr_head = ft_lstnew(strs[0]);
+	first_node = ptr_head;
+	//Sets the linked list
+	for (int i = 1; i < nb_structs; i++)
+	{
+		ptr_head->next = ft_lstnew(strs[i]);
+		ptr_head = ptr_head->next;
+	}
+	ptr_head = first_node;
+	//Prints the list's nodes' contents
+	for (int i = 0; ptr_head; i++)
+	{
+		printf("Content[%d] = '%s'\n", i, (char *)ptr_head->content);
+		ptr_head = ptr_head->next;
+	}
+	printf("\nAfter ft_lstmap on first_node->next->next (third node):\n");
+	
+	//Clearing the third node onwards:
+	ptr_head = ft_lstmap(first_node, map_fct, del);
+	for (int i = 0; ptr_head; i++)
+	{
+		printf("Content[%d] = '%s'\n", i, (char *)(ptr_head->content));
+		ptr_head = ptr_head->next;
+	}
+	printf("\n");
+	ft_lstclear(&ptr_head, &lst_del_fct);
+}
+
 int	main(void)
 {
 	void	(*del_fct)(void *);
 	void	(*iter_fct)(void *);
 	void	*(*map_fct)(void *);
+	void	*(*map_fct_simple)(void *);
 
 	del_fct = &lst_del_fct;
 	iter_fct = &lst_touppcase;
 	map_fct = &lst_touppcase_map;
+	map_fct_simple = &lst_fct_simple;
 	//ft_lstnew_test();
 	//ft_lstadd_front_test();
 	//ft_lstsize_test();
@@ -519,6 +591,7 @@ int	main(void)
 	//ft_lstclear_test(del_fct);
 	//ft_lstiter_test(iter_fct);
 	ft_lstmap_test(map_fct, del_fct);
+	ft_lstmap_test_simple(map_fct, del_fct);
 	return (0);
 }
 

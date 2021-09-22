@@ -35,6 +35,8 @@ SRCS	=	ft_atoi.c \
 			ft_tolower.c \
 			ft_toupper.c
 
+OBJS	=	${SRCS:.c=.o}
+
 SRCS_B	=	ft_lstmap.c \
 			ft_lstsize.c \
 			ft_lstnew.c \
@@ -45,7 +47,16 @@ SRCS_B	=	ft_lstmap.c \
 			ft_lstadd_front.c \
 			ft_lstadd_back.c
 
-OBJS	=	${SRCS:.c=.o}
-
 OBJS_B	=	${SRCS_B:.c=.o}
+
+CC		=	gcc
+CFLAGS	=	-c -Werror -Wall -Wextra -I
+AR		=	ar
+RM		=	rm -f
+
+${NAME}:
+		${CC} ${CFLAGS} ${SRCS}
+		${AR} ${OBJS}
+#NEED TO INCLUDE ARFLAGS
+all:	${NAME}
 
