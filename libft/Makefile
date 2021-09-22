@@ -50,13 +50,26 @@ SRCS_B	=	ft_lstmap.c \
 OBJS_B	=	${SRCS_B:.c=.o}
 
 CC		=	gcc
-CFLAGS	=	-c -Werror -Wall -Wextra -I
+CFLAGS	=	-Werror -Wall -Wextra -I
 AR		=	ar
+ARFLAGS	=	-r
 RM		=	rm -f
 
-${NAME}:
-		${CC} ${CFLAGS} ${SRCS}
-		${AR} ${OBJS}
+${NAME}:	${OBJS}
+		${CC} ${CFLAGS} -c $^ -o $@
+		${AR} ${ARFLAGS} $@
 #NEED TO INCLUDE ARFLAGS
 all:	${NAME}
 
+clean:	${RM} ${OBJS}
+
+fclean:	clean
+		${RM} ${NAME}
+
+re:		fclean all
+
+bonus:	${OBJS_B}
+		${CC} ${CFLAGS} -c $^ -o $@
+		${AR} ${ARFLAGS} $@
+
+.PHONY: all clean fclean re bonus
