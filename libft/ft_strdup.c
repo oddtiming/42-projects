@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyahoui- <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 11:38:12 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/16 14:51:29 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/22 13:59:21 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "libft.h"
 
 size_t	ft_strlen(const char *s);
 

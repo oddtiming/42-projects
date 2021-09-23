@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyahoui- <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 10:47:04 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/16 11:14:38 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:01:34 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 void	ft_bzero(void *s, size_t n);
 

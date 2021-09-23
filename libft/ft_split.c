@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyahoui- <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 17:05:51 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/19 12:35:37 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/22 15:00:32 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
+#include "libft.h"
 
 size_t	ft_strlen(char const*s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);

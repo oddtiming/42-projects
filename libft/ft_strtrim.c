@@ -1,7 +1,16 @@
-#include <stdlib.h>
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/22 14:59:25 by iyahoui-          #+#    #+#             */
+/*   Updated: 2021/09/22 20:36:11 by iyahoui-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-size_t	ft_strlen(const char *s);
+#include "libft.h"
 
 static int	is_set(char c, char const *set)
 {
@@ -17,7 +26,7 @@ static int	is_set(char c, char const *set)
 static size_t	get_trim_len(char const *s1, char const *set, size_t init_len)
 {
 	size_t	trim_len;
-	
+
 	trim_len = init_len;
 	while (is_set(*s1, set))
 	{
@@ -38,18 +47,24 @@ char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	s1_len;
 	size_t	trim_len;
+	size_t	i;
 	char	*s_trim;
 
+	i = 0;
+	if (!s1)
+		return (NULL);
 	s1_len = ft_strlen(s1);
 	trim_len = get_trim_len(s1, set, s1_len) + 1;
 	s_trim = malloc(trim_len);
+	if (!s_trim)
+		return (NULL);
 	while (is_set(*s1, set))
 		s1++;
-	while (trim_len)
+	while (i < trim_len)
 	{
-		*s_trim = *s1++;
-		trim_len--;
+		s_trim[i] = s1[i];
+		i++;
 	}
-	*s_trim++ = 0;
-	return (s_trim - trim_len);
+	s_trim[i] = 0;
+	return (s_trim);
 }

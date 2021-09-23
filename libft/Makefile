@@ -35,10 +35,8 @@ SRCS	=	ft_atoi.c \
 			ft_tolower.c \
 			ft_toupper.c
 
-OBJS	=	${SRCS:.c=.o}
-
-SRCS_B	=	ft_lstmap.c \
-			ft_lstsize.c \
+SRCS_B	=	ft_lstsize.c \
+			ft_lstmap.c \
 			ft_lstnew.c \
 			ft_lstlast.c \
 			ft_lstiter.c \
@@ -47,29 +45,38 @@ SRCS_B	=	ft_lstmap.c \
 			ft_lstadd_front.c \
 			ft_lstadd_back.c
 
+OBJS	=	${SRCS:.c=.o}
+
 OBJS_B	=	${SRCS_B:.c=.o}
 
 CC		=	gcc
-CFLAGS	=	-Werror -Wall -Wextra -I
+
+CFLAGS	=	-Wall -Wextra -Werror -I.
+
 AR		=	ar
-ARFLAGS	=	-r
+
+ARFLAGS	=	-rcs
+
 RM		=	rm -f
 
+.c.o:
+			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+
 ${NAME}:	${OBJS}
-		${CC} ${CFLAGS} -c $^ -o $@
-		${AR} ${ARFLAGS} $@
-#NEED TO INCLUDE ARFLAGS
+	${AR} ${ARFLAGS} $@ $^
+
 all:	${NAME}
 
-clean:	${RM} ${OBJS}
+clean:	
+	${RM} ${OBJS} ${OBJS_B}
 
 fclean:	clean
-		${RM} ${NAME}
+	${RM} ${NAME}
 
-re:		fclean all
+re:	
+	fclean all
 
-bonus:	${OBJS_B}
-		${CC} ${CFLAGS} -c $^ -o $@
-		${AR} ${ARFLAGS} $@
+bonus:	${OBJS} ${OBJS_B}
+	${AR} ${ARFLAGS} ${NAME} $^
 
 .PHONY: all clean fclean re bonus

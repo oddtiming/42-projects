@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyahoui- <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 16:53:35 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/15 16:53:36 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/22 18:53:21 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-
-size_t	ft_strlen(const char *s);
+#include "libft.h"
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
@@ -21,16 +19,15 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 
 	i = 0;
 	total_length = ft_strlen(src) + ft_strlen(dst);
-	while (*dst)
-		dst++;
-	while (i < dstsize && *(src + i))
+	while (*dst && i < dstsize)
 	{
-		*dst++ = *(src + i);
+		dst++;
 		i++;
 	}
-	if (*(src + i) == 0)
-		*dst = 0;
-	else if (dstsize)
-		*(dst - 1) = 0;
+	if (i == dstsize)
+		return (dstsize + ft_strlen(src));
+	while (++i < dstsize && *src)
+		*dst++ = *src++;
+	*dst = 0;
 	return (total_length);
-}	
+}

@@ -24,7 +24,7 @@ void	lst_touppcase(void *data)
 		i++;
 	}
 }
-
+/*
 //Try with no duplicate
 void	*lst_fct_simple(void *data)
 {
@@ -43,7 +43,7 @@ void	*lst_fct_simple(void *data)
 	}
 	return (str_ptr);
 }
-/*
+
 void	*lst_touppcase_map(void *data)
 {
 	int		i;
@@ -519,7 +519,7 @@ void	ft_lstmap_test(void *(*map_fct)(void *), void (*del)(void *))
 	printf("\n");
 	ft_lstclear(&ptr_head, &lst_del_fct);
 }
-
+/*
 void	ft_lstmap_test_simple(void *(*map_fct)(void *), void (*del)(void *))
 {
 	printf("-------------------------\n###SIMPLE Tests for ft_lstmap###\n-------------------------\n");
@@ -570,7 +570,7 @@ void	ft_lstmap_test_simple(void *(*map_fct)(void *), void (*del)(void *))
 	printf("\n");
 	ft_lstclear(&ptr_head, &lst_del_fct);
 }
-
+*/
 int	main(void)
 {
 	void	(*del_fct)(void *);
@@ -581,17 +581,17 @@ int	main(void)
 	del_fct = &lst_del_fct;
 	iter_fct = &lst_touppcase;
 	map_fct = &lst_touppcase_map;
-	map_fct_simple = &lst_fct_simple;
-	//ft_lstnew_test();
-	//ft_lstadd_front_test();
-	//ft_lstsize_test();
-	//ft_lstlast_test();
-	//ft_lstadd_back_test();
-	//ft_lstdelone_test(del_fct);
-	//ft_lstclear_test(del_fct);
-	//ft_lstiter_test(iter_fct);
+	//map_fct_simple = &lst_fct_simple;
+	ft_lstnew_test();
+	ft_lstadd_front_test();
+	ft_lstsize_test();
+	ft_lstlast_test();
+	ft_lstadd_back_test();
+	ft_lstdelone_test(del_fct);
+	ft_lstclear_test(del_fct);
+	ft_lstiter_test(iter_fct);
 	ft_lstmap_test(map_fct, del_fct);
-	ft_lstmap_test_simple(map_fct, del_fct);
+	//ft_lstmap_test_simple(map_fct, del_fct);
 	return (0);
 }
 
