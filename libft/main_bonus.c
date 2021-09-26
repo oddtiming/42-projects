@@ -509,7 +509,7 @@ void	ft_lstmap_test(void *(*map_fct)(void *), void (*del)(void *))
 	}
 	printf("\nAfter ft_lstmap on first_node->next->next (third node):\n");
 	
-	//Clearing the third node onwards:
+	//Printing the return content of ft_lstmap + clearing the two lists:
 	ptr_head = ft_lstmap(first_node, map_fct, del);
 	for (int i = 0; ptr_head; i++)
 	{
@@ -518,6 +518,7 @@ void	ft_lstmap_test(void *(*map_fct)(void *), void (*del)(void *))
 	}
 	printf("\n");
 	ft_lstclear(&ptr_head, &lst_del_fct);
+	ft_lstclear(&first_node, &lst_del_fct);
 }
 /*
 void	ft_lstmap_test_simple(void *(*map_fct)(void *), void (*del)(void *))

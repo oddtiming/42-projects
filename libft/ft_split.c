@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 17:05:51 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/23 13:16:00 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/26 15:51:21 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static void	ft_free_split(char **arr_split)
 	}
 }
 
-//NEED TO ADD FREE IF MALLOC FAILS
 char	**ft_split(char const *s, char const c)
 {
 	size_t	nb_chunks;
@@ -94,7 +93,3 @@ char	**ft_split(char const *s, char const c)
 	arr_split[i] = NULL;
 	return (arr_split);
 }
-
-
-//NOTES: ft_split advances in the characters, so get_chunk_len should not modify the string passed as
-//an argument. Instead, it should offer the length without modifying anything.

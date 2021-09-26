@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 14:51:42 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/23 12:35:21 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/26 15:50:05 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	s_len;
 	char	*substr;
-	
+
 	s_len = 0;
 	if (!s)
 		return (NULL);
@@ -36,33 +36,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		substr[len] = s[start + len];
 	return (substr);
 }
-//Q : should the substr handle cases where start is passed the end of string?
-//oui
-/*
-
-//Nicolas COLOMER (Glagan)'s code
-char
-	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	size_t	i;
-	size_t	j;
-	char	*str;
-
-	str = (char*)malloc(sizeof(*s) * (len + 1));
-	if (!str)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s[i])
-	{
-		if (i >= start && j < len)
-		{
-			str[j] = s[i];
-			j++;
-		}
-		i++;
-	}
-	str[j] = 0;
-	return (str);
-}
-*/
