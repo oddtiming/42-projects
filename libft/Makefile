@@ -65,7 +65,7 @@ RM		=	rm -f
 ${NAME}:	${OBJS}
 	${AR} ${ARFLAGS} $@ $^
 
-all:	${NAME} clean
+all:	${NAME}
 
 clean:	
 	${RM} ${OBJS} ${OBJS_B}
