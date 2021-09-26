@@ -323,7 +323,15 @@ int	main(void)
 
 	//Tests for ft_atoi
 	printf("-------------------------\n###Tests for ft_atoi###\n-------------------------\n");
-	strcpy(origin, "   ++32");
+	strcpy(origin, " 12305");
+	printf("string = '%s'\natoi = %d\nft_atoi = %d\n\n", origin, atoi(origin), ft_atoi(origin));
+	strcpy(origin, "  -812380");
+	printf("string = '%s'\natoi = %d\nft_atoi = %d\n\n", origin, atoi(origin), ft_atoi(origin));
+	strcpy(origin, " +912394");
+	printf("string = '%s'\natoi = %d\nft_atoi = %d\n\n", origin, atoi(origin), ft_atoi(origin));
+	strcpy(origin, " 93812418485");
+	printf("string = '%s'\natoi = %d\nft_atoi = %d\n\n", origin, atoi(origin), ft_atoi(origin));
+	strcpy(origin, "-99999999999999999999999999 (== LONG_MIN)");
 	printf("string = '%s'\natoi = %d\nft_atoi = %d\n\n", origin, atoi(origin), ft_atoi(origin));
 
 	//Tests for ft_calloc
@@ -464,7 +472,10 @@ int	main(void)
 	n = INT_MAX;
 	printf("For n = %d\nString = '%s'\n\n", n, ft_itoa(n));
 	
-	n = -12345;
+	n = -623;
+	printf("For n = %d\nString = '%s'\n\n", n, ft_itoa(n));
+	
+	n = -1;
 	printf("For n = %d\nString = '%s'\n\n", n, ft_itoa(n));
 	
 	n = 0;

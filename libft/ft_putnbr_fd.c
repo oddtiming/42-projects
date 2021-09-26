@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: iyahoui- <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 10:55:16 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/20 10:55:45 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/23 10:13:33 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h" 
 
-int	get_magnitude(int n)
+static int	get_magnitude(int n)
 {
 	int	magnitude;
 

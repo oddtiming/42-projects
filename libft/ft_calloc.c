@@ -6,13 +6,11 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 10:47:04 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/22 15:01:34 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/23 10:12:37 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-void	ft_bzero(void *s, size_t n);
 
 /*count and size initialized to 1 to prevent ft_bzero from crashing*/
 void	*ft_calloc(size_t count, size_t size)

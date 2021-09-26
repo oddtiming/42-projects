@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/19 12:34:58 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/22 15:02:31 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/23 11:16:24 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static int	get_a_len(int n)
 	a_len = 0;
 	if (!n)
 		return (1);
+	if (n < 0)
+		a_len++;
 	while (n)
 	{
 		n /= 10;
@@ -36,29 +38,29 @@ static int	get_a_len(int n)
 	return (a_len);
 }
 
-//fct is one line too long, and malloc should be split in a_len + 1 if n >= 0;
 char	*ft_itoa(int n)
 {
 	int		a_len;
 	char	*n_to_a;
-	size_t	i;
-	size_t	n_to_size_t;
+	long	i;
+	long	n_to_long;
 
-	n_to_size_t = (size_t)n;
+	n_to_long = (long)n;
 	i = 0;
-	a_len = get_a_len(n_to_size_t);
-	n_to_a = malloc(a_len + 2);
+	a_len = get_a_len(n_to_long);
+	n_to_a = malloc(a_len + 1);
 	if (!n_to_a)
 		return (NULL);
-	if (n_to_size_t < 0)
+	if (n_to_long < 0)
 	{
 		n_to_a[i++] = '-';
-		n_to_size_t *= -1;
+		n_to_long *= -1;
+		a_len--;
 	}
 	while (a_len--)
 	{
-		n_to_a[i++] = (n_to_size_t / power_calc(10, a_len)) + '0';
-		n_to_size_t = n_to_size_t % power_calc(10, a_len);
+		n_to_a[i++] = (n_to_long / power_calc(10, a_len)) + '0';
+		n_to_long = n_to_long % power_calc(10, a_len);
 	}
 	n_to_a[i] = 0;
 	return (n_to_a);

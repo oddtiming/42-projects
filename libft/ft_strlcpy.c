@@ -6,13 +6,11 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 13:39:37 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/22 15:00:01 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/23 10:13:59 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-size_t	ft_strlen(const char *s);
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {

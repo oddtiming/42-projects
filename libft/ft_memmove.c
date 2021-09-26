@@ -6,13 +6,11 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/15 11:13:20 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/22 19:47:14 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/23 10:13:11 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-void	*ft_memcpy(void *dest, const void *src, size_t n);
 
 void	*ft_memmove(void *dest, const void *src, size_t len)
 {
@@ -21,7 +19,7 @@ void	*ft_memmove(void *dest, const void *src, size_t len)
 
 	src_ptr = (unsigned char *)src;
 	dest_ptr = (unsigned char *)dest;
-	if (!src || !dest || src == dest)
+	if (src == dest)
 		return (NULL);
 	if (dest > src)
 	{

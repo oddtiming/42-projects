@@ -72,11 +72,11 @@ clean:
 
 fclean:	clean
 	${RM} ${NAME}
-
+#NEED TO FIX 'RE'
 re:	
 	fclean all
 
 bonus:	${OBJS} ${OBJS_B}
 	${AR} ${ARFLAGS} ${NAME} $^
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean re bonus

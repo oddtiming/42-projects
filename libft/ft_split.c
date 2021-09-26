@@ -6,14 +6,11 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 17:05:51 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/22 15:00:32 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/23 13:16:00 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-size_t	ft_strlen(char const*s);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 static int	is_set(char const s, char const c)
 {
@@ -22,22 +19,15 @@ static int	is_set(char const s, char const c)
 	return (0);
 }
 
-static size_t	get_chunk_len(char const **s, char c)
+static size_t	get_chunk_len(char const *s, char c)
 {
 	size_t	len;
 
 	if (!c)
-		return (ft_strlen(*s));
+		return (ft_strlen(s));
 	len = 0;
-	while (is_set(**s, c) && c)
-		*s += 1;
-	while (!is_set(**s, c) && c)
-	{
+	while (!is_set(s[len], c) && s[len])
 		len++;
-		*s += 1;
-	}
-	while (is_set(**s, c) && c)
-		*s += 1;
 	return (len);
 }
 
@@ -49,13 +39,13 @@ static size_t	get_nb_chunks(char const *s, char const c)
 	nb_chunks = 0;
 	if (!*s)
 		return (nb_chunks);
-	else if (!is_set(*s++, c))
+	if (!is_set(*s++, c))
 		is_chunk = 1;
 	while (*s)
 	{
 		if (!is_set(*s, c))
 			is_chunk = 1;
-		else if (is_set(*s, c))
+		else
 			is_chunk = 0;
 		if (is_chunk == 0 && !is_set(*(s - 1), c))
 			nb_chunks++;
@@ -66,13 +56,26 @@ static size_t	get_nb_chunks(char const *s, char const c)
 	return (nb_chunks);
 }
 
+static void	ft_free_split(char **arr_split)
+{
+	while (*arr_split)
+	{
+		free(*arr_split);
+		arr_split++;
+	}
+}
+
+//NEED TO ADD FREE IF MALLOC FAILS
 char	**ft_split(char const *s, char const c)
 {
 	size_t	nb_chunks;
 	char	**arr_split;
 	size_t	i;
+	size_t	chunk_len;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	nb_chunks = get_nb_chunks(s, c);
 	arr_split = malloc((nb_chunks + 1) * sizeof(char *));
 	if (!arr_split)
@@ -81,9 +84,17 @@ char	**ft_split(char const *s, char const c)
 	{
 		while (is_set(*s, c))
 			s++;
-		arr_split[i] = ft_substr(s, 0, get_chunk_len(&s, c));
+		chunk_len = get_chunk_len(s, c);
+		arr_split[i] = ft_substr(s, 0, chunk_len);
+		if (!arr_split[i])
+			ft_free_split(arr_split);
 		i++;
+		s += chunk_len;
 	}
 	arr_split[i] = NULL;
 	return (arr_split);
 }
+
+
+//NOTES: ft_split advances in the characters, so get_chunk_len should not modify the string passed as
+//an argument. Instead, it should offer the length without modifying anything.
