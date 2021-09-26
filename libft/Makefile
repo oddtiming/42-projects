@@ -60,23 +60,22 @@ ARFLAGS	=	-rcs
 RM		=	rm -f
 
 .c.o:
-			${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 ${NAME}:	${OBJS}
 	${AR} ${ARFLAGS} $@ $^
 
-all:	${NAME}
+all:	${NAME} clean
 
 clean:	
 	${RM} ${OBJS} ${OBJS_B}
 
 fclean:	clean
 	${RM} ${NAME}
-#NEED TO FIX 'RE'
-re:	
-	fclean all
+
+re:	fclean all
 
 bonus:	${OBJS} ${OBJS_B}
 	${AR} ${ARFLAGS} ${NAME} $^
 
-.PHONY: all clean re bonus
+.PHONY: all clean fclean re bonus
