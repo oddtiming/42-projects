@@ -1,0 +1,20 @@
+- EOF (End of File):
+	EOF is not a character (in most modern operating systems). 
+	It is simply a condition that applies to a file stream when the end of the stream is reached. 
+	The confusion arises because a user may signal EOF for console input by typing a special character (e.g Control-D in Unix, Linux, et al), 
+	but this character is not seen by the running program, it is caught by the operating system which in turn signals EOF to the process.
+
+- READ
+	ssize_t read(int fildes, void *buf, size_t nbyte);
+	where 	fildes is the fd of the corresponding stream from which we want to read;
+			buf is the output of the reading;
+			nbyte is the amount of bytes we want to read
+	return value:
+			Upon successful completion, read() [XSI] [Option Start]  and pread() [Option End] shall return a non-negative integer 
+			indicating the number of bytes actually read. 
+			Otherwise, the functions shall return -1 and set errno to indicate the error.
+			(zero indicates end of file)
+	
+	https://linux.die.net/man/2/read
+	In other words, if return < nbyte, we have reached the EOF or an error has happened.
+	If read returns 0, it means that 0 bytes were read, which means EOF has been reached.
