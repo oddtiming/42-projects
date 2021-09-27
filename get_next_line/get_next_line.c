@@ -34,3 +34,4 @@ char	*get_next_line(int fd)
 **	Therefore, could I modify the BUFFER_SIZE according to whichever is larger between it and line_len ?
 */
 //NOTE: I should protect my fct from BUFFER_SIZE == 0;
+
