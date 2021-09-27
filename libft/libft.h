@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:45:40 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/22 15:06:31 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/27 16:44:53 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <string.h>
 # include <limits.h>
-# include <stdlib.h>
 # include <unistd.h>
 
 int		ft_isalpha(int c);
