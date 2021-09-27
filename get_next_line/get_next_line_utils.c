@@ -6,25 +6,29 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 13:10:20 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/27 13:11:30 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/27 14:17:22 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+//Slightly modified version from the libft where the dest is freed
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	size_t	tot_len;
 	char	*s_joined;
+	int		i;
 
+	i = 0;
 	tot_len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	s_joined = malloc(tot_len);
 	if (!s_joined)
 		return (NULL);
 	if (s1)
 	{
-		while (*s1)
-			*s_joined++ = *s1++;
+		while (s1[i])
+			*s_joined++ = s1[i++];
+		free (s1);
 	}
 	if (s2)
 	{

@@ -59,3 +59,15 @@
 	- empty files
 	- stdin
 	- ctrl-D in Linux
+	- no nl at EOF
+	- short character lines
+
+Extra notes from WIP on GNL:
+/*	Could I use read once to set the first character presented as the fd
+**	, then use its pointer to sequentially scan the addresses to find 
+**	either \n or EOF? What if there is a NULL char in the text file ? 
+**	How about ctrl-D on unix systems?
+**	Therefore, could I modify the BUFFER_SIZE according to whichever 
+**	is larger between it and line_len ?
+*/
+//NOTE: I should protect my fct from BUFFER_SIZE == 0;
