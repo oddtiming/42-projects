@@ -14,12 +14,13 @@ int	main(void)
 	printf("Fd = %d\nbuff_size = %d\n", fd, BUFFER_SIZE);
 	line_count = 0;
 	int i = 0;
-	while ((ptr = get_next_line(fd)) && i < 8)
+//	while ((ptr = get_next_line(fd)) && i < 20)
+	while ((ptr = get_next_line(fd)))
 	{
 		printf("Line ==> %s\n", ptr);
 		//printf("line_count == %d\nptr ==> '%s'\n", line_count++, ptr);
 		free (ptr);
-		i++;
+//		i++;
 	}
 	status = close(fd);
 	return (status);

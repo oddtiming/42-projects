@@ -1,11 +1,12 @@
 This is the first line
-This is the second line, followed by two empty lines
+This is the second line, followed by three empty lines
 
 
 
 Wow, this is fun
 potato
+Line numero ocho
 
-Line #8
+^v^v empty lines ^v^v
 
 This is the last line, should there be a new line, I wonder?
