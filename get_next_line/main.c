@@ -13,11 +13,13 @@ int	main(void)
 	fd = open("./test_files/test2.txt", O_RDONLY);
 	printf("Fd = %d\nbuff_size = %d\n", fd, BUFFER_SIZE);
 	line_count = 0;
-	while ((ptr = get_next_line(fd)))
+	int i = 0;
+	while ((ptr = get_next_line(fd)) && i < 8)
 	{
-		//printf("Line ==> %s\n", ptr);
+		printf("Line ==> %s\n", ptr);
 		//printf("line_count == %d\nptr ==> '%s'\n", line_count++, ptr);
 		free (ptr);
+		i++;
 	}
 	status = close(fd);
 	return (status);

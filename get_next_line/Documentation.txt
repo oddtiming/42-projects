@@ -40,3 +40,15 @@
 
 	9/26 NOTE: I should protect my fct from BUFFER_SIZE == 0;
 				Simply return NULL on such occasion.
+
+- STATIC variable
+	I first thought to keep a variable to know whether I've hit the end of the text file/input, but then it doesn't solve
+	my buffer > line_len problem.
+	On 9/26/21 at night I'd settled for a static char *remainder, but I'm not sure how to know whether or not it's been initialized yet.
+	I could always keep at least a character or the \n at the end of my string once it's been initialized. This said, there's no way
+	to check the string before it's been initialized, is there ?
+	//Q : Can I declare + initialize on same line for static variables in the norminette ?
+	Another idea would be to have a static char **remainder, a little bit like ft_split, to check if there's any other element than
+	the NULL terminator.
+	I could also declare a struct, as there's no instruction against it, in which I would store the amount of lines
+	, the number of iterations, and even whether I've hit the end of the stream. 
