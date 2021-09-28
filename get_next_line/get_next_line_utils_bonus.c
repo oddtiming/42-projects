@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 13:10:20 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/28 15:12:52 by iyahoui-         ###   ########.fr       */
+/*   Created: 2021/09/28 16:07:04 by iyahoui-          #+#    #+#             */
+/*   Updated: 2021/09/28 16:07:06 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 //Slightly modified version from the libft where the dest is freed
 char	*ft_strjoin_free(char *s1, char const *s2)

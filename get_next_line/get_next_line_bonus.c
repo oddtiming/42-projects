@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 13:10:14 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/28 15:38:09 by iyahoui-         ###   ########.fr       */
+/*   Created: 2021/09/28 16:06:59 by iyahoui-          #+#    #+#             */
+/*   Updated: 2021/09/28 16:38:41 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #ifndef BUFFER_SIZE
 # define BUFFER_SIZE 1024
 #endif
@@ -40,22 +40,25 @@ static long	get_line_len(char **remain, int fd)
 	return (strlen_c(*remain, '\n'));
 }
 
+//https://wilsonmar.github.io/maximum-limits/
+//Max number of file descriptors on MacOS is 12288
 char	*get_next_line(int fd)
 {
 	char		*current_line;
 	long		line_len;
-	static char	*remain = NULL;
+	static char	*remain[12288];
 
-	line_len = get_line_len(&remain, fd);
+	line_len = get_line_len(&(remain[fd]), fd);
 	if (line_len <= 0)
-		line_len = strlen_c(remain, 0);
+		line_len = strlen_c(remain[fd], 0);
 	if (!line_len)
 	{
-		free (remain);
+		free (remain[fd]);
 		return (NULL);
 	}
 	current_line = malloc(line_len + 1);
-	ft_strncpy(current_line, remain, line_len);
-	ft_strncpy(remain, &remain[line_len], strlen_c(remain, 0) - line_len + 1);
+	ft_strncpy(current_line, remain[fd], line_len);
+	ft_strncpy(remain[fd], &remain[fd][line_len], \
+		strlen_c(remain[fd], 0) - line_len + 1);
 	return (current_line);
 }
