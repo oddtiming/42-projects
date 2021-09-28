@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 13:10:20 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/27 14:17:22 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/27 16:36:10 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
+/*
 char	*ft_strcpy(char *dest, char *src)
 {
 	size_t	i;
@@ -67,6 +68,7 @@ char	*ft_strcpy(char *dest, char *src)
 	dest[i] = 0;
 	return (dest);
 }
+*/
 
 char	*ft_strncpy(char *dest, char *src, size_t n)
 {
@@ -82,5 +84,29 @@ char	*ft_strncpy(char *dest, char *src, size_t n)
 		}
 	}
 	dest[i] = 0;
+	return (dest);
+}
+
+void	*ft_memmove(void *dest, const void *src, size_t len)
+{
+	unsigned char	*src_ptr;
+	unsigned char	*dest_ptr;
+
+	src_ptr = (unsigned char *)src;
+	dest_ptr = (unsigned char *)dest;
+	if (src == dest)
+		return (NULL);
+	if (dest > src)
+	{
+		while (len--)
+			*(dest_ptr + len) = *(src_ptr + len);
+	}
+	else
+	{	
+		while (len--)
+		{
+			*dest_ptr++ = *src_ptr++;
+		}
+	}
 	return (dest);
 }
