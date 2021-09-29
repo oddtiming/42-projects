@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:06:59 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/29 16:24:08 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/29 19:16:51 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 # define BUFFER_SIZE 1024
 #endif
 
-//Reads the static char *remain
+/*	Reads to the static char *remain[fd] until a nl is found, or until
+ *	the EOF has been reached. If read() reaches EOF (returns nbyte < BUFF_SIZE)	
+ *	or attempts an invalid read () (returns -1) and remain[fd] doesn't
+ *	end with \n, get_line_len() returns 0.
+ */
 static long	get_line_len(char **remain, int fd)
 {
 	long	read_status;
@@ -28,7 +32,7 @@ static long	get_line_len(char **remain, int fd)
 		if (read_status <= 0)
 		{
 			free (read_buf);
-			return (read_status);
+			return (0);
 		}
 		else if (read_status < BUFFER_SIZE)
 			read_buf[read_status] = 0;
@@ -40,8 +44,17 @@ static long	get_line_len(char **remain, int fd)
 	return (strlen_c(*remain, '\n'));
 }
 
-//https://wilsonmar.github.io/maximum-limits/
-//Max number of file descriptors on MacOS is 12288
+/*	NOTE: Max number of file descriptors on MacOS is 12288
+ *	https://wilsonmar.github.io/maximum-limits/
+ *	get_next_line_bonus is used to return the string content of MULTIPLE 
+ *	input streams at a time, line by line. Every function call returns a line
+ *	including the \n character.
+ *	It uses static char *remain[fd] to store the excess buffer from the read()
+ *	function (i.e. everything after \n). 
+ *	The second if(!line_len) checks if remain[fd] is empty. The last if is
+ *	facultative as it is merely there to ensure that free() happens as soon
+ *	as the last line is hit.
+ */
 char	*get_next_line(int fd)
 {
 	char		*current_line;
@@ -49,24 +62,23 @@ char	*get_next_line(int fd)
 	static char	*remain[12288];
 
 	line_len = get_line_len(&(remain[fd]), fd);
-	if (line_len <= 0)
-	{
-		if (!(remain[fd]) || !(*remain[fd]))
-		{
-			free (remain[fd]);
-			remain[fd] = (NULL);
-			return (NULL);
-		}
+	if (!line_len)
 		line_len = strlen_c(remain[fd], 0);
-		current_line = malloc(line_len + 1);
-		ft_strncpy(current_line, remain[fd], line_len);
+	if (!line_len)
+	{
 		free (remain[fd]);
 		remain[fd] = (NULL);
-		return (current_line);
+		return (NULL);
 	}
 	current_line = malloc(line_len + 1);
 	ft_strncpy(current_line, remain[fd], line_len);
-	ft_strncpy(remain[fd], &remain[fd][line_len], \
-		strlen_c(remain[fd], 0) - line_len + 1);
+	if (!strlen_c(remain[fd], '\n'))
+	{
+		free (remain[fd]);
+		remain[fd] = NULL;
+	}
+	else
+		ft_strncpy(remain[fd], &remain[fd][line_len], \
+			strlen_c(remain[fd], 0) - line_len + 1);
 	return (current_line);
 }

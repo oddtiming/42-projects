@@ -39,17 +39,17 @@ int	main(void)
 		printf("Line #%d for file #3 ==> %s\n",line_count, ptr3);
 		*/
 
-		if (ptr1)
+		if (ptr1 && *ptr1)
 		{
 			printf("Line #%d for file #1 ==> %s\n",line_count, ptr1);
 			free (ptr1);
 		}
-		if (ptr2)
+		if (ptr2 && *ptr2)
 		{
 			printf("Line #%d for file #2 ==> %s\n",line_count, ptr2);
 			free (ptr2);
 		}
-		if (ptr3)
+		if (ptr3 && *ptr3)
 		{
 			printf("Line #%d for file #3 ==> %s\n",line_count, ptr3);
 			free (ptr3);
