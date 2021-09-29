@@ -53,6 +53,9 @@
 	I could also declare a struct, as there's no instruction against it, in which I would store the amount of lines
 	, the number of iterations, and even whether I've hit the end of the stream. 
 
+	NOTE:
+	- A static char * is always initialized to NULL;
+
 - TESTS
 	- Consecutive new lines
 	- 0 < BUFFER_SIZE < LONG_MAX

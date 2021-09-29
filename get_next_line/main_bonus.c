@@ -28,37 +28,38 @@ int	main(void)
 	ptr1 = get_next_line(fd1);
 	ptr2 = get_next_line(fd2);
 	ptr3 = get_next_line(fd3);
-	while (*ptr1 || *ptr2 || *ptr3)
+
+	while (ptr1 || ptr2 || ptr3)
 	{
 	
 		line_count++;
-	/*
+		/*
 		printf("Line #%d for file #1 ==> %s\n",line_count, ptr1);
 		printf("Line #%d for file #2 ==> %s\n",line_count, ptr2);
 		printf("Line #%d for file #3 ==> %s\n",line_count, ptr3);
-		free (ptr1);
-		free (ptr2);
-		free (ptr3);
-	*/
-		ptr1 = get_next_line(fd1);
-		ptr2 = get_next_line(fd2);
-		ptr3 = get_next_line(fd3);
-		if (*ptr1)
+		*/
+
+		if (ptr1)
 		{
 			printf("Line #%d for file #1 ==> %s\n",line_count, ptr1);
 			free (ptr1);
 		}
-		if (*ptr2)
+		if (ptr2)
 		{
 			printf("Line #%d for file #2 ==> %s\n",line_count, ptr2);
 			free (ptr2);
 		}
-		if (*ptr3)
+		if (ptr3)
 		{
 			printf("Line #%d for file #3 ==> %s\n",line_count, ptr3);
 			free (ptr3);
 		}
 	 
+		ptr1 = get_next_line(fd1);
+		ptr2 = get_next_line(fd2);
+		ptr3 = get_next_line(fd3);
+	
+
 	}
 
 	status = close(fd1);

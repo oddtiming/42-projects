@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:06:59 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/28 16:38:41 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/09/29 16:24:08 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,19 @@ char	*get_next_line(int fd)
 
 	line_len = get_line_len(&(remain[fd]), fd);
 	if (line_len <= 0)
-		line_len = strlen_c(remain[fd], 0);
-	if (!line_len)
 	{
+		if (!(remain[fd]) || !(*remain[fd]))
+		{
+			free (remain[fd]);
+			remain[fd] = (NULL);
+			return (NULL);
+		}
+		line_len = strlen_c(remain[fd], 0);
+		current_line = malloc(line_len + 1);
+		ft_strncpy(current_line, remain[fd], line_len);
 		free (remain[fd]);
-		return (NULL);
+		remain[fd] = (NULL);
+		return (current_line);
 	}
 	current_line = malloc(line_len + 1);
 	ft_strncpy(current_line, remain[fd], line_len);
