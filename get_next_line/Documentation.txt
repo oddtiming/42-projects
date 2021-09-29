@@ -18,7 +18,7 @@
 	//NOTE : should check for status = read() == -1 ==> ERROR has occurred. 
 	
 	https://linux.die.net/man/2/read
-	In other words, if return < nbyte, we have reached the EOF or an error has happened.
+	In other words, if return < nbyte, we have reached the EOF or an error has happened (if return == -1).
 	If read returns 0, it means that 0 bytes were read, which means EOF has been reached.
 
 - BUFFER_SIZE

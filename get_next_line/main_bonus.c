@@ -9,42 +9,56 @@ int	main(void)
 {
 	int		fd1, fd2, fd3;
 	int		status;
-	char	*ptr;
+	char	*ptr1, *ptr2, *ptr3;
 	char	*file1 = "./test_files/test_nl.txt";
 	char	*file2 = "./test_files/test_short_nonl.txt";
 	char	*file3 = "./test_files/test_long_nonl.txt";
+	int 	line_count = 0;
 
 
 	fd1 = open(file1, O_RDONLY);
 	fd2 = open(file2, O_RDONLY);
 	fd3 = open(file3, O_RDONLY);
 
-	puts("---------STARTING TESTS NL---------\n\n");
+	puts("---------STARTING TESTS MULTIPLE FDs---------\n\n");
 	printf("File 1 = %s\n", file1);
-	printf("Fd = %d\nbuff_size = %d\n", fd1, BUFFER_SIZE);
-	while ((ptr = get_next_line(fd1)))
-	{
-		printf("Line ==> %s\n", ptr);
-		free (ptr);
-	}
-
-	puts("---------STARTING TESTS SHORT NO NL---------\n\n");
 	printf("File 2 = %s\n", file2);
-	printf("Fd = %d\nbuff_size = %d\n", fd2, BUFFER_SIZE);
-	while ((ptr = get_next_line(fd2)))
-	{
-		printf("Line ==> %s\n", ptr);
-		free (ptr);
-	}
-
-
-	puts("---------STARTING TESTS LONG NO NL---------\n\n");
 	printf("File 1 = %s\n", file3);
-	printf("Fd = %d\nbuff_size = %d\n", fd3, BUFFER_SIZE);
-	while ((ptr = get_next_line(fd3)))
+	printf("Fd1 = %d\nFd2 = %d\nFd3 = %d\nbuff_size = %d\n\n", fd1, fd2, fd3, BUFFER_SIZE);
+	ptr1 = get_next_line(fd1);
+	ptr2 = get_next_line(fd2);
+	ptr3 = get_next_line(fd3);
+	while (*ptr1 || *ptr2 || *ptr3)
 	{
-		printf("Line ==> %s\n", ptr);
-		free (ptr);
+	
+		line_count++;
+	/*
+		printf("Line #%d for file #1 ==> %s\n",line_count, ptr1);
+		printf("Line #%d for file #2 ==> %s\n",line_count, ptr2);
+		printf("Line #%d for file #3 ==> %s\n",line_count, ptr3);
+		free (ptr1);
+		free (ptr2);
+		free (ptr3);
+	*/
+		ptr1 = get_next_line(fd1);
+		ptr2 = get_next_line(fd2);
+		ptr3 = get_next_line(fd3);
+		if (*ptr1)
+		{
+			printf("Line #%d for file #1 ==> %s\n",line_count, ptr1);
+			free (ptr1);
+		}
+		if (*ptr2)
+		{
+			printf("Line #%d for file #2 ==> %s\n",line_count, ptr2);
+			free (ptr2);
+		}
+		if (*ptr3)
+		{
+			printf("Line #%d for file #3 ==> %s\n",line_count, ptr3);
+			free (ptr3);
+		}
+	 
 	}
 
 	status = close(fd1);
