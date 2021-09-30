@@ -1,0 +1,35 @@
+- printf
+
+- "-0." flags :
+	- "-" : A negative field width flag; the converted value is to be left adjusted
+			on the field boundary.  Except for n conversions, the converted value is
+			padded on the right with blanks, rather than on the left with blanks or
+			zeros.  A - overrides a 0 if both are given.
+	- '0' : Zero padding.  For all conversions except n, the converted value is
+			padded on the left with zeros rather than blanks.  If a precision is
+			given with a numeric conversion (d, i, o, u, i, x, and X), the 0 flag is
+			ignored.
+	- '.' :	An optional precision, in the form of a period . followed by an optional digit
+			string.  If the digit string is omitted, the precision is taken as zero.  This gives
+			the minimum number of digits to appear for d, i, o, u, x, and X conversions, the num-
+			ber of digits to appear after the decimal-point for a, A, e, E, f, and F conversions,
+			the maximum number of significant digits for g and G conversions, or the maximum num-
+			ber of characters to be printed from a string for s conversions.
+
+
+- modifiers
+
+- arguments
+
+- VA_ARG (STDARG)
+
+NOTES:
+- list of proceeding :
+	- Set up va_arg, play with it a bit
+	- set up % conversions ; best way to see if my function works at all
+	- do individual conversions for eah variable type
+	- Set up flag conversions; 
+		- "-0." must be used in conjuncture
+		- " ", "+", "#" must be used separately
+	- Implement a static (global?) variable to count the amount of characters printed; 
+		alternatively could convert to a string before outputting and simply counting the resulting string ; might be safer.
