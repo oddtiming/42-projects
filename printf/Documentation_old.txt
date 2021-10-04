@@ -1,0 +1,57 @@
+- printf
+
+- "-0." flags :
+	- "-" : A negative field width flag; the converted value is to be left adjusted
+			on the field boundary.  Except for n conversions, the converted value is
+			padded on the right with blanks, rather than on the left with blanks or
+			zeros.  A - overrides a 0 if both are given.
+	- '0' : Zero padding.  For all conversions except n, the converted value is
+			padded on the left with zeros rather than blanks.  If a precision is
+			given with a numeric conversion (d, i, o, u, i, x, and X), the 0 flag is
+			ignored.
+			Does not work with strings!! UB; on my macbook it results in the unaffected string.
+			Throws a warning
+
+	- '0.':	For non-float types, increasing the precision is tantamount to increasing the number
+			of digits to appear, aka to 0 pad to the right.
+	- '0-':	Throws a warning. Cannot be used together since - overwrites 0. 
+			Results in null padding to the left
+	- '.-':	For some fucking reason, the ".-" flags throw a warning, but "-." is fine.
+			%-.19f = -42.0000000000000000000
+			%.-19f = -42
+
+- modifiers
+
+- arguments
+
+- VA_ARG (STDARG)
+
+NOTES:
+- list of proceeding :
+	- Set up va_arg, play with it a bit
+	- set up % conversions ; best way to see if my function works at all
+	- do individual conversions for eah variable type
+	- Set up flag conversions; 
+		- "-0." must be used in conjuncture
+		- " ", "+", "#" must be used separately
+	- Implement a static (global?) variable to count the amount of characters printed; 
+		alternatively could convert to a string before outputting and simply counting the resulting string ; might be safer.
+- IDEAS:
+	- 	use a static struct declaration to store the flags, the string to be printed,
+		the relevant conversions, and the length?
+		NOTE: The relevant flags apply to every single function, so there are two options:
+			1) Store the flags and update them for each conversion specifier. Downside is I have to go through them twice,
+			one for checking and one for actual conversions. Could work if I hold the return string in a static variable
+			and only output it if everything is valid. I like that better.
+			2) Use a linked list to append every printf argument. In this case, I would need a singleton function
+			that declares the first node (so the first argument's parameters) and a string  
+	-	Singleton function:
+			a function that holds the static struct. Could take va_arg to determine
+			what to initialize with it.
+			1) the struct holds the current flags, the current variable type, and the total string 
+	- 	A is_format_valid(char *format){} function to check whether the conversions are valid,
+		the flags combination is valid, 
+	
+- p : prints the address as standardized by '%#x'
+	-	Use the printhex() fct to print a long(pointer) conversion to the format string.
+	
