@@ -1,0 +1,105 @@
+- printf
+
+- "-0." flags :
+	- "-" : "A negative field width flag; the converted value is to be left adjusted
+			on the field boundary.  Except for n conversions, the converted value is
+			padded on the right with blanks, rather than on the left with blanks or
+			zeros.  A - overrides a 0 if both are given." - man 3 printf
+		NOTES:	- Left padding will only be noticed if something else comes after, since all you get is extra blank spaces at the right
+		of the conversion specifier 
+	- '0' : "Zero padding.  For all conversions except n, the converted value is
+			padded on the left with zeros rather than blanks.  If a precision is
+			given with a numeric conversion (d, i, o, u, i, x, and X), the 0 flag is
+			ignored." - man 3 printf
+		- Does not work with strings!! UB; on my macbook it results in the unaffected string.
+			Throws a warning
+
+	- '.' :	"An optional precision, in the form of a period . followed by an optional digit
+			string.  If the digit string is omitted, the precision is taken as zero.  This gives
+			the minimum number of digits to appear for d, i, o, u, x, and X conversions, the num-
+			ber of digits to appear after the decimal-point for a, A, e, E, f, and F conversions,
+			the maximum number of significant digits for g and G conversions, or the maximum num-
+			ber of characters to be printed from a string for s conversions." - man 3 printf
+		NOTES:	- The interaction of '.' and '0' only matters for types with a digit (so a precision). e.g.
+	- NOTE:	these seem to only be used in conjunction with a following digit specifier, otherwise a "width" of 0 
+			is taken by default.
+		- %[flag][digit][conversion specifier]
+			e.g. int i = 42; printf("%019d", i) ==> 000000000000000042
+
+	- '0.':	For non-float types, increasing the precision is tantamount to increasing the number
+			of digits to appear, aka to 0 pad to the right.
+	- '0-':	Throws a warning. Cannot be used together since - overwrites 0. 
+			Results in null padding to the left
+	- '.-':	For some fucking reason, the ".-" flags throw a warning, but "-." is fine.
+			%-.19f = -42.0000000000000000000
+			%.-19f = -42
+BONUS:
+	- "h"
+	- "hh"
+	- "l"
+	- "ll"
+
+- "# +" flags:
+	- "#" :	"For x and X conversions, a non-zero result has the string `0x' (or `0X' for X conversions)
+			prepended to it.  For a, A, e, E, f, F, g, and G conversions, the result will always contain a decimal
+			point, even if no digits follow it (normally, a decimal point appears in the results of those conversions
+			only if a digit follows).  For g and G conversions, trailing zeros are not removed from the result as
+			they would otherwise be." - man 3 printf
+	- " " :	"A blank should be left before a positive number produced by a signed conversion (a, A, d, e, E, f, F, g, G, or i)." - man 3 printf
+	- "+" :	"A sign must always be placed before a number produced by a signed conversion.
+			A "+" overrides a space if both are used." - man 3 printf
+
+
+- modifiers
+
+- arguments (cspdiuxX%) (eE, fF, gG, o)
+	- cspdiuxX%
+	- %d & %i:
+		%d and %i behave similar with printf
+		%d and %i behavior is different in scanf
+			 "%d and %i behave similar with printf%d assume base 10 while %i auto detects the base. 
+			 Therefore, both specifiers behaves differently while they are used with an input specifier. So, 012 would be 10 with %i but 12 with %d. 
+
+    		- %d takes integer value as signed decimal integer i.e. it takes negative values along with positive values but values should be in 
+			decimal otherwise it will print garbage value.( Note: if input is in octal format like:012 then %d will ignore 0 and take input as 12)
+     
+    		- %i takes integer value as integer value with decimal, hexadecimal or octal type. To enter a value in hexadecimal format – 
+			value should be provided by preceding “0x” and value in octal format – value should be provided by preceding “0”." - https://www.geeksforgeeks.org/difference-d-format-specifier-c-language/
+	- %p:	prints the address as standardized by '%#x'
+		-	Use the printhex() fct to print a long(pointer) conversion to the format string.
+
+- VA_ARG (STDARG)
+
+NOTES:
+- list of proceeding :
+	- Set up va_arg, play with it a bit
+	- set up % conversions ; best way to see if my function works at all
+	- do individual conversions for eah variable type
+	- Set up flag conversions; 
+		- "-0." must be used in conjuncture
+		- " ", "+", "#" must be used separately
+	- Implement a static (global?) variable to count the amount of characters printed; 
+		alternatively could convert to a string before outputting and simply counting the resulting string ; might be safer.
+
+- IDEAS:
+	- 	use a static struct declaration to store the flags, the string to be printed,
+		the relevant conversions, and the length?
+		NOTE: The relevant flags apply to every single function, so there are two options:
+			1) Store the flags and update them for each conversion specifier. Downside is I have to go through them twice,
+			one for checking and one for actual conversions. Could work if I hold the return string in a static variable
+			and only output it if everything is valid. I like that better.
+			2) Use a linked list to append every printf argument. In this case, I would need a singleton function
+			that declares the first node (so the first argument's parameters) and a string  
+	-	Singleton function:
+			a function that holds the static struct. Could take va_arg to determine
+			what to initialize with it.
+			1) the struct holds the current flags, the current variable type, and the total string 
+	- 	A is_format_valid(char *format){} function to check whether the conversions are valid,
+		the flags combination is valid, 
+
+Additional bonuses:
+- long
+- long long ( + wchar_t conversions)
+- h && H
+- float (3 conversions) e, f, g
+- n flag

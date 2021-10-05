@@ -149,4 +149,8 @@ int	main()
 	printhex((long)s1);
 	puts("");
 	printf("%%19%% of s1 = %19%\n");
+	int i1 = 1;
+	int i2 = 2;
+	int i3 = 3;
+	printf("Tests for %%i$ : 1 = %2$d, 2 = %1$d, 3 = %*d, \n", i1, i2, i3, 10);
 }
