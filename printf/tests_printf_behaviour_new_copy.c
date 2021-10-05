@@ -1,13 +1,23 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void	printhex(long i)
+void	printhex_long(long i)
 {
 	char	*hexBase;
 
 	hexBase = "0123456789abcdef";
 	if (i > 15)
-		printhex(i / 16);
+		printhex_long(i / 16);
+	write(1, &hexBase[i % 16], 1);
+}
+
+void	printhex_int(unsigned int i)
+{
+	char	*hexBase;
+
+	hexBase = "0123456789abcdef";
+	if (i > 15)
+		printhex_int(i / 16);
 	write(1, &hexBase[i % 16], 1);
 }
 
@@ -140,15 +150,30 @@ int	main()
 	printf("%%019d = %019d\n", i);
 
 	printf("%%p of s1 = %p\n", s1);
-	write(1, s1, 8);
+	printf("%%#x of s1 = %#x\n", s1);
+	printf("%%#x of (long)s1 = %#x\n", (long)s1);
+	printf("%%p of (int)s1 = %p\n", (int)s1);
+	printf("%%p of (long)s1 = %p\n", (long)s1);
 	puts("");
 
 	printf("sizeof(s1) = %lu\n", sizeof(s1));
 	printf("sizeof(char *) = %lu\n", sizeof(char *));
 
-	printf("Calling the printhex fct:\n");
-	printhex((long)s1);
+	printf("Calling the printhex_long fct on (long) s1:\n");
+	printhex_long((long)s1);
+	printf("\nCalling the printhex_int fct on (int)s1:\n");
+	printhex_int((int)s1);
+
 	puts("");
 	printf("%%19%% of s1 = %19%\n");
 	printf("%%1$19d, %%1$0d, %%1$019d:\n %1$19d, %1$0d, %1$019d\n", s1);
+	printf("%%x of s1 = %x\n", s1);
+	printf("%%X of s1 = %X\n", s1);
+	printf("%%#x of s1 = %#x\n", s1);
+	printf("%%#X of s1 = %#X\n", s1);
+	printf("%%#x of (long long)s1 = %#x\n", (long long)s1);
+	printf("%%#X of (long long)s1 = %#X\n", (long long)s1);
+
+	printf("%%x of 49 = %x\n", 49);
+
 }

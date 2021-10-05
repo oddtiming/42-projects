@@ -67,14 +67,60 @@ BONUS:
 			value should be provided by preceding “0x” and value in octal format – value should be provided by preceding “0”." - https://www.geeksforgeeks.org/difference-d-format-specifier-c-language/
 	- %p:	prints the address as standardized by '%#x'
 		-	Use the printhex() fct to print a long(pointer) conversion to the format string.
+			%p of (int)s1 = 0x80b96f9
+			%p of (long)s1 == %p of s1 = 0x1080b96f9
 
 - VA_ARG (STDARG)
+	- va_list ap == list of variable agruments, ap = argument pointer. 
+	- SEE EXAMPLE FROM MAN 3 STDARG BELOW
+	- void va_start(va_list ap, [last argument of which the type is known]);
+		e.g. test_fct(char *format, ...){va_list lst} will call va_start(lst, format);
+	- type va_arg(va_list ap, type); 
+		- va_arg will access the next argument in the va_list ap that was initialized with va_start.
+		- va_arg will return the argument, so make sure to assign it to something.
+		- TESTS NEEDED: 
+			- I believe that you can use [s, d, i, c, ...] interchangeably with [char *, int, int, char, ...]
+				WRONG; only the example in man 3 stdarg seems to point towards that, usage requires a conversion.
+			- What happens if the wrong format specifier is used?
+				The argument will be converted according to the format specifier, so it is case-dependent.
+			- What happens if you try to access more arguments than were passed to the fct?
+				    "If there is no next argument, or if type is not compatible with the type of the actual next argument (as promoted accord-
+     				ing to the default argument promotions), random errors will occur." man 3 STDARG
+					In the case I tested, it sometimes added the last argument twice, sometimes segfaulted, so case-dependent
+	- void va_copy(va_list ap_dest, va_list ap_src);
+		- va_copy copies the current state of the ap_src to ap_dest, so it can be iterated over once again.
+		- copying a va_list means that the copy also needs to be closed with va_end.
+	- void va_end(va_list ap);
+		- The very last thing to do to clean up the list that you accessed.
+		
+
 
 NOTES:
 - list of proceeding :
-	- Set up va_arg, play with it a bit
-	- set up % conversions ; best way to see if my function works at all
-	- do individual conversions for eah variable type
+	X- Set up va_arg, play with it a bit
+	X- set up % conversions ; best way to see if my function works at all
+	X- do individual conversions for each variable type
+	- Create a char	*ft_strinject(char *dest, char const *src, int position) that will inject the src string into the
+		dest string at the desired position.
+		Issue is that the initial format string contains the conversion specifiers, so they would need to be "replaced"
+		- Alternate idea is to simply strjoin everytime, both for the piece between '%' and for the converted args.
+	
+	- Set up the struct for each variable (s_var/t_var)
+		- Linked list
+		- The initializer function (lstnew) should also be set up with va_arg for flexibility.
+		- struct variables:
+			- arg number (starts at 1)
+			- Flags
+			- width
+			- precision
+			- string conversion.
+	NOTE:	each conversion is treated separately, as it can be applied to the same variable with the %[digits]$ specifier.
+			Maybe have both the conversions and the variables in a linked list? 
+		10/05: 	NOPE ! I can't iterate through va_list without knowing the type. 
+				So solution is linked list with each conversion isolated, a static to keep track of whether args are accessed
+				in order or sequentially (throw an error if conflict), and then treat each conversion as the string
+				to be added to the return string by ft_strinject
+
 	- Set up flag conversions; 
 		- "-0." must be used in conjuncture
 		- " ", "+", "#" must be used separately
@@ -103,3 +149,35 @@ Additional bonuses:
 - h && H
 - float (3 conversions) e, f, g
 - n flag
+
+**STDARG Example** :
+	void foo(char *fmt, ...)
+	{
+			va_list ap, ap2;
+			int d;
+			char c, *s;
+
+			va_start(ap, fmt);
+			va_copy(ap2, ap);
+			while (*fmt)
+					switch(*fmt++) {
+					case 's':                       /* string */
+							s = va_arg(ap, char *);
+							printf("string %s\n", s);
+							break;
+					case 'd':                       /* int */
+							d = va_arg(ap, int);
+							printf("int %d\n", d);
+							break;
+					case 'c':                       /* char */
+							/* Note: char is promoted to int. */
+							c = va_arg(ap, int);
+							printf("char %c\n", c);
+							break;
+					}
+			va_end(ap);
+			...
+			/* use ap2 to iterate over the arguments again */
+			...
+			va_end(ap2);
+	}

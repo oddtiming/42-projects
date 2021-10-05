@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:45:40 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/27 16:44:53 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/10/05 18:55:49 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
+
+// NEW FUNCTIONS:
+char	*ft_strjoin_free(char *s1, char const *s2);
+size_t	strlen_c(char *s, char c);
+void	ft_writehex(int i, char c);
+void	ft_writehex_long(long i);
+char	*ft_hextoa(long n);
+
 
 // BONUS (LINKED LISTS)
 typedef struct s_list
