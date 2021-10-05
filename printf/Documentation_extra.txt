@@ -1,0 +1,20 @@
+- list of proceeding :
+	- Set up va_arg, play with it a bit
+	- Set up the struct for each variable (s_var/t_var)
+		- Linked list
+		- The initializer function (lstnew) should also be set up with va_arg for flexibility.
+		- struct variables:
+			- arg number (starts at 1)
+			- Flags
+			- width
+			- precision
+			- string conversion.
+	NOTE:	each conversion is treated separately, as it can be applied to the same variable with the %[digits]$ specifier.
+			Maybe have both the conversions and the variables in a linked list? 
+	- set up % conversions ; best way to see if my function works at all
+	- do individual conversions for eah variable type
+	- Set up flag conversions; 
+		- "-0." must be used in conjuncture
+		- " ", "+", "#" must be used separately
+	- Implement a static (global?) variable to count the amount of characters printed; 
+		alternatively could convert to a string before outputting and simply counting the resulting string ; might be safer.
