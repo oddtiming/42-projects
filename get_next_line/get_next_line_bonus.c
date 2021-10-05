@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:06:59 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/29 19:16:51 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/10/05 11:42:36 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ static long	get_line_len(char **remain, int fd)
 			free (read_buf);
 			return (0);
 		}
-		else if (read_status < BUFFER_SIZE)
-			read_buf[read_status] = 0;
-		else
-			read_buf[BUFFER_SIZE] = 0;
+		read_buf[read_status] = 0;
 		*remain = ft_strjoin_free(*remain, read_buf);
 		free(read_buf);
 	}

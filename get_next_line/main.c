@@ -15,7 +15,7 @@ int	main(void)
 	char	*file2 = "./test_files/test_short_nonl.txt";
 	char	*file3 = "./test_files/test_long_nonl.txt";
 
-/*
+
 	fd = open(file1, O_RDONLY);
 	puts("---------STARTING TESTS NL---------\n\n");
 	printf("File 1 = %s\n", file1);
@@ -26,8 +26,8 @@ int	main(void)
 		free (ptr);
 	}
 	status = close(fd);
-*/
-/*
+
+
 	fd = open(file2, O_RDONLY);
 	puts("---------STARTING TESTS SHORT NO NL---------\n\n");
 	printf("File 2 = %s\n", file2);
@@ -38,7 +38,7 @@ int	main(void)
 		free (ptr);
 	}
 	status = close(fd);
-*/
+
 
 	fd = open(file3, O_RDONLY);
 	puts("---------STARTING TESTS LONG NO NL---------\n\n");
