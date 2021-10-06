@@ -5,7 +5,6 @@ int	ft_printf(char *format, ...)
 	va_list		ap;
 	static char	*output;
 	char		*format_ptr;
-	char		*str_temp;
 	int			i;
 	size_t		output_len;
 
@@ -17,33 +16,32 @@ int	ft_printf(char *format, ...)
 	{
 		if (format[i] == '%')
 		{
-			output = ft_strjoin_dbfree(output, format_ptr);
+			output = ft_strjoin_free(output, format_ptr);
 			format_ptr = malloc(strlen_c(&format[i + 2], '%'));
 			format_ptr = ft_strncpy(format_ptr, &format[i + 2], strlen_c(&format[i + 2], '%') - 1);
 			i++;
 			if (format[i] == 'c')
-				output = ft_strjoin_dbfree(output, c_to_s(va_arg(ap, int)));
+				output = ft_strjoin_free(output, c_to_s(va_arg(ap, int)));
+			//NOTE THAT THE ABOVE WILL CAUSE A LEAK FROM c_to_s
 			else if (format[i] == '%')
 				output = ft_strjoin_free(output, "%");
 			else if (format[i] == 's')
-			{
-				str_temp = va_arg(ap, char *);
-				if (str_temp)
-					output = ft_strjoin_free(output, str_temp);
-				else
-					output = ft_strjoin_free(output, "(null)");
-			}
+				output = ft_strjoin_free(output, va_arg(ap, char *));
 			else if (is_set(format[i], "di"))
-				output = ft_strjoin_dbfree(output, ft_itoa(va_arg(ap, int)));
+				output = ft_strjoin_free(output, ft_itoa(va_arg(ap, int)));
+			//NOTE THAT THE ABOVE WILL CAUSE A LEAK FROM itoa
 			else if (format[i] == 'p')
 			{
 				output = ft_strjoin_free(output, "0x");
-				output = ft_strjoin_dbfree(output, ft_hextoa((long)va_arg(ap, void *), format[i]));
+				output = ft_strjoin_free(output, ft_hextoa((long)va_arg(ap, void *), format[i]));
+			//NOTE THAT THE ABOVE WILL CAUSE A LEAK FROM hextoa
 			}
 			else if (is_set(format[i], "xX"))
-				output = ft_strjoin_dbfree(output, ft_hextoa_int(va_arg(ap, int), format[i]));
+				output = ft_strjoin_free(output, ft_hextoa_int(va_arg(ap, int), format[i]));
+			//NOTE THAT THE ABOVE WILL CAUSE A LEAK FROM hextoa
 			else if (format[i] == 'u')
-				output = ft_strjoin_dbfree(output, ft_itoa_unsigned(va_arg(ap, int)));
+				output = ft_strjoin_free(output, ft_itoa_unsigned(va_arg(ap, int)));
+			//NOTE THAT THE ABOVE WILL CAUSE A LEAK FROM itoa_unsigned
 		}
 		i++;
 	}
@@ -51,8 +49,6 @@ int	ft_printf(char *format, ...)
 	output = ft_strjoin_free(output, format_ptr);
 	output_len = ft_strlen(output);
 	write(1, output, output_len + 1);
-	free (output);
-	free(format_ptr);
 	return (output_len);
 }
 

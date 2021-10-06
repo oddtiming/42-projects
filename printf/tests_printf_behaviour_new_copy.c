@@ -66,9 +66,10 @@ int	main()
 	printf("%%0x = %0x\n", i);
 	printf("%%0X = %0X\n", i);
 	printf("%%0o = %0o\n", i);
-	printf("%%0s1 = %0s\n", s1);
-	printf("%%0c = %0c\n", c);
-	printf("%%0p of s1 = %0p\n", s1);
+	//0 conversions are UB for s, c, and p
+//	printf("%%0s1 = %0s\n", s1);
+//	printf("%%0c = %0c\n", c);
+//	printf("%%0p of s1 = %0p\n", s1);
 
 	puts("\n----------TESTS FOR \".\" FLAG----------\n");
 	printf("%%.d = %.d\n", i);
@@ -103,9 +104,10 @@ int	main()
 	printf("%%019x = %019x\n", i);
 	printf("%%019X = %019X\n", i);
 	printf("%%019o = %019o\n", i);
-	printf("%%019s1 = %019s\n", s1);
-	printf("%%019c = %019c\n", c);
-	printf("%%019p of s1 = %019p\n", s1);
+	//0 conversions are UB for s, c, and p
+//	printf("%%019s1 = %019s\n", s1);
+//	printf("%%019c = %019c\n", c);
+//	printf("%%019p of s1 = %019p\n", s1);
 	puts("------EXTRA TESTS for extra types------");
 	printf("%%019a = %019a\n", (double)i);
 	printf("%%019f = %019f\n", (float)i);
@@ -118,8 +120,9 @@ int	main()
 	printf("%%.5X = %.5X\n", i);
 	printf("%%.5o = %.5o\n", i);
 	printf("%%.5s1 = %.5s\n", s1);
-	printf("%%.5c = %.5c\n", c);
-	printf("%%.5p of s1 = %.5p\n", s1);
+	//'.' (precision) is UB with c and p
+//	printf("%%.5c = %.5c\n", c);
+//	printf("%%.5p of s1 = %.5p\n", s1);
 	puts("------EXTRA TESTS for extra types------");
 	printf("%%.5a = %.5a\n", (double)i);
 	printf("%%.5f = %.5f\n", (float)i);
@@ -132,13 +135,15 @@ int	main()
 	printf("%%.019X = %.019X\n", i);
 	printf("%%.019o = %.019o\n", i);
 	printf("%%.019s1 = %.019s\n", s1);
-	printf("%%.019c = %.019c\n", c);
-	printf("%%.019p of s1 = %.019p\n", s1);
+	//'.' (precision) is UB with c and p
+//	printf("%%.019c = %.019c\n", c);
+//	printf("%%.019p of s1 = %.019p\n", s1);
 	puts("------EXTRA TESTS for extra types------");
 	printf("%%.019a = %.019a\n", (double)i);
 	printf("%%.019f = %.019f\n", (double)i);
 	printf("%%-.19f = %-.19f\n", (double)i);
-	printf("%%.-19f = %.-19f\n", (double)i);
+	//Invalid conversion; "#-0 +" precede "."
+//	printf("%%.-19f = %.-19f\n", (double)i);
 	double db = -42.888;
 	printf("For double db = -42.888, %%.019g = %.019g\n", (double)db);
 	printf("%%e = %.32e\n", (double)db);
@@ -146,7 +151,8 @@ int	main()
 	puts("------COMBINATIONS------");
 	printf("%%-.19d = %-.19d\n", i);
 	printf("%%0+.19d = %0+.19d\n", i);
-	printf("%%-019d = %-019d\n", i);
+	//Invalid combination; "-" supercedes "0"
+//	printf("%%-019d = %-019d\n", i);
 	printf("%%019d = %019d\n", i);
 
 	printf("%%p of s1 = %p\n", s1);
@@ -158,6 +164,7 @@ int	main()
 
 	printf("sizeof(s1) = %lu\n", sizeof(s1));
 	printf("sizeof(char *) = %lu\n", sizeof(char *));
+	printf("sizeof(long) = %lu\n", sizeof(long));
 
 	printf("Calling the printhex_long fct on (long) s1:\n");
 	printhex_long((long)s1);

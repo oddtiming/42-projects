@@ -6,22 +6,11 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 14:59:25 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/22 21:14:02 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/10/06 12:48:52 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static int	is_set(char c, char const *set)
-{
-	while (*set)
-	{
-		if (c == *set)
-			return (1);
-		set++;
-	}
-	return (0);
-}
 
 static size_t	get_trim_len(char const *s1, char const *set, size_t init_len)
 {

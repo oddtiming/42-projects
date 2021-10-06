@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 11:45:40 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/10/05 18:55:49 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/10/06 16:24:36 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int		ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
+int		is_set(char const c, char const *set);
 size_t	ft_strlen(const char *s);
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *s, size_t n);
@@ -59,8 +60,8 @@ char	*ft_strjoin_free(char *s1, char const *s2);
 size_t	strlen_c(char *s, char c);
 void	ft_writehex(int i, char c);
 void	ft_writehex_long(long i);
-char	*ft_hextoa(long n);
-
+char	*ft_hextoa(unsigned long n, char c);
+char	*ft_strncpy(char *dest, char *src, size_t n);
 
 // BONUS (LINKED LISTS)
 typedef struct s_list

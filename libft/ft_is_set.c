@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen_c.c                                      :+:      :+:    :+:   */
+/*   ft_is_set.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/06 12:51:21 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/10/06 12:51:24 by iyahoui-         ###   ########.fr       */
+/*   Created: 2021/10/06 12:49:55 by iyahoui-          #+#    #+#             */
+/*   Updated: 2021/10/06 12:50:04 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	strlen_c(char *s, char c)
+int	is_set(char const c, char const *set)
 {
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i] != c && s[i])
-		i++;
-	if (!c)
-		return (i);
-	if (s[i] != c)
-		return (0);
-	else
-		return (i + 1);
+	while (*set)
+	{
+		if (*set == c)
+			return (1);
+		set++;
+	}
+	return (0);
 }

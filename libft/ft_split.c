@@ -6,13 +6,13 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 17:05:51 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/09/26 15:51:21 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/10/06 12:46:44 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	is_set(char const s, char const c)
+static int	is_char(char const s, char const c)
 {
 	if (s == c && c)
 		return (1);
@@ -26,7 +26,7 @@ static size_t	get_chunk_len(char const *s, char c)
 	if (!c)
 		return (ft_strlen(s));
 	len = 0;
-	while (!is_set(s[len], c) && s[len])
+	while (!is_char(s[len], c) && s[len])
 		len++;
 	return (len);
 }
@@ -39,15 +39,15 @@ static size_t	get_nb_chunks(char const *s, char const c)
 	nb_chunks = 0;
 	if (!*s)
 		return (nb_chunks);
-	if (!is_set(*s++, c))
+	if (!is_char(*s++, c))
 		is_chunk = 1;
 	while (*s)
 	{
-		if (!is_set(*s, c))
+		if (!is_char(*s, c))
 			is_chunk = 1;
 		else
 			is_chunk = 0;
-		if (is_chunk == 0 && !is_set(*(s - 1), c))
+		if (is_chunk == 0 && !is_char(*(s - 1), c))
 			nb_chunks++;
 		s++;
 	}
@@ -81,7 +81,7 @@ char	**ft_split(char const *s, char const c)
 		return (NULL);
 	while (i < nb_chunks)
 	{
-		while (is_set(*s, c))
+		while (is_char(*s, c))
 			s++;
 		chunk_len = get_chunk_len(s, c);
 		arr_split[i] = ft_substr(s, 0, chunk_len);

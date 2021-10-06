@@ -11,8 +11,8 @@
 			padded on the left with zeros rather than blanks.  If a precision is
 			given with a numeric conversion (d, i, o, u, i, x, and X), the 0 flag is
 			ignored." - man 3 printf
-		- Does not work with strings!! UB; on my macbook it results in the unaffected string.
-			Throws a warning
+		- Does not work with strings, chars, and pointers!! UB; on my macbook it results in the unaffected string.
+			0 conversions are UB for s, c, and p
 
 	- '.' :	"An optional precision, in the form of a period . followed by an optional digit
 			string.  If the digit string is omitted, the precision is taken as zero.  This gives
@@ -20,7 +20,8 @@
 			ber of digits to appear after the decimal-point for a, A, e, E, f, and F conversions,
 			the maximum number of significant digits for g and G conversions, or the maximum num-
 			ber of characters to be printed from a string for s conversions." - man 3 printf
-		NOTES:	- The interaction of '.' and '0' only matters for types with a digit (so a precision). e.g.
+		NOTES:	- The interaction of '.' and '0' only matters for types with a decimal (so a precision). e.g. float
+			'.' (precision) is UB with c and p
 	- NOTE:	these seem to only be used in conjunction with a following digit specifier, otherwise a "width" of 0 
 			is taken by default.
 		- %[flag][digit][conversion specifier]
@@ -29,10 +30,12 @@
 	- '0.':	For non-float types, increasing the precision is tantamount to increasing the number
 			of digits to appear, aka to 0 pad to the right.
 	- '0-':	Throws a warning. Cannot be used together since - overwrites 0. 
-			Results in null padding to the left
+			Results in ' ' padding to the left ('-' supercedes '0')
 	- '.-':	For some fucking reason, the ".-" flags throw a warning, but "-." is fine.
 			%-.19f = -42.0000000000000000000
 			%.-19f = -42
+			Found the fucking reason! Precision is always thrown after the other modifiers. It's in the man, you daft cunt.
+			This means that the precision needs to be followed by a conversion specifier in the form of an optional digit string.
 BONUS:
 	- "h"
 	- "hh"
@@ -55,6 +58,7 @@ BONUS:
 - arguments (cspdiuxX%) (eE, fF, gG, o)
 	- cspdiuxX%
 	- %d & %i:
+		- Both take int as a type.
 		%d and %i behave similar with printf
 		%d and %i behavior is different in scanf
 			 "%d and %i behave similar with printf%d assume base 10 while %i auto detects the base. 
@@ -65,10 +69,13 @@ BONUS:
      
     		- %i takes integer value as integer value with decimal, hexadecimal or octal type. To enter a value in hexadecimal format – 
 			value should be provided by preceding “0x” and value in octal format – value should be provided by preceding “0”." - https://www.geeksforgeeks.org/difference-d-format-specifier-c-language/
-	- %p:	prints the address as standardized by '%#x'
+	- %p:	prints the address as standardized by '%#x' (man also says '%#lx', but I don't yet understand)
+		Takes (void *) as a type
 		-	Use the printhex() fct to print a long(pointer) conversion to the format string.
 			%p of (int)s1 = 0x80b96f9
 			%p of (long)s1 == %p of s1 = 0x1080b96f9
+	- %s:	
+		NOTE : printf() returns (null) in case of NULL string
 
 - VA_ARG (STDARG)
 	- va_list ap == list of variable agruments, ap = argument pointer. 
@@ -81,11 +88,12 @@ BONUS:
 		- TESTS NEEDED: 
 			- I believe that you can use [s, d, i, c, ...] interchangeably with [char *, int, int, char, ...]
 				WRONG; only the example in man 3 stdarg seems to point towards that, usage requires a conversion.
+				EXTRA WRONG; Looking more closely at the example allows me to see that I'm denser than mercury
 			- What happens if the wrong format specifier is used?
 				The argument will be converted according to the format specifier, so it is case-dependent.
 			- What happens if you try to access more arguments than were passed to the fct?
 				    "If there is no next argument, or if type is not compatible with the type of the actual next argument (as promoted accord-
-     				ing to the default argument promotions), random errors will occur." man 3 STDARG
+     				ing to the default argument promotions), random errors will occur." -man 3 STDARG
 					In the case I tested, it sometimes added the last argument twice, sometimes segfaulted, so case-dependent
 	- void va_copy(va_list ap_dest, va_list ap_src);
 		- va_copy copies the current state of the ap_src to ap_dest, so it can be iterated over once again.
