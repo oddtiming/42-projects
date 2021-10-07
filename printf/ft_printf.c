@@ -1,6 +1,6 @@
 #include "ft_printf.h"
 
-int	ft_printf(char *format, ...)
+int	ft_printf(const char *format, ...)
 {
 	va_list		ap;
 	static char	*output;
@@ -11,16 +11,18 @@ int	ft_printf(char *format, ...)
 
 	va_start(ap, format);
 	i = 0;
-	format_ptr = malloc(strlen_c(format, '%'));
-	format_ptr = ft_strncpy(format_ptr, format, strlen_c(format, '%') - 1);
+	format_ptr = malloc(strlen_c((char *)format, '%'));
+	format_ptr = ft_strncpy(format_ptr, (char *)format, strlen_c((char *)format, '%') - 1);
 	while (format[i])
 	{
 		if (format[i] == '%')
 		{
 			output = ft_strjoin_dbfree(output, format_ptr);
-			format_ptr = malloc(strlen_c(&format[i + 2], '%'));
-			format_ptr = ft_strncpy(format_ptr, &format[i + 2], strlen_c(&format[i + 2], '%') - 1);
+			format_ptr = malloc(strlen_c((char *)&format[i + 2], '%'));
+			format_ptr = ft_strncpy(format_ptr, (char *)&format[i + 2], strlen_c((char *)&format[i + 2], '%') - 1);
 			i++;
+			//NOTE: 'c' doit gérer les cas où c == 0. Retourner la bonne valeur, mais aussi imprimer la bonne chose
+			//needs testing
 			if (format[i] == 'c')
 				output = ft_strjoin_dbfree(output, c_to_s(va_arg(ap, int)));
 			else if (format[i] == '%')
@@ -55,7 +57,7 @@ int	ft_printf(char *format, ...)
 	free(format_ptr);
 	return (output_len);
 }
-
+/*
 int	main(void)
 {
 	int		i1, i2, i3;
@@ -74,3 +76,4 @@ int	main(void)
 	printf("The return value is '%d'\n", return_value);
 	return (0);
 }
+*/
