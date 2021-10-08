@@ -15,25 +15,25 @@ CFLAGS	=	-Wall -Wextra -Werror -I.
 
 AR		=	ar
 
-ARFLAGS	=	rcsT
+ARFLAGS	=	rcs
 
-#LDFLAGS	=	-L../libft/ -l:libft.a
+#LDFLAGS	=	-lft
 
 RM		=	rm -f
 
 .c.o:
-	${CC} ${CFLAGS} -c  $< -o ${<:.c=.o} 
+	${CC} ${CFLAGS} -c $< -o ${<:.c=.o} 
 
 all:	${NAME}
 
 libft: 
-		cd ../libft && make re
+		cd ../libft && make re && make clean
 		cp ../libft/libft.a ${NAME}
 
 #NOTE : cd is relative in Makefile and will return to main main root folder 
 
 ${NAME}:	libft ${OBJS}
-	${AR} ${ARFLAGS} ${NAME} ${OBJS}
+	${AR} ${ARFLAGS} ${NAME} ${OBJS} 
 
 clean:	
 	${RM} ${OBJS}
@@ -48,3 +48,6 @@ re:	fclean all
 #	${AR} ${ARFLAGS} ${NAME} $^
 
 .PHONY: all clean fclean re bonus libft
+
+#to add:
+#Directories for srcs and for .o

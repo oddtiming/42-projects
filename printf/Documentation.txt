@@ -36,11 +36,7 @@
 			%.-19f = -42
 			Found the fucking reason! Precision is always thrown after the other modifiers. It's in the man, you daft cunt.
 			This means that the precision needs to be followed by a conversion specifier in the form of an optional digit string.
-BONUS:
-	- "h"
-	- "hh"
-	- "l"
-	- "ll"
+
 
 - "# +" flags:
 	- "#" :	"For x and X conversions, a non-zero result has the string `0x' (or `0X' for X conversions)
@@ -52,8 +48,6 @@ BONUS:
 	- "+" :	"A sign must always be placed before a number produced by a signed conversion.
 			A "+" overrides a space if both are used." - man 3 printf
 
-
-- modifiers
 
 - arguments (cspdiuxX%) (eE, fF, gG, o)
 	- cspdiuxX%
@@ -149,7 +143,11 @@ NOTES:
 			what to initialize with it.
 			1) the struct holds the current flags, the current variable type, and the total string 
 	- 	A is_format_valid(char *format){} function to check whether the conversions are valid,
-		the flags combination is valid, 
+		the flags combination is valid.
+		- The only ways I would seem to be able to do that would be with the typeof() compile time operator
+		that is available with gcc, or a hacky way to use sizeof() ? Not too sure about the last one.
+			There seems to be possibilities with using the assert function, but I would need to read more into that
+		https://stackoverflow.com/questions/6280055/how-do-i-check-if-a-variable-is-of-a-certain-type-compare-two-types-in-c
 
 Additional bonuses:
 - long
