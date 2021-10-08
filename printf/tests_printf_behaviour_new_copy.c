@@ -183,4 +183,6 @@ int	main()
 
 	printf("%%x of 49 = %x\n", 49);
 
+	printf("%%*.*f\nargs = '10, 10, 12345'\n%*.*d\n", 10, 10, 12345);
+	printf("%%3$d\nargs = '10, \"test\", 12345'\n%3$d\n", 10, "test", 12345);
 }

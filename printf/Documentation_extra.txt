@@ -18,3 +18,5 @@
 		- " ", "+", "#" must be used separately
 	- Implement a static (global?) variable to count the amount of characters printed; 
 		alternatively could convert to a string before outputting and simply counting the resulting string ; might be safer.
+	- To implement non-sequential variable access (aka %$*[type]), maybe I can simply pass va_arg(ap, void*) for arguments 
+	of which the type is not specified 
