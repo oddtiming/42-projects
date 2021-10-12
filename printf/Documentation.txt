@@ -136,6 +136,9 @@ NOTES:
 			1) Store the flags and update them for each conversion specifier. Downside is I have to go through them twice,
 			one for checking and one for actual conversions. Could work if I hold the return string in a static variable
 			and only output it if everything is valid. I like that better.
+			NOTE 10/12 : Cannot do that, as I encounter a conflict printing %c for c == 0;
+				The output string stops at the char, so the return value is not right. return
+				value should be incremented even if c == 0;
 			2) Use a linked list to append every printf argument. In this case, I would need a singleton function
 			that declares the first node (so the first argument's parameters) and a string  
 	-	Singleton function:
@@ -148,6 +151,9 @@ NOTES:
 		that is available with gcc, or a hacky way to use sizeof() ? Not too sure about the last one.
 			There seems to be possibilities with using the assert function, but I would need to read more into that
 		https://stackoverflow.com/questions/6280055/how-do-i-check-if-a-variable-is-of-a-certain-type-compare-two-types-in-c
+	SCRATCH THAT.
+	- Parse the flag as we go, and write as we go. So each conversion will be treated sequentially.
+	
 
 Additional bonuses:
 - long
