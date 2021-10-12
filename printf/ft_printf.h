@@ -8,10 +8,12 @@
 
 typedef struct s_arg
 {
-	int				arg_number;
-	char			*output;
-	char			*flags;
-	struct s_arg	*next;
+	char	*format;
+	int		index;
+	int		n_bytes;
+	int		width;
+	int		precision;
+	char	var_type;
 } t_arg;
 
 char	*c_to_s(int c);
@@ -22,6 +24,6 @@ int		ft_printf(const char *format, ...);
 //char	*ft_strjoin_free(char *s1, char const *s2);
 //size_t	ft_strlen(const char *s);
 //size_t	strlen_c(char *s, char c);
-
+int		ft_printf_bonus(const char *format, ...);
 
 #endif

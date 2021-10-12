@@ -156,8 +156,8 @@ int	main()
 	printf("%%019d = %019d\n", i);
 
 	printf("%%p of s1 = %p\n", s1);
-	printf("%%#x of s1 = %#x\n", s1);
-	printf("%%#x of (long)s1 = %#x\n", (long)s1);
+	printf("%%#x of (int)s1 = %#x\n", (int)s1);
+	printf("%%#x of (long)s1 = %#lx\n", (long)s1);
 	printf("%%p of (int)s1 = %p\n", (int)s1);
 	printf("%%p of (long)s1 = %p\n", (long)s1);
 	puts("");
@@ -172,8 +172,8 @@ int	main()
 	printhex_int((int)s1);
 
 	puts("");
-	printf("%%19%% of s1 = %19%\n");
-	printf("%%1$19d, %%1$0d, %%1$019d:\n %1$19d, %1$0d, %1$019d\n", s1);
+	printf("%%19%% = %19%\n");
+	printf("%%1$19s, %%1$0s, %%1$019s:\n %1$19s, %1$0s, %1$019s\n", s1);
 	printf("%%x of s1 = %x\n", s1);
 	printf("%%X of s1 = %X\n", s1);
 	printf("%%#x of s1 = %#x\n", s1);
@@ -185,4 +185,9 @@ int	main()
 
 	printf("%%*.*f\nargs = '10, 10, 12345'\n%*.*d\n", 10, 10, 12345);
 	printf("%%3$d\nargs = '10, \"test\", 12345'\n%3$d\n", 10, "test", 12345);
+	int return_value;
+	return_value = printf("c1 = '1': %c\nc2 = 0: %c\nc3 = '1': %c\n", '1', 0, '1');
+	return_value = printf("c1 = 0: %c\n", '1');
+	printf("return value = '%d'\n", return_value);
+	printf(" %c %c %c ", 0, '1', '2');
 }

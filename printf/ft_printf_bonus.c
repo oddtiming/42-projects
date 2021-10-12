@@ -1,5 +1,20 @@
 #include "ft_printf.h"
 
+int	ft_printf_bonus(const char *format, ...)
+{
+	va_list	ap;
+	t_arg	*pf_struct;
+
+	va_start(ap, format);
+	//Need to parse the format string
+	//Store the appropriate flags in the appropriate locations
+
+
+	va_end(ap);
+	//The struct holds all the relevant information
+	return (pf_struct->n_bytes);
+}
+
 int main (void)
 {
 	int		i1, i2, i3;
@@ -12,7 +27,7 @@ int main (void)
 	i2 = 2;
 	i3 = 49;
 	printf("format = %s\n", format);
-	return_value = ft_printf(format, i1, i1, i1, str1, str1, str2, 'c', str1, i1);
+	return_value = ft_printf_bonus(format, i1, i1, i1, str1, str1, str2, 'c', str1, i1);
 	printf("The return value is '%d'\n", return_value);
 	return_value = printf(format, i1, i1, i1, str1, str1, str2, 'c', str1, i1);
 	printf("The return value is '%d'\n", return_value);
