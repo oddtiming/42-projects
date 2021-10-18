@@ -27,6 +27,7 @@ RM		=	rm -f
 all:	${NAME}
 
 libft: 
+#		${MAKE} -C ../libft re &&
 		cd ../libft && make re && make clean
 		cp ../libft/libft.a ${NAME}
 

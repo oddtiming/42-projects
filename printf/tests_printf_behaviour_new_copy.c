@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
+#include <limits.h>
 
 void	printhex_long(long i)
 {
@@ -173,7 +174,7 @@ int	main()
 
 	puts("");
 	printf("%%19%% = %19%\n");
-	printf("%%1$19s, %%1$0s, %%1$019s:\n %1$19s, %1$0s, %1$019s\n", s1);
+	printf("%%1$19s, %%1$0s, %%1$019s:\n %2$19s, %2$0s, %2$019s\n", "test1", s1, "test3");
 	printf("%%x of s1 = %x\n", s1);
 	printf("%%X of s1 = %X\n", s1);
 	printf("%%#x of s1 = %#x\n", s1);
@@ -186,8 +187,11 @@ int	main()
 	printf("%%*.*f\nargs = '10, 10, 12345'\n%*.*d\n", 10, 10, 12345);
 	printf("%%3$d\nargs = '10, \"test\", 12345'\n%3$d\n", 10, "test", 12345);
 	int return_value;
-	return_value = printf("c1 = '1': %c\nc2 = 0: %c\nc3 = '1': %c\n", '1', 0, '1');
-	return_value = printf("c1 = 0: %c\n", '1');
+	return_value = printf("c1 = '1': %c\nc2 = 0: %c\nc3 = '3': %c\n", '1', 0, '3');
+//	return_value = printf("c1 = 0: %c\n", '1');
 	printf("return value = '%d'\n", return_value);
-	printf(" %c %c %c ", 0, '1', '2');
+	printf(" %c %c %c \n", 0, '1', '2');
+	return_value = printf("%.10.5 10 9 8 728189 892 20s\n", "abcdefg");
+	printf("return value = '%d'\n", return_value);
+	return_value = printf("%*.*s!\n", 1, 1, "abcdefg");
 }

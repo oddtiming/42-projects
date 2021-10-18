@@ -16,6 +16,8 @@ typedef struct s_arg
 	char	var_type;
 } t_arg;
 
+//static const char *g_flags = {"+.0 #-"}
+
 char	*c_to_s(int c);
 char	*ft_itoa_unsigned(unsigned int n);
 char	*ft_hextoa_int(unsigned int n, char c);
@@ -25,5 +27,6 @@ int		ft_printf(const char *format, ...);
 //size_t	ft_strlen(const char *s);
 //size_t	strlen_c(char *s, char c);
 int		ft_printf_bonus(const char *format, ...);
+void	printf_struct_init(t_arg *holder, char const *format);
 
 #endif

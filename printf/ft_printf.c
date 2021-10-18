@@ -1,63 +1,30 @@
 #include "ft_printf.h"
 
-int	ft_printf(const char *format, ...)
+int	ft_printf(char const *format, ...)
 {
-	va_list		ap;
-	static char	*output;
-	char		*format_ptr;
-	char		*str_temp;
-	int			i;
-	size_t		output_len;
+	va_list	ap;
+	t_arg	holder;
 
 	va_start(ap, format);
-	i = 0;
-	format_ptr = malloc(strlen_c((char *)format, '%'));
-	format_ptr = ft_strncpy(format_ptr, (char *)format, strlen_c((char *)format, '%') - 1);
-	while (format[i])
-	{
-		if (format[i] == '%')
-		{
-			output = ft_strjoin_dbfree(output, format_ptr);
-			format_ptr = malloc(strlen_c((char *)&format[i + 2], '%'));
-			format_ptr = ft_strncpy(format_ptr, (char *)&format[i + 2], strlen_c((char *)&format[i + 2], '%') - 1);
-			i++;
-			//NOTE: 'c' doit gérer les cas où c == 0. Retourner la bonne valeur, mais aussi imprimer la bonne chose
-			//needs testing
-			if (format[i] == 'c')
-				output = ft_strjoin_dbfree(output, c_to_s(va_arg(ap, int)));
-			else if (format[i] == '%')
-				output = ft_strjoin_free(output, "%");
-			else if (format[i] == 's')
-			{
-				str_temp = va_arg(ap, char *);
-				if (str_temp)
-					output = ft_strjoin_free(output, str_temp);
-				else
-					output = ft_strjoin_free(output, "(null)");
-			}
-			else if (is_set(format[i], "di"))
-				output = ft_strjoin_dbfree(output, ft_itoa(va_arg(ap, int)));
-			else if (format[i] == 'p')
-			{
-				output = ft_strjoin_free(output, "0x");
-				output = ft_strjoin_dbfree(output, ft_hextoa((long)va_arg(ap, void *), format[i]));
-			}
-			else if (is_set(format[i], "xX"))
-				output = ft_strjoin_dbfree(output, ft_hextoa_int(va_arg(ap, int), format[i]));
-			else if (format[i] == 'u')
-				output = ft_strjoin_dbfree(output, ft_itoa_unsigned(va_arg(ap, int)));
-		}
-		i++;
-	}
+	printf_struct_init(&holder, format);
+	printf("holder.n_bytes = %d\n", holder.n_bytes);
 	va_end(ap);
-	output = ft_strjoin_free(output, format_ptr);
-	output_len = ft_strlen(output);
-	write(1, output, output_len + 1);
-	free (output);
-	free(format_ptr);
-	return (output_len);
+	return (holder.n_bytes);
 }
-/*
+/*	
+ *	oct 18th 2021 todo
+ *	List of proceedings:
+ *	In ft_printf iterate through the string, if hit a % sign, pass to 
+ *	printf_arg_parse;
+ *	NOTE: width and precision are important variables, but meaningless as standalone, since we can have a width = 0 as an active
+ *		, so a width flag needs to be set in addition to the 6 required flags.
+ *		I also believe that width and precisio0n are set as unsigned ints, since -1 gives the full length of any string with no warning
+ *	else write(s[holder.index]; holder.index++; holder.n_bytes++;)
+ *	printf_arg_parse will increment holder.index and instigate the corresponding flags and var_type, then call 
+ *	printf_arg_dispatch that will call relevant function depending on the var_type.
+ *	Each subfunction will increment holder.n_bytes.
+ */
+
 int	main(void)
 {
 	int		i1, i2, i3;
@@ -71,9 +38,8 @@ int	main(void)
 	i3 = 49;
 	printf("format = %s\n", format);
 	return_value = ft_printf(format, i1, i1, i1, str1, str1, str2, 'c', str1, i1);
-	printf("The return value is '%d'\n", return_value);
+	printf("The return value of ft_printf is '%d'\n", return_value);
 	return_value = printf(format, i1, i1, i1, str1, str1, str2, 'c', str1, i1);
-	printf("The return value is '%d'\n", return_value);
+	printf("The return value of printf is '%d'\n", return_value);
 	return (0);
 }
-*/
