@@ -172,6 +172,17 @@ void	ft_puthex_long(long i, t_arg *holder)
 	holder->n_bytes += 1;
 }
 
+void	ft_puthex_size_t(size_t i, t_arg *holder)
+{
+	char	*hex_base;
+
+	hex_base = "0123456789abcdef";
+	if (i > 15)
+		ft_puthex_size_t(i / 16, holder);
+	write(1, &hex_base[i % 16], 1);
+	holder->n_bytes += 1;
+}
+
 void	ft_puthex_int(unsigned int i, t_arg *holder)
 {
 	char	*hex_base;

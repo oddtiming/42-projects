@@ -18,4 +18,12 @@ int	main(void)
 	printf_struct_init(&holder, "test");
 	ft_puthex_long((long)&return_value, &holder);
 	printf("\nreturn value = %d\n", holder.n_bytes);
+	ft_puthex_size_t(LONG_MAX, &holder);
+	printf("\nAnd the real printf for LONG_MAX: %p\n", LONG_MAX);
+	ft_puthex_size_t(LONG_MIN, &holder);
+	printf("\nAnd the real printf for LONG_MIN: %p\n", LONG_MIN);
+	ft_puthex_size_t(ULONG_MAX, &holder);
+	printf("\nAnd the real printf for ULONG_MAX: %p\n", ULONG_MAX);
+	ft_puthex_size_t(-ULONG_MAX, &holder);
+	printf("\nAnd the real printf for -ULONG_MAX: %p\n", -ULONG_MAX);
 }
