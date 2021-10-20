@@ -49,6 +49,9 @@
 			A "+" overrides a space if both are used." - man 3 printf
 
 
+- syntax:
+	%[flags][width][.precision][size]type
+
 - arguments (cspdiuxX%) (eE, fF, gG, o)
 	- cspdiuxX%
 	- %d & %i:

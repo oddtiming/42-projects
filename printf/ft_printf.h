@@ -28,5 +28,14 @@ int		ft_printf(const char *format, ...);
 //size_t	strlen_c(char *s, char c);
 int		ft_printf_bonus(const char *format, ...);
 void	printf_struct_init(t_arg *holder, char const *format);
+int		ft_putchar_ret(const char c);
+int		ft_putstr_ret(const char *s);
+int		ft_putnbr_ret(int n);
+int		ft_putnbr_unsigned_ret(unsigned int n);
+int		ft_putaddress_ret(unsigned long address);
+void	ft_puthex_long(long i, t_arg *holder);
+void	ft_puthex_long_long(long long i, t_arg *holder);
+void	ft_puthex_int(unsigned int i, t_arg *holder);
+void	ft_puthex_upperx_int(unsigned int i, t_arg *holder);
 
 #endif

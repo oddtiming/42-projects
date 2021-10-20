@@ -194,4 +194,10 @@ int	main()
 	return_value = printf("%.10.5 10 9 8 728189 892 20s\n", "abcdefg");
 	printf("return value = '%d'\n", return_value);
 	return_value = printf("%*.*s!\n", 1, 1, "abcdefg");
+	printf("%019s\n", "a");
+	printf("%%0-10c of 'a': %0-10c\n", 'a');
+	return_value = printf("%%s of empty string : %s\n", "");
+	printf("return value = '%d'\n", return_value);
+	return_value = printf("%%s of null string : %s\n", NULL);
+	printf("return value = '%d'\n", return_value);
 }
