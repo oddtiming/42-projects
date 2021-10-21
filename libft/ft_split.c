@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 17:05:51 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/10/06 12:46:44 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/10/20 14:47:17 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	ft_free_split(char **arr_split)
 		arr_split++;
 	}
 }
-
+//Need to free the 
 char	**ft_split(char const *s, char const c)
 {
 	size_t	nb_chunks;

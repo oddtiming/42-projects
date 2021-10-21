@@ -6,15 +6,29 @@
 # include <unistd.h>
 # include "../libft/libft.h"
 
+# define CONVERSIONS "cspdiuxX%"
+
 typedef struct s_arg
 {
-	char	*format;
-	int		index;
-	int		n_bytes;
-	int		width;
-	int		precision;
-	char	var_type;
-} t_arg;
+	char			*format;
+	int				index;
+	int				n_bytes;
+	int				width;
+	int				precision;
+	char			var_type;
+	unsigned char	flags;
+}	t_arg;
+
+typedef enum e_flags
+{
+	FLAG_SPACE = 0x1,
+	FLAG_HASH = 0x2,
+	FLAG_PLUS = 0x4,
+	FLAG_WIDTH = 0x8,
+	FLAG_PRECISION = 0x10,
+	FLAG_ZERO = 0x20,
+	FLAG_MINUS = 0x40
+}	t_flags;
 
 //static const char *g_flags = {"+.0 #-"}
 

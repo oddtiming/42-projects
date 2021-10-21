@@ -70,9 +70,9 @@ int	main(void)
 	i2 = 2;
 	i3 = 49;
 	printf("format = %s\n", format);
-	return_value = ft_printf(format, i1, i1, i1, str1, str1, str2, 'c', str1, i1);
+	return_value = ft_printf(format, i1, i1, i1, str1, str1, str2, 0, str1, i1);
 	printf("The return value is '%d'\n", return_value);
-	return_value = printf(format, i1, i1, i1, str1, str1, str2, 'c', str1, i1);
+	return_value = printf(format, i1, i1, i1, str1, str1, str2, 0, str1, i1);
 	printf("The return value is '%d'\n", return_value);
 	return (0);
 }

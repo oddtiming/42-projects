@@ -31,7 +31,7 @@ libft:
 		cd ../libft && make re && make clean
 		cp ../libft/libft.a ${NAME}
 
-#NOTE : cd is relative in Makefile and will return to main main root folder 
+#NOTE : cd is relative in Makefile and will return to main root folder 
 
 ${NAME}:	libft ${OBJS}
 	${AR} ${ARFLAGS} ${NAME} ${OBJS} 

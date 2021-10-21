@@ -7,6 +7,7 @@ void	printf_struct_init(t_arg *holder, char const *format)
 	holder->precision = 0;
 	holder->width = 0;
 	holder->var_type = 0;
+	holder->flags = 0;
 	holder->format = ft_strdup(format);
 }
 

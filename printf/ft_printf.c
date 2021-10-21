@@ -17,7 +17,7 @@ static void	arg_dispatch(t_arg *holder, va_list ap)
 	else if (holder->var_type == 'p')
 	{
 		holder->n_bytes += ft_putstr_ret("0x");
-		ft_puthex_long_long((long long)va_arg(ap, void *), holder);
+		ft_puthex_size_t((size_t)va_arg(ap, void *), holder);
 	}
 	else if (is_set(holder->var_type, "xX"))
 		ft_puthex_int(va_arg(ap, int), holder);
@@ -66,7 +66,7 @@ int	ft_printf(char const *format, ...)
  *		repetitive functions.
  *	Need to debug pointer's tests (for p = LONG_MAX and ULONG_MAX)
  */
-/*
+
 int	main(void)
 {
 	int		i1, i2, i3;
@@ -85,4 +85,3 @@ int	main(void)
 	printf("The return value of printf is '%d'\n", return_value);
 	return (0);
 }
-*/

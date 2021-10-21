@@ -200,4 +200,5 @@ int	main()
 	printf("return value = '%d'\n", return_value);
 	return_value = printf("%%s of null string : %s\n", NULL);
 	printf("return value = '%d'\n", return_value);
+	printf("%d\n", 0x4);
 }
