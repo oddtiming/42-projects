@@ -1,7 +1,8 @@
 NAME	=	libftprintf.a
 
 SRCS	=	ft_printf.c \
-			ft_printf_utils2.c \
+			ft_printf_utils.c \
+			ft_printf_utils2.c
 
 #SRCS_B	=	
 
@@ -28,8 +29,8 @@ all:	${NAME}
 
 libft: 
 #		${MAKE} -C ../libft re &&
-		cd ../libft && make re && make clean
-		cp ../libft/libft.a ${NAME}
+		cd ./libft && make re && make clean
+		mv ./libft/libft.a ${NAME}
 
 #NOTE : cd is relative in Makefile and will return to main root folder 
 

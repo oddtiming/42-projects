@@ -196,3 +196,38 @@ Additional bonuses:
 			...
 			va_end(ap2);
 	}
+
+/*	
+ *	oct 18th 2021 todo
+ *	List of proceedings:
+ *	In ft_printf iterate through the string, if hit a % sign, pass to 
+ *	printf_arg_parse;
+ *	NOTE: width and precision are important variables, but meaningless as standalone, since we can have a width = 0 as an active
+ *		, so a width flag needs to be set in addition to the 6 required flags.
+ *		I also believe that width and precision are set as unsigned ints, since -1 gives the full length of any string with no warning
+ *	else write(s[arg.index]; arg.index++; arg.n_bytes++;)
+ *	printf_arg_parse will increment arg.index and instigate the corresponding flags and var_type, then call 
+ *	printf_arg_dispatch that will call relevant function depending on the var_type.
+ *	Each subfunction will increment arg.n_bytes.
+ */
+
+/*
+ *	Notes oct 19th:
+ *	- Important to review the validity of ft_printhex.c, remove any unused funstions, and try to reduce as much as possible the clutter of
+ *		repetitive functions.
+ *	Need to debug pointer's tests (for p = LONG_MAX and ULONG_MAX)
+ */
+ 
+ /*
+ *	Notes oct 22nd:
+ *	- arg_parse works, arg_dispatch works. Need to integrate the two.
+ *	- Could integrate an indexed function pointer to remove the "if forest" in the arg_dispatch function.
+ *		void *functions_index[9] = {&ft_putchar_ret, &ft_putstr_ret, &ft_puthex_size_t, &ft_putnbr_ret, \
+ *		&ft_putnbr_ret, &ft_putnbr_ret, &ft_puthex_int, &ft_putchar_ret}
+ *		
+ *		and compare it against is_set_ret(arg->format[arg->index], CONSVERSIONS)
+ *		
+ *		- NOTE: This would mean that all the "subfunctions" would have the same prototype:
+ *			ft_ptf_[NAME](t_arg *arg, va_list ap)
+ *			And all the functions would then need to call va_arg() accordingly.
+ */

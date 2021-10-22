@@ -1,35 +1,75 @@
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-int	ft_printf_bonus(const char *format, ...)
+void	arg_parse(t_arg *arg)
 {
-	va_list	ap;
-	t_arg	*pf_struct;
+	char	flags_arr[7] = {'-', '0', '.', '#', ' ', '+', 0};
+	int		flags_index[6] = {FLAG_MINUS, FLAG_ZERO, FLAG_PREC, FLAG_HASH, FLAG_SPACE, FLAG_PLUS};
+	int		num_value;
 
-	va_start(ap, format);
-	//Need to parse the format string
-	//Store the appropriate flags in the appropriate locations
-
-
-	va_end(ap);
-	//The struct holds all the relevant information
-	return (pf_struct->n_bytes);
+	while (!is_set(arg->format[++arg->index], CONVERSIONS) && arg->format[arg->index])
+	{
+		num_value = is_set_ret(arg->format[arg->index], flags_arr);
+		if (num_value != -1)
+			arg->flags |= flags_index[num_value];
+		else if (arg->format[arg->index] >= '1' && arg->format[arg->index]<= '9')
+		{
+			num_value = ft_atoi(&arg->format[arg->index]);
+			if (arg->format[arg->index - 1] == '.')
+				arg->precision = num_value;
+			else
+			{
+				arg->width = num_value;
+				arg->flags |= FLAG_WIDTH;
+			}
+			arg->index += ft_log_calc(num_value, 10) - 1;
+		}
+	}
+	arg->var_type = arg->format[arg->index];
 }
 
-int main (void)
+static void	arg_dispatch(t_arg *arg, va_list ap)
 {
-	int		i1, i2, i3;
-	char	*str1 = "This is the first string";
-	char	*str2 = " And I shall want to add this";
-	char	*format = " 1 = %%d : %d, 2 = %%i: %i, %u, %%x of str1: %x, %s, %s, %c, %%p of str1: %p, %%X of i1: %X\n";
-	int		return_value;
+	arg->index += 1;
+	arg->var_type = arg->format[arg->index];
+	if (arg->var_type == 'c')
+		arg->n_bytes += ft_putchar_ret((char)va_arg(ap, int));
+	else if (arg->var_type == 's')
+		arg->n_bytes += ft_putstr_ret(va_arg(ap, char *));
+	else if (arg->var_type == 'p')
+	{
+		arg->n_bytes += ft_putstr_ret("0x");
+		ft_puthex_size_t((size_t)va_arg(ap, void *), arg);
+	}
+	else if (is_set(arg->var_type, "di"))
+		arg->n_bytes += ft_putnbr_ret(va_arg(ap, int));
+	else if (arg->var_type == 'u')
+		arg->n_bytes += ft_putnbr_unsigned_ret(va_arg(ap, int));
+	else if (is_set(arg->var_type, "xX"))
+		ft_puthex_int(va_arg(ap, int), arg);
+	else if (arg->var_type == '%')
+		arg->n_bytes += ft_putchar_ret('%');
+	arg->index += 1;
+}
 
-	i1 = -48;
-	i2 = 2;
-	i3 = 49;
-	printf("format = %s\n", format);
-	return_value = ft_printf_bonus(format, i1, i1, i1, str1, str1, str2, 'c', str1, i1);
-	printf("The return value is '%d'\n", return_value);
-	return_value = printf(format, i1, i1, i1, str1, str1, str2, 'c', str1, i1);
-	printf("The return value is '%d'\n", return_value);
-	return (0);
+int	ft_printf(char const *format, ...)
+{
+	va_list	ap;
+	t_arg	arg;
+
+	va_start(ap, format);
+	printf_struct_init(&arg, format);
+	while (format[arg.index])
+	{
+		if (format[arg.index] == '%')
+			arg_dispatch(&arg, ap);
+		else
+		{
+			write(1, &format[arg.index], 1);
+			arg.index += 1;
+			arg.n_bytes += 1;
+		}
+	}
+	va_end(ap);
+	free(arg.format);
+	return (arg.n_bytes);
 }

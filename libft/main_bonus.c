@@ -1,4 +1,5 @@
 #include "libft.h"
+#include <stdio.h>
 
 /*
 ** EXTRA TEST FUNCTIONS
@@ -450,7 +451,7 @@ void	ft_lstiter_test(void (*iter_fct)(void *))
 	//Prints the list's nodes' contents
 	for (int i = 0; ptr_head; i++)
 	{
-		printf("Content[%d] = '%s'\n", i, (char *)ptr_head->content);
+		printf("Content[%d] = '%s' %p\n", i, (char *)ptr_head->content, ptr_head);
 		ptr_head = ptr_head->next;
 	}
 	printf("\nAfter ft_lstiter on first_node:\n");
@@ -459,7 +460,7 @@ void	ft_lstiter_test(void (*iter_fct)(void *))
 	ptr_head = first_node;
 	for (int i = 0; ptr_head; i++)
 	{
-		printf("Content[%d] = '%s'\n", i, (char *)(ptr_head->content));
+		printf("Content[%d] = '%s' %p\n", i, (char *)(ptr_head->content), ptr_head);
 		ptr_head = ptr_head->next;
 	}
 	printf("\n");
@@ -504,7 +505,7 @@ void	ft_lstmap_test(void *(*map_fct)(void *), void (*del)(void *))
 	//Prints the list's nodes' contents
 	for (int i = 0; ptr_head; i++)
 	{
-		printf("Content[%d] = '%s'\n", i, (char *)ptr_head->content);
+		printf("Content[%d] = '%s' %p\n", i, (char *)ptr_head->content, ptr_head);
 		ptr_head = ptr_head->next;
 	}
 	printf("\nAfter ft_lstmap on first_node->next->next (third node):\n");
@@ -513,7 +514,7 @@ void	ft_lstmap_test(void *(*map_fct)(void *), void (*del)(void *))
 	ptr_head = ft_lstmap(first_node, map_fct, del);
 	for (int i = 0; ptr_head; i++)
 	{
-		printf("Content[%d] = '%s'\n", i, (char *)(ptr_head->content));
+		printf("Content[%d] = '%s' %p\n", i, (char *)(ptr_head->content), ptr_head);
 		ptr_head = ptr_head->next;
 	}
 	printf("\n");

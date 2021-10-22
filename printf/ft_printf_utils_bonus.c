@@ -1,16 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_printf_utils2.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/22 14:12:11 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/10/22 14:12:12 by iyahoui-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 int	get_magnitude(int n)
 {
@@ -93,4 +81,61 @@ int	ft_putnbr_unsigned_ret(unsigned int n)
 		magnitude /= 10;
 	}
 	return (i);
+}
+
+void	printf_struct_init(t_arg *arg, char const *format)
+{
+	arg->n_bytes = 0;
+	arg->index = 0;
+	arg->precision = 0;
+	arg->width = 0;
+	arg->var_type = 0;
+	arg->flags = 0;
+	arg->format = ft_strdup(format);
+}
+
+int	ft_putchar_ret(const char c)
+{
+	write(1, &c, 1);
+	return (1);
+}
+
+int	ft_putstr_ret(const char *s)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
+	while (s[i])
+		write(1, &s[i++], 1);
+	return (i);
+}
+
+void	ft_puthex_size_t(size_t i, t_arg *arg)
+{
+	char	*hex_base;
+
+	hex_base = "0123456789abcdef";
+	if (i > 15)
+		ft_puthex_size_t(i / 16, arg);
+	write(1, &hex_base[i % 16], 1);
+	arg->n_bytes += 1;
+}
+
+void	ft_puthex_int(unsigned int i, t_arg *arg)
+{
+	char	*hex_base;
+
+	if (arg->var_type == 'x')
+		hex_base = "0123456789abcdef";
+	else
+		hex_base = "0123456789ABCDEF";
+	if (i > 15)
+		ft_puthex_int(i / 16, arg);
+	write(1, &hex_base[i % 16], 1);
+	arg->n_bytes += 1;
 }

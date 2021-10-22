@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 17:05:51 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/10/20 14:47:17 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/10/21 14:32:06 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,12 @@ static size_t	get_nb_chunks(char const *s, char const c)
 
 static void	ft_free_split(char **arr_split)
 {
-	while (*arr_split)
-	{
-		free(*arr_split);
-		arr_split++;
-	}
+	int	i;
+
+	i = 0;
+	while (arr_split[i])
+		free(arr_split[i++]);
+	free (arr_split);
 }
 //Need to free the 
 char	**ft_split(char const *s, char const c)
