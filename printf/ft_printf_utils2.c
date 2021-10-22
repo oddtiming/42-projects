@@ -1,14 +1,14 @@
 #include "ft_printf.h"
 
-void	printf_struct_init(t_arg *holder, char const *format)
+void	printf_struct_init(t_arg *arg, char const *format)
 {
-	holder->n_bytes = 0;
-	holder->index = 0;
-	holder->precision = 0;
-	holder->width = 0;
-	holder->var_type = 0;
-	holder->flags = 0;
-	holder->format = ft_strdup(format);
+	arg->n_bytes = 0;
+	arg->index = 0;
+	arg->precision = 0;
+	arg->width = 0;
+	arg->var_type = 0;
+	arg->flags = 0;
+	arg->format = ft_strdup(format);
 }
 
 int	ft_putchar_ret(const char c)
@@ -32,7 +32,7 @@ int	ft_putstr_ret(const char *s)
 	return (i);
 }
 
-static int	get_magnitude(int n)
+int	get_magnitude(int n)
 {
 	int	magnitude;
 
@@ -151,49 +151,65 @@ int	ft_putaddress_ret(unsigned long address)
 	return (i);
 }
 
-void	ft_puthex_long_long(long long i, t_arg *holder)
+void	ft_puthex_long_long(long long i, t_arg *arg)
 {
 	char	*hex_base;
 
 	hex_base = "0123456789abcdef";
 	if (i > 15)
-		ft_puthex_long_long(i / 16, holder);
+		ft_puthex_long_long(i / 16, arg);
 	write(1, &hex_base[i % 16], 1);
-	holder->n_bytes += 1;
+	arg->n_bytes += 1;
 }
 
-void	ft_puthex_long(long i, t_arg *holder)
+void	ft_puthex_long(long i, t_arg *arg)
 {
 	char	*hex_base;
 
 	hex_base = "0123456789abcdef";
 	if (i > 15)
-		ft_puthex_long(i / 16, holder);
+		ft_puthex_long(i / 16, arg);
 	write(1, &hex_base[i % 16], 1);
-	holder->n_bytes += 1;
+	arg->n_bytes += 1;
 }
 
-void	ft_puthex_size_t(size_t i, t_arg *holder)
+void	ft_puthex_size_t(size_t i, t_arg *arg)
 {
 	char	*hex_base;
 
 	hex_base = "0123456789abcdef";
 	if (i > 15)
-		ft_puthex_size_t(i / 16, holder);
+		ft_puthex_size_t(i / 16, arg);
 	write(1, &hex_base[i % 16], 1);
-	holder->n_bytes += 1;
+	arg->n_bytes += 1;
 }
 
-void	ft_puthex_int(unsigned int i, t_arg *holder)
+void	ft_puthex_int(unsigned int i, t_arg *arg)
 {
 	char	*hex_base;
 
-	if (holder->var_type == 'x')
+	if (arg->var_type == 'x')
 		hex_base = "0123456789abcdef";
 	else
 		hex_base = "0123456789ABCDEF";
 	if (i > 15)
-		ft_puthex_int(i / 16, holder);
+		ft_puthex_int(i / 16, arg);
 	write(1, &hex_base[i % 16], 1);
-	holder->n_bytes += 1;
+	arg->n_bytes += 1;
+}
+
+//is_set_ret returns the index in the string where c was found.
+//Returns -1 if nothing was found
+int	is_set_ret(char const c, char const *set)
+{
+	int	i;
+
+	i = 0;
+	while (set[i])
+	{
+		if (set[i] == c)
+			return (i);
+		i++;
+	}
+	return (-1);
 }

@@ -1,50 +1,74 @@
 #include "ft_printf.h"
 
-static void	arg_dispatch(t_arg *holder, va_list ap)
+void	arg_parse(t_arg *arg)
 {
-	holder->index += 1;
-	holder->var_type = holder->format[holder->index];
-	if (holder->var_type == 'c')
-		holder->n_bytes += ft_putchar_ret((char)va_arg(ap, int));
-	else if (holder->var_type == '%')
-		holder->n_bytes += ft_putchar_ret('%');
-	else if (holder->var_type == 's')
-		holder->n_bytes += ft_putstr_ret(va_arg(ap, char *));
-	else if (is_set(holder->var_type, "di"))
-		holder->n_bytes += ft_putnbr_ret(va_arg(ap, int));
-	else if (holder->var_type == 'u')
-		holder->n_bytes += ft_putnbr_unsigned_ret(va_arg(ap, int));
-	else if (holder->var_type == 'p')
+	char	flags_arr[7] = {' ', '#', '+', '.', '0', '-', 0};
+	int		flags_index[6] = {FLAG_SPACE, FLAG_HASH, FLAG_PLUS, FLAG_PRECISION, FLAG_ZERO, FLAG_MINUS};
+	int		num_value;
+
+	arg->index += 1;
+	while (!is_set(arg->format[arg->index], CONVERSIONS) && arg->format[arg->index])
 	{
-		holder->n_bytes += ft_putstr_ret("0x");
-		ft_puthex_size_t((size_t)va_arg(ap, void *), holder);
+		arg->flags |= flags_index[is_set_ret(arg->format[arg->index], flags_arr)];
+		arg->index++;
+		if (arg->format[arg->index] >= '1' && arg->format[arg->index]<= '9')
+		{
+			num_value = ft_atoi(&arg->format[arg->index]);
+			if (arg->format[arg->index - 1] == '.')
+				arg->precision = num_value;
+			else
+				arg->width = num_value;
+			arg->index += get_magnitude(num_value);
+		}
 	}
-	else if (is_set(holder->var_type, "xX"))
-		ft_puthex_int(va_arg(ap, int), holder);
-	holder->index += 1;
+	arg->var_type = arg->format[arg->index];
+}
+
+static void	arg_dispatch(t_arg *arg, va_list ap)
+{
+	arg->index += 1;
+	arg->var_type = arg->format[arg->index];
+	if (arg->var_type == 'c')
+		arg->n_bytes += ft_putchar_ret((char)va_arg(ap, int));
+	else if (arg->var_type == '%')
+		arg->n_bytes += ft_putchar_ret('%');
+	else if (arg->var_type == 's')
+		arg->n_bytes += ft_putstr_ret(va_arg(ap, char *));
+	else if (is_set(arg->var_type, "di"))
+		arg->n_bytes += ft_putnbr_ret(va_arg(ap, int));
+	else if (arg->var_type == 'u')
+		arg->n_bytes += ft_putnbr_unsigned_ret(va_arg(ap, int));
+	else if (arg->var_type == 'p')
+	{
+		arg->n_bytes += ft_putstr_ret("0x");
+		ft_puthex_size_t((size_t)va_arg(ap, void *), arg);
+	}
+	else if (is_set(arg->var_type, "xX"))
+		ft_puthex_int(va_arg(ap, int), arg);
+	arg->index += 1;
 }
 
 int	ft_printf(char const *format, ...)
 {
 	va_list	ap;
-	t_arg	holder;
+	t_arg	arg;
 
 	va_start(ap, format);
-	printf_struct_init(&holder, format);
-	while (format[holder.index])
+	printf_struct_init(&arg, format);
+	while (format[arg.index])
 	{
-		if (format[holder.index] == '%')
-			arg_dispatch(&holder, ap);
+		if (format[arg.index] == '%')
+			arg_dispatch(&arg, ap);
 		else
 		{
-			write(1, &format[holder.index], 1);
-			holder.index += 1;
-			holder.n_bytes += 1;
+			write(1, &format[arg.index], 1);
+			arg.index += 1;
+			arg.n_bytes += 1;
 		}
 	}
 	va_end(ap);
-	free(holder.format);
-	return (holder.n_bytes);
+	free(arg.format);
+	return (arg.n_bytes);
 }
 /*	
  *	oct 18th 2021 todo
@@ -54,10 +78,10 @@ int	ft_printf(char const *format, ...)
  *	NOTE: width and precision are important variables, but meaningless as standalone, since we can have a width = 0 as an active
  *		, so a width flag needs to be set in addition to the 6 required flags.
  *		I also believe that width and precision are set as unsigned ints, since -1 gives the full length of any string with no warning
- *	else write(s[holder.index]; holder.index++; holder.n_bytes++;)
- *	printf_arg_parse will increment holder.index and instigate the corresponding flags and var_type, then call 
+ *	else write(s[arg.index]; arg.index++; arg.n_bytes++;)
+ *	printf_arg_parse will increment arg.index and instigate the corresponding flags and var_type, then call 
  *	printf_arg_dispatch that will call relevant function depending on the var_type.
- *	Each subfunction will increment holder.n_bytes.
+ *	Each subfunction will increment arg.n_bytes.
  */
 
 /*
@@ -66,7 +90,7 @@ int	ft_printf(char const *format, ...)
  *		repetitive functions.
  *	Need to debug pointer's tests (for p = LONG_MAX and ULONG_MAX)
  */
-
+/*
 int	main(void)
 {
 	int		i1, i2, i3;
@@ -85,3 +109,4 @@ int	main(void)
 	printf("The return value of printf is '%d'\n", return_value);
 	return (0);
 }
+*/

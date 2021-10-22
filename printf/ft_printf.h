@@ -16,7 +16,7 @@ typedef struct s_arg
 	int				width;
 	int				precision;
 	char			var_type;
-	unsigned char	flags;
+	unsigned int	flags;
 }	t_arg;
 
 typedef enum e_flags
@@ -41,16 +41,21 @@ int		ft_printf(const char *format, ...);
 //size_t	ft_strlen(const char *s);
 //size_t	strlen_c(char *s, char c);
 int		ft_printf_bonus(const char *format, ...);
-void	printf_struct_init(t_arg *holder, char const *format);
+void	printf_struct_init(t_arg *arg, char const *format);
 int		ft_putchar_ret(const char c);
 int		ft_putstr_ret(const char *s);
 int		ft_putnbr_ret(int n);
 int		ft_putnbr_unsigned_ret(unsigned int n);
 int		ft_putaddress_ret(unsigned long address);
-void	ft_puthex_long(long i, t_arg *holder);
-void	ft_puthex_long_long(long long i, t_arg *holder);
-void	ft_puthex_size_t(size_t i, t_arg *holder);
-void	ft_puthex_int(unsigned int i, t_arg *holder);
-void	ft_puthex_upperx_int(unsigned int i, t_arg *holder);
+void	ft_puthex_long(long i, t_arg *arg);
+void	ft_puthex_long_long(long long i, t_arg *arg);
+void	ft_puthex_size_t(size_t i, t_arg *arg);
+void	ft_puthex_int(unsigned int i, t_arg *arg);
+void	ft_puthex_upperx_int(unsigned int i, t_arg *arg);
+int		is_set_ret(char const c, char const *set);
+int		get_magnitude(int n);
+void	arg_parse(t_arg *arg);
+
+
 
 #endif
