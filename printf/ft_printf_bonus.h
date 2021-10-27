@@ -8,6 +8,7 @@
 # include "./libft/libft.h"
 
 # define CONVERSIONS "cspdiuxX%"
+# define FLAGS "-0.# +"
 
 typedef struct s_arg
 {
@@ -56,6 +57,18 @@ void	ft_puthex_upperx_int(unsigned int i, t_arg *arg);
 //int		is_set_ret(char const c, char const *set);
 int		get_magnitude(int n);
 //int		ft_log_calc(int value, int radix);
-void	arg_parse(t_arg *arg);
+void	arg_parse(t_arg *arg, va_list ap);
+void	arg_parse_dev(t_arg *arg);
+
+//Functions to add:
+void	ft_printf_char(t_arg *arg, va_list ap);
+void	ft_printf_str(t_arg *arg, va_list ap);
+void	ft_printf_addr(t_arg *arg, va_list ap);
+void	ft_printf_nbr(t_arg *arg, va_list ap);
+void	ft_printf_u_nbr(t_arg *arg, va_list ap);
+void	ft_printf_hex(t_arg *arg, va_list ap);
+
+//DEV FUNCTIONS
+void	ft_printf_char_dev(t_arg *arg, char c);
 
 #endif

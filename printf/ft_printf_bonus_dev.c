@@ -1,5 +1,35 @@
 #include "ft_printf_bonus.h"
 
+void	arg_parse(t_arg *arg, va_list ap)
+{
+//	char	flags_arr[7] = {'-', '0', '.', '#', ' ', '+', 0};
+	int		flags_index[6] = {FLAG_MINUS, FLAG_ZERO, FLAG_PREC, FLAG_HASH, FLAG_SPACE, FLAG_PLUS};
+	int		(*fct[9])(va_list, t_arg*) = {ft_putchar_ret, ft_putstr_ret, ft_puthex_size_t, ft_putnbr_ret, ft_putnbr_ret, ft_putnbr_ret, ft_puthex_int, ft_putchar_ret};
+	int		num_value;
+
+	while (!is_set(arg->format[++arg->index], CONVERSIONS) && arg->format[arg->index])
+	{
+		// num_value = is_set_ret(arg->format[arg->index], flags_arr);
+		num_value = is_set_ret(arg->format[arg->index], FLAGS);
+		if (num_value != -1)
+			arg->flags |= flags_index[num_value];
+		else if (arg->format[arg->index] >= '1' && arg->format[arg->index]<= '9')
+		{
+			num_value = ft_atoi(&arg->format[arg->index]);
+			if (arg->format[arg->index - 1] == '.')
+				arg->precision = num_value;
+			else
+			{
+				arg->width = num_value;
+				arg->flags |= FLAG_WIDTH;
+			}
+			arg->index += ft_log_calc(num_value, 10) - 1;
+		}
+	}
+	arg->var_type = arg->format[arg->index];
+	arg->n_bytes += fct[is_set_ret(arg->var_type, CONVERSIONS)](ap, arg);
+}
+
 void	arg_parse_dev(t_arg *arg)
 {
 //	char	flags_arr[7] = {'-', '0', '.', '#', ' ', '+', 0};
@@ -62,7 +92,7 @@ int	ft_printf(char const *format, ...)
 	while (format[arg.index])
 	{
 		if (format[arg.index] == '%')
-			arg_dispatch(&arg, ap);
+			arg_parse(&arg, ap);
 		else
 		{
 			write(1, &format[arg.index], 1);

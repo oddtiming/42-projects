@@ -60,22 +60,22 @@ int	main(void)
 	printf("FLAG_MINUS: \t%s\n", byte_to_binary(FLAG_MINUS));
 	free (arg.format);
 
-	printf("Let's test arg_parse for format = \"%s\"\n", format1);
+	printf("Let's test arg_parse_dev for format = \"%s\"\n", format1);
 	printf_struct_init(&arg, format1);
-	arg_parse(&arg);
+	arg_parse_dev(&arg);
 	printf("arg->flags: \t%s\n", byte_to_binary(arg.flags));
 	printf("arg->flags in int value: %d\n", arg.flags);
 	printf("arg->width = %d\n", arg.width);
 	printf("arg->precision = %d\n", arg.precision);
 	printf("arg->var_type = %c\n", arg.var_type);
 
-	printf("\n--------TESTS for octal and hexa--------\n");
-	return_value = printf("For printf: %d\n", 00032);
-	printf("return value = %d\n", return_value);
-	return_value = ft_printf("for ft_printf: %d\n", 00032);
-	printf("return value = %d\n", return_value);
-	return_value = printf("For printf: %d\n", 0xabc4);
-	printf("return value = %d\n", return_value);
-	return_value = ft_printf("for ft_printf: %d\n", 0xabc4);
-	printf("return value = %d\n", return_value);
+	// printf("\n--------TESTS for octal and hexa--------\n");
+	// return_value = printf("For printf: %d\n", 00032);
+	// printf("return value = %d\n", return_value);
+	// return_value = ft_printf("for ft_printf: %d\n", 00032);
+	// printf("return value = %d\n", return_value);
+	// return_value = printf("For printf: %d\n", 0xabc4);
+	// printf("return value = %d\n", return_value);
+	// return_value = ft_printf("for ft_printf: %d\n", 0xabc4);
+	// printf("return value = %d\n", return_value);
 }
