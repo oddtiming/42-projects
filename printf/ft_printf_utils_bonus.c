@@ -80,8 +80,11 @@ int	ft_putnbr_n_ret(int nbr, int prec)
 		n_to_long *= -1;
 	}
 	//NOTE: There may be some issues with using a size_t with negative numbers?
-	temp_nbr = ft_log_calc_size_t(n_to_long, 10);
-	while (prec-- > temp_nbr)
+	temp_nbr = ft_log_calc_size_t(n_to_long, 10) + i;
+	//NOTE: The previous temp_nbr setting is to account for '-' characters being printed,
+	//but there seems to be some issues with '+' and ' ' flags.
+	while (prec-- >= temp_nbr)
+	//>= used here for cases where there is an over or undershoot.
 		i += write(1, "0", sizeof(char));
 	while (magnitude)
 	{
