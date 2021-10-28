@@ -141,29 +141,20 @@ void	ft_printf_u_nbr_dev(t_arg *arg, unsigned int nbr)
 	write(1, "\"", 1);
 	if ((FLAG_PREC & arg->flags) && (arg->precision > str_len))
 		str_len = arg->precision;
-	//The width needs to be adjusted based on whether '+', '-', or ' ' was printed in subfct
 	arg->width -= str_len;
 	// printf("In printf_nbr, flags = %s\n", byte_to_binary(arg->flags));
 	//Very bad practice of using var_type instead of declaring a new var
 	arg->var_type = ' ';
 	//The hex number represents, from right to left, FLAG_MINUS, FLAG_SPACE, and FLAG_PLUS
+	//NOTE: is it true, or is the '0' flag ignored only if a precision is given
 	if ((FLAG_ZERO & arg->flags) && !((FLAG_MINUS + FLAG_SPACE + FLAG_PLUS) & arg->flags))
 		arg->var_type = '0';
 	// printf("before printing in printf_nbr, width = %d\n", arg->width);
-	while (!(FLAG_MINUS & arg->flags) && arg->width-- > 1)
+	while (!(FLAG_MINUS & arg->flags) && arg->width-- > 0)
 		arg->n_bytes += ft_putchar_ret(arg->var_type);
 	// printf("after args in printf_nbr, width = %d\n", arg->width);
-	if (arg->flags & FLAG_PLUS)
-		arg->n_bytes += ft_putchar_ret('+');
-	else if ((arg->flags & FLAG_SPACE) || (!(FLAG_MINUS & arg->flags) && arg->width > 0))
-		arg->n_bytes += ft_putchar_ret(' ');
-	if ((FLAG_SPACE + FLAG_PLUS) & arg->flags)
-		arg->width--;
 	// printf("after '+ ' flags in printf_nbr, width = %d\n", arg->width);
 	arg->n_bytes += ft_putnbr_unsigned_n_ret(nbr, str_len);
-	//If statement to ensure the width is reduced if a '-' was printed in putnbr_n_ret
-	if (nbr < 0)
-		arg->width--;
 	while ((FLAG_MINUS & arg->flags) && (arg->width-- > 0))
 		arg->n_bytes += ft_putchar_ret(arg->var_type);
 	write(1, "\"", 1);
@@ -187,6 +178,167 @@ void	ft_printf_addr(t_arg *arg, va_list ap)
 void	ft_printf_addr_dev(t_arg *arg, size_t addr)
 {
 	
+}
+
+void	putnbr_u_tester(void)
+{
+	t_arg	arg;
+	int		return_value;
+	int		nbr = 12345;
+
+	arg.width = 7;
+	arg.precision = 7;
+	// arg.flags |= FLAG_MINUS;
+	// arg.flags |= FLAG_ZERO;
+	arg.flags |= FLAG_PREC;
+	arg.flags |= FLAG_WIDTH;
+	arg.n_bytes = 0;
+
+	printf("------Tests for ft_printf_putnbr------\n");
+	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
+	printf("The real printf: \n");
+	return_value = printf("\"%*.*u\"", arg.width, arg.precision, nbr);
+	printf("\nreturn value = %d\n", return_value - 2);
+	printf("ft_printf: \n");
+	ft_printf_u_nbr_dev(&arg, nbr);
+	printf("\nn_bytes = %d\n\n", arg.n_bytes);
+
+	arg.n_bytes = 0;
+	arg.width = 0;
+	arg.precision = 10;
+	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
+	printf("The real printf: \n");
+	return_value = printf("\"%*.*u\"", arg.width, arg.precision, nbr);
+	printf("\nreturn value = %d\n", return_value - 2);
+	printf("ft_printf: \n");
+	ft_printf_u_nbr_dev(&arg, nbr);
+	printf("\nn_bytes = %d\n\n", arg.n_bytes);
+
+	arg.n_bytes = 0;
+	arg.width = 0;
+	arg.precision = 0;
+	arg.flags &= ~FLAG_PREC;
+	nbr = INT_MIN;
+	printf("for width = %1$d and d = %2$d\n", arg.width, nbr);
+	printf("The real printf: \n");
+	return_value = printf("\"%*u\"", arg.width,  nbr);
+	printf("\nreturn value = %d\n", return_value - 2);
+	printf("ft_printf: \n");
+	ft_printf_u_nbr_dev(&arg, nbr);
+	printf("\nn_bytes = %d\n\n", arg.n_bytes);
+
+	arg.flags |= FLAG_PREC;
+	arg.flags |= FLAG_PLUS;
+	nbr = 10;
+	arg.n_bytes = 0;
+	arg.width = 0;
+	arg.precision = 10;
+	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
+	printf("WITH '+' FLAG\n");
+	printf("arg.flags = %s\n", byte_to_binary(arg.flags));
+	printf("The real printf: \n");
+	return_value = printf("\"%+*.*u\"", arg.width, arg.precision, nbr);
+	printf("\nreturn value = %d\n", return_value - 2);
+	printf("ft_printf: \n");
+	ft_printf_u_nbr_dev(&arg, nbr);
+	printf("\nn_bytes = %d\n\n", arg.n_bytes);
+
+	arg.flags &= ~FLAG_PLUS;
+	arg.flags |= FLAG_SPACE;
+	arg.n_bytes = 0;
+	arg.width = 0;
+	arg.precision = 10;
+	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
+	printf("WITH ' ' FLAGS\n");
+	printf("The real printf: \n");
+	return_value = printf("\"% *.*u\"", arg.width, arg.precision, nbr);
+	printf("\nreturn value = %d\n", return_value - 2);
+	printf("ft_printf: \n");
+	ft_printf_u_nbr_dev(&arg, nbr);
+	printf("\nn_bytes = %d\n\n", arg.n_bytes);
+
+	arg.flags |= FLAG_PLUS;
+	arg.n_bytes = 0;
+	arg.width = 0;
+	arg.precision = 10;
+	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
+	printf("WITH ' ' and '+' FLAGS\n");
+	printf("The real printf: \n");
+	return_value = printf("\"%+ *.*u\"", arg.width, arg.precision, nbr);
+	printf("\nreturn value = %d\n", return_value - 2);
+	printf("ft_printf: \n");
+	ft_printf_u_nbr_dev(&arg, nbr);
+	printf("\nn_bytes = %d\n\n", arg.n_bytes);
+
+	arg.flags &= ~FLAG_SPACE;
+	arg.flags |= FLAG_ZERO;
+	arg.n_bytes = 0;
+	arg.width = 20;
+	arg.precision = 10;
+	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
+	printf("WITH '+' and '0' FLAGS\n");
+	printf("The real printf: \n");
+	return_value = printf("\"%0+*.*u\"", arg.width, arg.precision, nbr);
+	printf("\nreturn value = %d\n", return_value - 2);
+	printf("ft_printf: \n");
+	ft_printf_u_nbr_dev(&arg, nbr);
+	printf("\nn_bytes = %d\n\n", arg.n_bytes);
+
+	arg.flags &= ~FLAG_PLUS;
+	arg.flags |= FLAG_SPACE;
+	arg.n_bytes = 0;
+	arg.width = 20;
+	arg.precision = 10;
+	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
+	printf("WITH ' ' and '0' FLAGS\n");
+	printf("arg.flags = %s\n", byte_to_binary(arg.flags));
+	printf("The real printf: \n");
+	return_value = printf("\"%0 *.*u\"", arg.width, arg.precision, nbr);
+	printf("\nreturn value = %d\n", return_value - 2);
+	printf("ft_printf: \n");
+	ft_printf_u_nbr_dev(&arg, nbr);
+	printf("\nn_bytes = %d\n\n", arg.n_bytes);
+
+	arg.flags |= FLAG_MINUS;
+	arg.flags &= ~FLAG_ZERO;
+	arg.n_bytes = 0;
+	arg.width = 20;
+	arg.precision = 10;
+	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
+	printf("WITH ' ' and '-' FLAGS\n");
+	printf("The real printf: \n");
+	return_value = printf("\"% -*.*u\"", arg.width, arg.precision, nbr);
+	printf("\nreturn value = %d\n", return_value - 2);
+	printf("ft_printf: \n");
+	ft_printf_u_nbr_dev(&arg, nbr);
+	printf("\nn_bytes = %d\n\n", arg.n_bytes);
+
+	arg.flags &= ~FLAG_SPACE;
+	arg.flags |= FLAG_PLUS;	
+	arg.n_bytes = 0;
+	arg.width = 20;
+	arg.precision = 10;
+	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
+	printf("WITH '+' and '-' FLAGS\n");
+	printf("The real printf: \n");
+	return_value = printf("\"%+-*.*u\"", arg.width, arg.precision, nbr);
+	printf("\nreturn value = %d\n", return_value - 2);
+	printf("ft_printf: \n");
+	ft_printf_u_nbr_dev(&arg, nbr);
+	printf("\nn_bytes = %d\n\n", arg.n_bytes);
+
+	arg.n_bytes = 0;
+	arg.width = 20;
+	arg.precision = 10;
+	nbr = -32;
+	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
+	printf("WITH '+' and '-' FLAGS\n");
+	printf("The real printf: \n");
+	return_value = printf("\"%+-*.*u\"", arg.width, arg.precision, nbr);
+	printf("\nreturn value = %d\n", return_value - 2);
+	printf("ft_printf: \n");
+	ft_printf_u_nbr_dev(&arg, nbr);
+	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 }
 
 void	putnbr_tester(void)
@@ -348,6 +500,48 @@ void	putnbr_tester(void)
 	printf("ft_printf: \n");
 	ft_printf_nbr_dev(&arg, nbr);
 	printf("\nn_bytes = %d\n\n", arg.n_bytes);
+
+	arg.flags &= ~FLAG_PLUS;
+	arg.flags &= ~FLAG_MINUS;
+	arg.flags &= ~FLAG_PREC;
+	arg.flags |= FLAG_ZERO;
+	arg.n_bytes = 0;
+	arg.width = 20;
+	arg.precision = 10;
+	nbr = 42;
+	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
+	printf("WITH '0' FLAGS && NO PRECISION\n");
+	printf("The real printf: \n");
+	return_value = printf("\"%0*d\"", arg.width, nbr);
+	printf("\nreturn value = %d\n", return_value - 2);
+	printf("ft_printf: \n");
+	ft_printf_nbr_dev(&arg, nbr);
+	printf("\nn_bytes = %d\n\n", arg.n_bytes);
+
+	arg.flags |= FLAG_SPACE;
+	arg.n_bytes = 0;
+	arg.width = 20;
+	arg.precision = 10;
+	nbr = 42;
+	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
+	printf("WITH ' ' and '0' FLAGS && NO PRECISION\n");
+	printf("The real printf: \n");
+	return_value = printf("\"% 0*d\"", arg.width, nbr);
+	printf("\nreturn value = %d\n", return_value - 2);
+	printf("ft_printf: \n");
+	ft_printf_nbr_dev(&arg, nbr);
+	printf("\nn_bytes = %d\n\n", arg.n_bytes);
+
+	arg.width = 20;	
+	nbr = -42;
+	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
+	printf("WITH ' ' and '0' FLAGS && NO PRECISION\n");
+	printf("The real printf: \n");
+	return_value = printf("\"% 0*d\"", arg.width, nbr);
+	printf("\nreturn value = %d\n", return_value - 2);
+	printf("ft_printf: \n");
+	ft_printf_nbr_dev(&arg, nbr);
+	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 }
 
 void	putstr_tester(void)
@@ -395,6 +589,8 @@ int main(void)
 	// putchar_tester();
 	// putstr_tester();
 	putnbr_tester();
+	// putnbr_u_tester();
+
 	return (0);
 }
 

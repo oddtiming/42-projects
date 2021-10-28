@@ -124,7 +124,7 @@ int	ft_putnbr_unsigned_n_ret(unsigned int n, int prec)
 	nbr_size = ft_log_calc_size_t(n, 10);
 	while (prec-- > nbr_size)
 		i += write(1, "0", sizeof(char));
-	while (magnitude && i < prec)
+	while (magnitude)
 	{
 		nb_to_char = n / magnitude + '0';
 		i += write(1, &nb_to_char, sizeof(char));
