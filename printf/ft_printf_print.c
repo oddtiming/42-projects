@@ -101,12 +101,11 @@ void	ft_printf_nbr_dev(t_arg *arg, int nbr)
 	//The width needs to be adjusted based on whether '+', '-', or ' ' was printed in subfct
 	arg->width -= str_len;
 	// printf("In printf_nbr, flags = %s\n", byte_to_binary(arg->flags));
+	//Very bad practice of using var_type instead of declaring a new var
+	arg->var_type = ' ';
 	//The hex number represents, from right to left, FLAG_MINUS, FLAG_SPACE, and FLAG_PLUS
 	if ((FLAG_ZERO & arg->flags) && !((FLAG_MINUS + FLAG_SPACE + FLAG_PLUS) & arg->flags))
-		//Very bad practice of using var_type instead of declaring a new var
 		arg->var_type = '0';
-	else
-		arg->var_type = ' ';
 	// printf("before printing in printf_nbr, width = %d\n", arg->width);
 	while (!(FLAG_MINUS & arg->flags) && arg->width-- > 1)
 		arg->n_bytes += ft_putchar_ret(arg->var_type);
@@ -121,6 +120,7 @@ void	ft_printf_nbr_dev(t_arg *arg, int nbr)
 	}
 	// printf("after '+ ' flags in printf_nbr, width = %d\n", arg->width);
 	arg->n_bytes += ft_putnbr_n_ret(nbr, str_len);
+	//If statement to ensure the width is reduced if a '-' was printed in putnbr_n_ret
 	if (nbr < 0)
 		arg->width--;
 	while ((FLAG_MINUS & arg->flags) && (arg->width-- > 0))
@@ -133,12 +133,58 @@ void	ft_printf_u_nbr(t_arg *arg, va_list ap)
 	
 }
 
+void	ft_printf_u_nbr_dev(t_arg *arg, unsigned int nbr)
+{
+	int		str_len;
+
+	str_len = ft_log_calc(nbr, 10);
+	write(1, "\"", 1);
+	if ((FLAG_PREC & arg->flags) && (arg->precision > str_len))
+		str_len = arg->precision;
+	//The width needs to be adjusted based on whether '+', '-', or ' ' was printed in subfct
+	arg->width -= str_len;
+	// printf("In printf_nbr, flags = %s\n", byte_to_binary(arg->flags));
+	//Very bad practice of using var_type instead of declaring a new var
+	arg->var_type = ' ';
+	//The hex number represents, from right to left, FLAG_MINUS, FLAG_SPACE, and FLAG_PLUS
+	if ((FLAG_ZERO & arg->flags) && !((FLAG_MINUS + FLAG_SPACE + FLAG_PLUS) & arg->flags))
+		arg->var_type = '0';
+	// printf("before printing in printf_nbr, width = %d\n", arg->width);
+	while (!(FLAG_MINUS & arg->flags) && arg->width-- > 1)
+		arg->n_bytes += ft_putchar_ret(arg->var_type);
+	// printf("after args in printf_nbr, width = %d\n", arg->width);
+	if (arg->flags & FLAG_PLUS)
+		arg->n_bytes += ft_putchar_ret('+');
+	else if ((arg->flags & FLAG_SPACE) || (!(FLAG_MINUS & arg->flags) && arg->width > 0))
+		arg->n_bytes += ft_putchar_ret(' ');
+	if ((FLAG_SPACE + FLAG_PLUS) & arg->flags)
+		arg->width--;
+	// printf("after '+ ' flags in printf_nbr, width = %d\n", arg->width);
+	arg->n_bytes += ft_putnbr_unsigned_n_ret(nbr, str_len);
+	//If statement to ensure the width is reduced if a '-' was printed in putnbr_n_ret
+	if (nbr < 0)
+		arg->width--;
+	while ((FLAG_MINUS & arg->flags) && (arg->width-- > 0))
+		arg->n_bytes += ft_putchar_ret(arg->var_type);
+	write(1, "\"", 1);
+}
+
 void	ft_printf_hex(t_arg *arg, va_list ap)
 {
 	
 }
 
+void	ft_printf_hex_dev(t_arg *arg, int nbr)
+{
+	
+}
+
 void	ft_printf_addr(t_arg *arg, va_list ap)
+{
+	
+}
+
+void	ft_printf_addr_dev(t_arg *arg, size_t addr)
 {
 	
 }

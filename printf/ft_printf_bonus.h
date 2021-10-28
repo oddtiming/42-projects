@@ -66,6 +66,7 @@ void	ft_printf_str(t_arg *arg, va_list ap);
 //NEW FUNCTIONS
 int	ft_putstr_n_ret(const char *s, int prec);
 int	ft_putnbr_n_ret(int nbr, int prec);
+int	ft_putnbr_unsigned_n_ret(unsigned int n, int prec);
 
 //Functions to add:
 void	ft_printf_nbr(t_arg *arg, va_list ap);
@@ -77,6 +78,9 @@ void	ft_printf_hex(t_arg *arg, va_list ap);
 void	ft_printf_char_dev(t_arg *arg, char c);
 void	ft_printf_str_dev(t_arg *arg, char *arg_to_str);
 void	ft_printf_nbr_dev(t_arg *arg, int nbr);
+void	ft_printf_u_nbr_dev(t_arg *arg, unsigned int nbr);
+void	ft_printf_hex_dev(t_arg *arg, int nbr);
+void	ft_printf_addr_dev(t_arg *arg, size_t addr);
 const char *byte_to_binary(int x);
 
 #endif

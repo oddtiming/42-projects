@@ -79,6 +79,7 @@ int	ft_putnbr_n_ret(int nbr, int prec)
 		i += write(1, "-", sizeof(char));
 		n_to_long *= -1;
 	}
+	//NOTE: There may be some issues with using a size_t with negative numbers?
 	temp_nbr = ft_log_calc_size_t(n_to_long, 10);
 	while (prec-- > temp_nbr)
 		i += write(1, "0", sizeof(char));
@@ -105,6 +106,28 @@ int	ft_putnbr_unsigned_ret(unsigned int n)
 		nb = n / magnitude + '0';
 		write(1, &nb, sizeof(char));
 		i++;
+		n = n % magnitude;
+		magnitude /= 10;
+	}
+	return (i);
+}
+
+int	ft_putnbr_unsigned_n_ret(unsigned int n, int prec)
+{
+	int		magnitude;
+	int		i;
+	int		nbr_size;
+	char	nb_to_char;
+
+	magnitude = get_magnitude_unsigned(n);
+	i = 0;
+	nbr_size = ft_log_calc_size_t(n, 10);
+	while (prec-- > nbr_size)
+		i += write(1, "0", sizeof(char));
+	while (magnitude && i < prec)
+	{
+		nb_to_char = n / magnitude + '0';
+		i += write(1, &nb_to_char, sizeof(char));
 		n = n % magnitude;
 		magnitude /= 10;
 	}
