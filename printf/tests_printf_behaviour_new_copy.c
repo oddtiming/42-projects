@@ -215,4 +215,33 @@ int	main()
 	printf("%%50.50s for s = \"1234567890\":\n%50.50s\n", "1234567890");
 	printf("%%50.5s for s = \"1234567890\":\n%50.5s\n", "1234567890");
 	printf("%%50.s for s = \"1234567890\":\n%50.s\n", "1234567890");
+
+
+	puts("------TESTS FOR %c------");
+	printf("%%10c of c = 'a': \"%10c\"\n", 'a');
+	printf("%%0c of c = 'a': \"%0c\"\n", 'a');
+	printf("%%010c of c = 'a': \"%010c\"\n", 'a');
+	printf("%%-c of c = 'a': \"%-c\"\n", 'a');
+	printf("%%-10c of c = 'a': \"%-10c\"\n", 'a');
+	printf("%%-010c of c = 'a': \"%-010c\"\n", 'a');
+	printf("%%.c of c = 'a': \"%.c\"\n", 'a');
+	printf("%%.10c of c = 'a': \"%.10c\"\n", 'a');
+	printf("%%.0c of c = 'a': \"%.0c\"\n", 'a');
+	printf("%%0.0c of c = 'a': \"%0.0c\"\n", 'a');
+	printf("%%+c of c = 'a': \"%+c\"\n", 'a');
+	printf("%% c of c = 'a': \"% c\"\n", 'a');
+	printf("%%00c of c = 'a': \"%00c\"\n", 'a');
+	printf("%%-0c of c = 'a': \"%-0c\"\n", 'a');
+	printf("%%*.*c of c = 'a': \"%*.*c\"\n", 0, 0, 'a');
+
+	printf("\"%*.*s\"\nTest for width = %1$d and prec = %2$d for %%s of 0x0\n", 0, 10, NULL);
+	printf("Tests for %%.0s: %.0s\n", s1);
+
+	// int test_write_return_value;
+	// printf("test for return value of write(1, \"blablabla\", 3): ");
+	// test_write_return_value = write(1, "blablabla", 3);
+	// printf("\ntest_write_return_value = %d\n", test_write_return_value);
+	// printf("test for return value of write(1, \"blablabla\", 999): ");
+	// test_write_return_value = write(1, "blablabla", 9);
+	// printf("\ntest_write_return_value = %d\n", test_write_return_value);
 }

@@ -64,6 +64,34 @@ int	ft_putnbr_ret(int n)
 	return (i);
 }
 
+int	ft_putnbr_n_ret(int nbr, int prec)
+{
+	int		magnitude;
+	int		i;
+	int		temp_nbr;
+	long	n_to_long;
+
+	magnitude = get_magnitude(nbr);
+	i = 0;
+	n_to_long = nbr;
+	if (n_to_long < 0)
+	{
+		i += write(1, "-", sizeof(char));
+		n_to_long *= -1;
+	}
+	temp_nbr = ft_log_calc_size_t(n_to_long, 10);
+	while (prec-- > temp_nbr)
+		i += write(1, "0", sizeof(char));
+	while (magnitude)
+	{
+		temp_nbr = n_to_long / magnitude + '0';
+		i += write(1, &temp_nbr, sizeof(char));
+		n_to_long = n_to_long % magnitude;
+		magnitude /= 10;
+	}
+	return (i);
+}
+
 int	ft_putnbr_unsigned_ret(unsigned int n)
 {
 	int		magnitude;
@@ -111,6 +139,16 @@ int	ft_putstr_ret(const char *s)
 		return (6);
 	}
 	while (s[i])
+		write(1, &s[i++], 1);
+	return (i);
+}
+
+int	ft_putstr_n_ret(const char *s, int prec)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && i < prec)
 		write(1, &s[i++], 1);
 	return (i);
 }

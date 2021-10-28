@@ -58,6 +58,11 @@ int	ft_printf(char const *format, ...)
 	t_arg	arg;
 
 	va_start(ap, format);
+	//NOTE: The struct needs to be reinitialized between every iteration of the loop to reset width etc.
+	// That doesn't work when I remalloc the format everytime.
+	// Could use a singleton function to initialize it only once, or a better idea would be to
+	// have a separate struct for the format, index and var_type that would only be passed 
+	// to arg_parse and arg_dispatch
 	printf_struct_init(&arg, format);
 	while (format[arg.index])
 	{

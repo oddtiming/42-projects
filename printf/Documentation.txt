@@ -225,9 +225,22 @@ Additional bonuses:
  *		void *functions_index[9] = {&ft_putchar_ret, &ft_putstr_ret, &ft_puthex_size_t, &ft_putnbr_ret, \
  *		&ft_putnbr_ret, &ft_putnbr_ret, &ft_puthex_int, &ft_putchar_ret}
  *		
- *		and compare it against is_set_ret(arg->format[arg->index], CONSVERSIONS)
+ *		and compare it against is_set_ret(arg->format[arg->index], CONVERSIONS)
  *		
  *		- NOTE: This would mean that all the "subfunctions" would have the same prototype:
  *			ft_ptf_[NAME](t_arg *arg, va_list ap)
  *			And all the functions would then need to call va_arg() accordingly.
  */
+
+/*
+ *	Notes oct 26th:
+ *	- Might want to use va_arg(ap, void *) on all conversions and then typecast in the subfunctions to save 3 lines of code on 
+ *		every subfunction (declare variable, space, then call va_arg)
+ *	- Might want to create an output string for every conversion type instead of inputting it directly to stdout.
+ *		- Pros:	Less error prone
+ *				Easier to manage left/right adjustment (fill with either blanks or zeros, then replace string portion with output)
+ *		- Cons:	Need to rewrite my code and rethink my logic
+ *				More chances of a memory leak with mallocing.
+ */
+
+ NOTE Oct 27th : arg_parse ne fonctionne pas pour precision = 0;
