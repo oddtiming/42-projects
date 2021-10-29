@@ -1,0 +1,278 @@
+OpSec et vie privée 101 - Présentation au Cégep Ste-Foy pr VN et Riga
+
+- But : points d'information/introduction à l'OpSec
+
+- "Si c'est gratuit, vous êtes le produit"
+	- marketing, entrainement IA/ML, profilage, antispam, 
+		droit d'utilisation (e.g. les photos qu'on envoie par messagerie), etc.
+Note: vie privée contrôlée par soi, mais aussi par famille, amis, etc.
+- Éviter les paramètres par défaut
+
+- Une compagnie qui est "legit" peut être acquise par et merge avec une compagnie qui ne l'est pas.
+
+OpSec: Operational Security
+	1. Identifier les informations critiques : qu'est-ce que tu veux protéger?
+	2. Identifier les menaces : qui pourrait vouloir ces données?
+	3. Analyser les vulnérabilités : quelles sont mes défaillances ?
+	4. Répondre au risque : comment me protéger?
+	5. Appliquer les contre-mesures : e.g. utiliser une messagerie chiffrée, PGP(?)
+		Important de comprendre quels sont les risques et les analyser avant d'appliquer les contre-mesures.
+OpSec = méthodologie pour la vie privée. Limiter l'influence des autres sur nos données ou nos comportements.
+- La sécurité globale évolue, mais les leaks existent toujours.
+- Mot d'ordre: conteneuriser! Si chaque outil est "pièce", il doit être compartimentalisée, comme une pièce dans une
+	maison a des murs et des portes.
+- Limitations dans l'usabilité quotidienne, faire des compromis en fonction du degré de sensibilité de nos infos.
+- Les contres-mesures interviennent APRÈS l'analyse de risque. Autrement il y a de fortes chances qu'on ne comprenne
+	pas réellement comment et ce pour quoi on applique chaque contre-mesure.
+
+Modèle de risque:
+	- bâtir un modéle est un travail à long terme ; appliquer des mesures durables demande de tester ses capacités.
+	- Tout modèle doit être adaptable, capable de changer de solution rapidement. Toujours avoir un plan B.
+Quelques nouveautés :
+	- espace public très surveillé, beaucoup de sources de données, impossible d'y échapper. Le but est de réduire,
+		pas d'éliminer.
+	- Croisement facile depuis ces multiples sources, à considérer pour analyser ses capacités
+	- Vouloir être anonyme = pas forcément utile si service garantit confidentialité. 
+		(voire différence entre anonymat et confidientalité;
+			être anonyme veut dire qu'on sait pas t'es qui, mais on sait ce que tu fais.
+			être confidentiel veut dire qu'on sait qui je suis, mais pas ce que je fais.)
+
+Explorons 4 scénarios pour simuler des études de cas:
+A) Mère étudiante
+	- Modèle de risque moyen (plus classique)
+	- Données de son enfant à charge (double charge)
+	- Données universitaires, bancaires, gouvernementales...
+	- Profil non technique, mais soucieuse de sa vie privée.
+	Recommendations:
+		- Peut utiliser des services moins gourmands (Teddit/Reddit, Nitter/Twitter, Invidious/Youtube), 
+			ces services réduisent le tracking sans changer le front end
+		- Gestionnaire de mots de passe
+	Attention particulière à porter sur les infor partagées publiquement, autant en ligne qu'en vie privée.
+	- Commencer par faire une ménage de ses réseaux sociaux.
+		redac.dev : supprime tous les posts partagés en public (mais pas des serveurs des entreprises)
+		NOTE: je pense que tu peux dire que t'as déménagé en Europe pis faire appel à X droit pour qu'ils effacent tes données
+
+B) Soldat
+	- Modèle de risque élevé
+	- Données gouvernementales sensibles, communication avec autres membres doit être sécurisée
+	- Cible potentielle de la part de son propre gouvernementales
+	- Conciliation vie privée et travail peut être complexe
+	Recommendations:
+		- si upload des photos, utiliser un outil tel que Fawkes (brouiller système de reconnaissance)
+		- Utilisation maitrisée des réseaux sociaux
+		- PiferShush Jammer (bloque micro d'apps), SnoopSnitch(repère une tour IMSI) = en zone de conflit
+	- DOD a publié des documents pour les membres de l'armée, les employés, et les contracteurs.
+
+C) Activiste
+	- Modèle de risque critique (cible importante)
+	- Appliquer une forme de zero trust partout
+	Outils:
+		- TOR
+		- Machines virtuelles
+		- VPN
+		- Messagerie sécurisée
+	Méthodologies:
+		- contrôle à chaque étape: OS, navigateur, moteur de recherche
+		- Séparation des activités (et roulement des outils)
+	- certaines données critiques qui ne sont pas maîtrisables, représentent un risque encore trop peu résolu.
+		e.g. data breach de données de réfugiés afghans au Canada par erreur humaine.
+	Example : fondatrice de SciHub a eu le FBI qui a request ses données iCloud. Aurait pu les encrypter.
+
+
+D) CEO "Control freak"
+	- Modèle de risque sensible/critique.
+	- Un leak serait catastrophique, doit appliquer des correctifs partout (code, employés, outils quotidiens)
+	- Doit utiliser des outils gourmands (Office 365, Zoho desk...)
+	- Risques d'intrusion depuis APT et employés.
+	- Voyage régulièrement, beaucoup d'expositions dans plusieurs pays;
+		responsabilité perso et pro, doit être prudent là-dessus.
+	PISTES:
+		- Intégrer un EDR et service de détection des menaces (SOC)
+		- Vérifier les chambres d'hôtel, salles de réunion, surtout dans certains pays avec législation compromise
+		- Utiliser 5g au lieu de Wifi
+		- Si utilise Windows, appliquer séparation entre activités perso/pro
+		 Sépare différents appareils, à jour avec un least privilege pour certains
+		- MFA TOTP partout- vérifier les fichiers partagée (malware, spyware) depuis virustotal, joesandbox
+
+
+- Les brèches:
+	- Utilisation massive de services en ligne, brèches fréquentes
+	- Avant catastrophique pour les mots de passe (moins d'actualité avec gestionnaire)
+	- Le leak de données identifiables est devenu stratégique :
+		peut être utilisé par les attaquants.
+	- Une seule donnée leakée n'est pas dramatique, mais en grand nombre c'est dangereux (fraude et attaque);
+	- RESTREINDRE le partage d'infos que l'on juge critiques et pas nécessaires.
+	- Rester vigilant aux nouvelles.
+
+** Vecteurs de compromission de vie privée/OpSec **
+
+* Courriels *
+	- utilisation du TLS: serveur ou CA compromis...
+	- PGP crypte seulement le corps du message, pas le sujet ou destinataire
+	Solutions partielles:
+		- proxy emails (simplelogin, anonaddy) avec diffrents mots de passse: limite conséquences de brèches 
+			et résuit tracking entre sites
+		- Example: email.for.this.website@simplelogin.io pour repérer quel site a leak tes données.
+	- Un courriel sera toujours vulnérable
+	Courriels chiffrés: protonmail, tutanota, etc.
+		- Zero knowledge (boite de réception)
+		- moins d'utilisation d'infos personelles
+		- MAIS, soumis aux mêmes lois que Gmail, Outlook (le gouvernement peut demander tes données)
+		- Les messageries chiffrées n'ont pas accès aux comptes.
+			CECI DIT: si ton destinataire utilise Gmail, you're fucked.
+		En résumé: politiques entre tracking et chiffrement du compte
+	En bref: jamais safe
+	Proxy emails reste la meilleure alternative
+
+
+* Messagerie instantanée *
+
+	- Financement vient de qui?
+	- Modèle économique ? 
+	- Chiffrement activé par défaut ?
+	- Etc.
+	Une solution sûre et confidentielle dépend de :
+		1. notre utilisation
+		2. implémentations cryptographiques (chiffrement, normes pucliques, revues, etc.)
+	WhatsApp: 
+		- Code source non auditable
+		- Protocole Signal (bonne nouvelle!), mais génère des métadonnées qui aident à la corrélation.
+			Tout ce qui est potentiellement chiffré est l'échange même.
+		- Maison mère Facebook, pas de trust à y avoir.
+	Telegram:
+		- Facilités de customisation
+		- Chiffrement custom, E2EE pas activé par défaut, peut être une faille.
+		- Financements douteux par le passé (Arabie saoudite, Russie...)
+	Alternative: Signal
+		- Bonnes politiques de confidentialité, chiffré bout en bout. Opensource
+		- Le protocole de signal est reconnu publiquement, pas de confiance aux serveurs
+		- Fonctionnalité sealed sender (vérif de la session)
+		- Pas d'historique de chat, les prekeys sont renouvelées (évite replay attacks)
+		- Appel vidéo chiffré
+		- Clés ne fonstionnent que sur les nouveuax messages à venir
+		- Historique auditable
+		(-) Nécessite numéro de téléphone (mais accepte VoIP)
+		(+) Tous scénarios, car facile à utiliser et actuellement fiable
+		*Métadonnées:
+			- ne prend que la date de création et le login time
+			- FAIRE CONFIANCE AUX PROTOCOLES PLUTÔT QU'AUX POLITIQUES
+	Alternative: Briar
+		- Message chiffré P2P(Tor, Wifi, Bluetooth)
+		- messagerie stockée sur l'appareil (pas de cloud)
+		- Messages, audio, vidéo.
+		- Destinataire doit être en ligne pour recevoir un message.
+		- Format d'utilisateur est très peu identifiable.
+		Déventralisé, encore plus safe que Signal
+
+	Conclusion:
+		- securemessagingapps.com pour les pros and cons de chaque logiciel
+		- les comms sont critiques
+
+
+* Navigation internet *
+
+	- Plusieurs entités à protéger.
+	- Trackers: fait partie d'un modèle de web centralisé, impossible d'y échapper complétement. Va aller chercher
+		autant d'info sur toi qu'ils peuvent. Assigne un ID à chaque info
+		- Cookies, fingerprinting, web beacons (e.g. pixel trackers)
+		e.g. télémétrie office (teams-events-data.trafficmanager.net)
+	- Modèles de menace:
+		- Data brokers, sociétés de publicités
+		- Super cookies, souvent indétectables
+	- les add-ons
+		- Failles : plusieurs failles de sécurité récentes proviennent des addons
+			- très peu audités par le navigateur
+			- ont beaucoup de permissions. 
+			- préférable d'avoir que des addons essentiels
+		- Capacités:
+			- Créer des bloquages de scripts, tracker, etc
+			- Limiter les données perso exposées et identifiables
+			- peut accélérer certaines pages
+	- À adopter:
+		- UBlock origin
+		- Privacy Badger
+			plus intelligent, bloque certains trackers invisibles, des widgets, etc.
+		- ClearURL
+			delete les éléments de tracking d'un url.
+		- Conteneurise l'activité avec "Firefox containers"
+	Méthodes avancées:
+		- utiliser plusieurs navigateurs pour plusieurs utilisations, en créant plusieurs profiles potentiels.
+		- Désactiver les fonctions inutiles (webRTC, JS)
+		- FIREFOX : ajouter tweaks racine
+		- un VPN? 
+			- un VPN est juste la transmission d'une confiance autrefois vers un ISP, maintenant third party
+			- utiliser avec précaution pour des tâches quotidiennes
+			- favoriser un fournisseur transparent sur plusieurs aspects:
+				- audits publiques, politique de confidentialité CLAIRE, rapports réguliers
+				- certains proposent même une section indiquant si la plateforme est compromise.
+			- bons VPN: iVPN, criticrime, 
+	Conclusion:
+		- Dépend de ton comportement
+		- Bloquer tracker et scripts font en sote que certains sites ne fonctionnent pas
+		- Les plugins doivent être pris avec précaution
+		- pas 
+
+
+* Appareils Mobiles/IoT *
+
+	1. GSM : très dangereux
+		- communications voyagent en clair, les appels aussi
+		- Relativement bon marché et simple à déployer, toujours massivement utilisé.
+	Solution expérimentale: 
+		- PGPP : pretty good phone privacy
+			app/feature qui génère des tokens non identifiables pour l'échanger à la tour IMSI (ne leak pas de métadonnée)
+			compromis intéressant pour les opérateurs 
+			demande une implémentation native à chaque utilisateur.
+	Possibilités actuelles:
+		- VoIP : enlève certaines failles d'une carte SIM, et peut petre moins invasive pour certains (e.g. pour l'activiste)
+		- cartes SIM prépayées : Mint mobile, etc.
+
+	2. Appareils:
+		Wifi/Bluetooth = très dangereux.
+	3. IoT
+		- tout objet peut être détourné de sa fonction (e.g. AirTags = tracking)
+		- Obscurité dans le développement ; on ne connait pas le fonctionnement
+		- Moins d'updates que pour les logiciels classiques
+
+	Alternatives: 
+		CalyxOS/GrapheneOS
+			- ROM alternatifs, plus de fonctions de sécurité et vie privée, moins impactés par le tracking.
+			- Play store remplacé par F-Droid (open source), mais possible d'utiliser apps propriétaires (aurora store),
+			avec microg (librairie google play services alternative)
+			- possibilité de sandbox des apps gourmande.
+			peu de compromis, mais seulement sur la famille Pixel.
+
+			- CalyxOS permet les push notifs, adapté pour le quotidien (+ communauté active)
+			- GrapheneOS plus limité, mais plus safe
+			- Combinés à une utilisation restreinte d'applicatuons invasives, ces ROM sont des alternatives durables
+
+			- NOTE: ces ROM apportent une protection racine, mais ne changent pas le modèle GSM
+	
+	Vecteurs de compromission:
+		- caméra/micro. Si tu donnes l'accès, ils en font ce qu'ils veulent.
+		- plus l'app a de services, plus les third party communiquent avec l'appareil.
+		- Caméras: peut chiffrer nos photos (cryptocam)
+		- Supprimer les EXIF (e.g. ScrambleExif)
+		- Assumer que chaque photo mise en ligne peut être un vecteur de compromission.
+
+		- Micro: moins d'applications inutiles = moins de risques
+
+		- Applications:	
+			- contiennent des call backs invisibles en plus de permissions privilégiées.
+			- éviter compte perso Google ou Apple (et randomiser les infor qu'on ne veut pas publiques)
+			- utiliser une app comme "vigilante" pour savoir quelle app utilise quelle feature de ton tel
+			- utiliser un firewall ou bloqueur (blockada) afin de filtrer les requêtes.
+			- Attention aux faux positifs ! Demande du fine tuning au début.
+		
+		- Outils de collaboration: 
+			- Matrix/Element = alternative à Slack/Discord.
+
+
+Films:
+	The great hack
+	The social dilemma
+	Anon (2018)
+Livres:
+	"On vous voit" de Crypto Québec.
+Podcats:
+	securite.fm

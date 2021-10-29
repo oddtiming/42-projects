@@ -79,7 +79,7 @@ void	ft_printf_char_dev(t_arg *arg, char c);
 void	ft_printf_str_dev(t_arg *arg, char *arg_to_str);
 void	ft_printf_nbr_dev(t_arg *arg, int nbr);
 void	ft_printf_u_nbr_dev(t_arg *arg, unsigned int nbr);
-void	ft_printf_hex_dev(t_arg *arg, int nbr);
+void	ft_printf_hex_dev(t_arg *arg, unsigned int nbr);
 void	ft_printf_addr_dev(t_arg *arg, size_t addr);
 const char *byte_to_binary(int x);
 
