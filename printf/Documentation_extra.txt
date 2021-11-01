@@ -20,3 +20,12 @@
 		alternatively could convert to a string before outputting and simply counting the resulting string ; might be safer.
 	- To implement non-sequential variable access (aka %$*[type]), maybe I can simply pass va_arg(ap, void*) for arguments 
 	of which the type is not specified 
+
+//to delete:
+New Aliases :
+alias gst="git status"
+alias gpsh="git push origin master"
+alias gpl="git pull origin master"
+alias gcm="git commit -m "
+alias glibptf="git push origin master && cd ../../libft && git pull origin master && cd ../printf/libft"
+alias glibft="git push origin master && cd ../printf/libft && git pull origin master && cd ../../libft"
