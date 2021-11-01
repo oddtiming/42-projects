@@ -244,4 +244,100 @@ int	main()
 	// printf("test for return value of write(1, \"blablabla\", 999): ");
 	// test_write_return_value = write(1, "blablabla", 9);
 	// printf("\ntest_write_return_value = %d\n", test_write_return_value);
+
+	puts("*****************************************\n");
+	puts("----------TESTS FOR %xX CONVERSIONS---------\n");
+	puts("*****************************************\n");
+
+	int x = 42;
+	int prec = 10;
+	int width = 15;
+
+	printf("%%*.*x for width = %d, prec = %d and x = %d\n", width, prec, x);
+	return_value = printf("\"%*.*x\"", width, prec, x);
+	printf("\nreturn_value = %d\n", return_value);
+	printf("%%#*.*x for width = %d, prec = %d and x = %d\n", width, prec, x);
+	return_value = printf("\"%#*.*x\"", width, prec, x);
+	printf("\nreturn_value = %d\n", return_value);
+	printf("%%0*.*x for width = %d, prec = %d and x = %d\n", width, prec, x);
+	return_value = printf("\"%0*.*x\"", width, prec, x);
+	printf("\nreturn_value = %d\n", return_value);
+	printf("%%0*x for width = %d, and x = %d\n", width, x);
+	return_value = printf("\"%0*x\"", width, x);
+	printf("\nreturn_value = %d\n", return_value);
+	printf("%%0#*x for width = %d, and x = %d\n", width, x);
+	return_value = printf("\"%0#*x\"", width, x);
+	printf("\nreturn_value = %d\n", return_value);
+	printf("%%0#-*x for width = %d, and x = %d\n", width, x);
+	return_value = printf("\"%0#-*x\"", width, x);
+	printf("\nreturn_value = %d\n", return_value);
+	prec = 15;
+	printf("%%#*.*x for width = %d, prec = %d and x = %d\n", width, prec, x);
+	return_value = printf("\"%#*.*x\"", width, prec, x);
+	printf("\nreturn_value = %d\n", return_value);
+	x = -1;
+	width = 10;
+	printf("%%0#*x for width = %d, and x = %d\n", width, x);
+	return_value = printf("\"%0#*x\"", width, x);
+	printf("\nreturn_value = %d\n", return_value);
+
+	x = 42;
+	printf("%%#*x for width = %d, and x = %d\n", width, x);
+	return_value = printf("\"%#*x\"", width, x);
+	printf("\nreturn_value = %d\n", return_value);
+
+	printf("%%#0*x for width = %d, and x = %d\n", width, x);
+	return_value = printf("\"%#0*x\"", width, x);
+	printf("\nreturn_value = %d\n", return_value);
+	
+	prec = 8;
+	printf("%%#*x for width = %d, prec = %d and x = %d\n", width, prec, x);
+	return_value = printf("\"%#*.*x\"", width, prec, x);
+	printf("\nreturn_value = %d\n", return_value);	
+	
+	puts("*****************************************\n");
+	puts("----------TESTS FOR %p CONVERSIONS---------\n");
+	puts("*****************************************\n");
+
+	printf("%%*.*p for width = %d, prec = %d and x = %p\n", width, prec, &x);
+	return_value = printf("\"%*.*p\"", width, prec, &x);
+	printf("\nreturn_value = %d\n", return_value);
+	printf("%%#*.*p for width = %d, prec = %d and x = %p\n", width, prec, &x);
+	return_value = printf("\"%#*.*p\"", width, prec, &x);
+	printf("\nreturn_value = %d\n", return_value);
+	printf("%%0*.*p for width = %d, prec = %d and x = %p\n", width, prec, &x);
+	return_value = printf("\"%0*.*p\"", width, prec, &x);
+	printf("\nreturn_value = %d\n", return_value);
+	printf("%%0*p for width = %d, and x = %p\n", width, &x);
+	return_value = printf("\"%0*p\"", width, &x);
+	printf("\nreturn_value = %d\n", return_value);
+	printf("%% #*p for width = %d, and x = %p\n", width, &x);
+	return_value = printf("\"% #*p\"", width, &x);
+	printf("\nreturn_value = %d\n", return_value);
+	printf("%%0#-*p for width = %d, and x = %p\n", width, &x);
+	return_value = printf("\"%0#-*p\"", width, &x);
+	printf("\nreturn_value = %d\n", return_value);
+	prec = 15;
+	printf("%%#*.*p for width = %d, prec = %d and x = %p\n", width, prec, &x);
+	return_value = printf("\"%#*.*p\"", width, prec, &x);
+	printf("\nreturn_value = %d\n", return_value);
+	x = -1;
+	width = 18;
+	printf("%%0#*p for width = %d, and x = %p\n", width, &x);
+	return_value = printf("\"%0#*p\"", width, &x);
+	printf("\nreturn_value = %d\n", return_value);
+
+	x = 42;
+	printf("%%#*p for width = %d, and x = %p\n", width, &x);
+	return_value = printf("\"%#*p\"", width, &x);
+	printf("\nreturn_value = %d\n", return_value);
+
+	printf("%%0*p for width = %d, and x = %p\n", width, &x);
+	return_value = printf("\"%0*p\"", width, &x);
+	printf("\nreturn_value = %d\n", return_value);
+	
+	prec = 8;
+	printf("%%#*p for width = %d, prec = %d and x = %p\n", width, prec, &x);
+	return_value = printf("\"%#*.*p\"", width, prec, &x);
+	printf("\nreturn_value = %d\n", return_value);
 }

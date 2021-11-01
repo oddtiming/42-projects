@@ -52,7 +52,7 @@ int		ft_putnbr_unsigned_ret(unsigned int n);
 //int		ft_putaddress_ret(unsigned long address);
 void	ft_puthex_long(long i, t_arg *arg);
 void	ft_puthex_long_long(long long i, t_arg *arg);
-void	ft_puthex_size_t(size_t i, t_arg *arg);
+void	ft_puthex_size_t(t_arg *arg, size_t i);
 void	ft_puthex_int(unsigned int i, t_arg *arg);
 void	ft_puthex_upperx_int(unsigned int i, t_arg *arg);
 //int		is_set_ret(char const c, char const *set);

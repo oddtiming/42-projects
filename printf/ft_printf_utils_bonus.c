@@ -179,7 +179,7 @@ int	ft_putstr_n_ret(const char *s, int prec)
 	return (i);
 }
 
-void	ft_puthex_size_t(size_t i, t_arg *arg)
+void	ft_puthex_size_t(t_arg *arg, size_t i)
 {
 	char	*hex_base;
 

@@ -176,7 +176,30 @@ void	ft_printf_hex(t_arg *arg, va_list ap)
 
 void	ft_printf_hex_dev(t_arg *arg, unsigned int nbr)
 {
-	
+	int	str_len;
+
+	write(1, "\"", 1);
+	str_len = ft_log_calc_size_t(nbr, 16);
+	if ((FLAG_PREC & arg->flags) && arg->precision > str_len)
+		str_len = arg->precision;
+	arg->width -= str_len;
+	if (FLAG_HASH & arg->flags)
+		arg->width -= 2;
+	while (!((FLAG_MINUS + FLAG_PREC + FLAG_ZERO) & arg->flags) && arg->width-- > 0)
+		arg->n_bytes += write(1, " ", 1);
+	if ((FLAG_HASH & arg->flags) && arg->var_type == 'x')
+		arg->n_bytes += ft_putstr_ret("0x");
+	else if ((FLAG_HASH & arg->flags) && arg->var_type == 'X')
+		arg->n_bytes += ft_putstr_ret("0X");
+	while ((FLAG_ZERO & arg->flags) && !((FLAG_MINUS + FLAG_PREC) & arg->flags) && arg->width-- > 0)
+		arg->n_bytes += write(1, "0", 1);
+	str_len = ft_log_calc_size_t(nbr, 16);
+	while ((FLAG_PREC & arg->flags) && arg->precision-- > str_len)
+		arg->n_bytes += write(1, "0", 1);
+	ft_puthex_int(nbr, arg);
+	while ((FLAG_MINUS & arg->flags) && arg->width-- > 0)
+		arg->n_bytes += write(1, " ", 1);
+	write(1, "\"", 1);
 }
 
 void	ft_printf_addr(t_arg *arg, va_list ap)
@@ -186,7 +209,16 @@ void	ft_printf_addr(t_arg *arg, va_list ap)
 
 void	ft_printf_addr_dev(t_arg *arg, size_t addr)
 {
-	
+	int	str_len;
+
+	str_len = ft_log_calc_size_t(addr, 16);
+	arg->width -= (str_len + 2);
+	while (!(FLAG_MINUS & arg->flags) && arg->width-- > 0)
+		arg->n_bytes += write(1, " ", 1);
+	arg->n_bytes += ft_putstr_ret("0x");
+	ft_puthex_size_t(arg, addr);
+	while ((FLAG_MINUS & arg->flags) && arg->width-- > 0)
+		arg->n_bytes += write(1, " ", 1);
 }
 
 void	puthex_tester(void)
@@ -202,6 +234,7 @@ void	puthex_tester(void)
 	arg.flags |= FLAG_PREC;
 	arg.flags |= FLAG_WIDTH;
 	arg.n_bytes = 0;
+	arg.var_type = 'x';
 
 	printf("------Tests for ft_printf_puthex------\n");
 	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
@@ -209,7 +242,7 @@ void	puthex_tester(void)
 	return_value = printf("\"%*.*x\"", arg.width, arg.precision, nbr);
 	printf("\nreturn value = %d\n", return_value - 2);
 	printf("ft_printf: \n");
-	// ft_printf_hex_dev(&arg, nbr);
+	ft_printf_hex_dev(&arg, nbr);
 	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 
 	arg.n_bytes = 0;
@@ -220,7 +253,7 @@ void	puthex_tester(void)
 	return_value = printf("\"%*.*x\"", arg.width, arg.precision, nbr);
 	printf("\nreturn value = %d\n", return_value - 2);
 	printf("ft_printf: \n");
-	// ft_printf_hex_dev(&arg, nbr);
+	ft_printf_hex_dev(&arg, nbr);
 	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 
 	arg.n_bytes = 0;
@@ -233,7 +266,7 @@ void	puthex_tester(void)
 	return_value = printf("\"%*x\"", arg.width,  nbr);
 	printf("\nreturn value = %d\n", return_value - 2);
 	printf("ft_printf: \n");
-	// ft_printf_hex_dev(&arg, nbr);
+	ft_printf_hex_dev(&arg, nbr);
 	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 
 	arg.flags |= FLAG_PREC;
@@ -249,7 +282,7 @@ void	puthex_tester(void)
 	return_value = printf("\"%+*.*x\"", arg.width, arg.precision, nbr);
 	printf("\nreturn value = %d\n", return_value - 2);
 	printf("ft_printf: \n");
-	// ft_printf_hex_dev(&arg, nbr);
+	ft_printf_hex_dev(&arg, nbr);
 	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 
 	arg.flags &= ~FLAG_PLUS;
@@ -263,7 +296,7 @@ void	puthex_tester(void)
 	return_value = printf("\"% *.*x\"", arg.width, arg.precision, nbr);
 	printf("\nreturn value = %d\n", return_value - 2);
 	printf("ft_printf: \n");
-	// ft_printf_hex_dev(&arg, nbr);
+	ft_printf_hex_dev(&arg, nbr);
 	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 
 	arg.flags |= FLAG_PLUS;
@@ -276,7 +309,7 @@ void	puthex_tester(void)
 	return_value = printf("\"%+ *.*x\"", arg.width, arg.precision, nbr);
 	printf("\nreturn value = %d\n", return_value - 2);
 	printf("ft_printf: \n");
-	// ft_printf_hex_dev(&arg, nbr);
+	ft_printf_hex_dev(&arg, nbr);
 	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 
 	arg.flags &= ~FLAG_SPACE;
@@ -305,7 +338,7 @@ void	puthex_tester(void)
 	return_value = printf("\"%0 *.*x\"", arg.width, arg.precision, nbr);
 	printf("\nreturn value = %d\n", return_value - 2);
 	printf("ft_printf: \n");
-	// ft_printf_hex_dev(&arg, nbr);
+	ft_printf_hex_dev(&arg, nbr);
 	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 
 	arg.flags |= FLAG_MINUS;
@@ -323,33 +356,33 @@ void	puthex_tester(void)
 	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 
 	arg.flags &= ~FLAG_SPACE;
-	arg.flags |= FLAG_PLUS;	
+	arg.flags |= FLAG_HASH;	
 	arg.n_bytes = 0;
 	arg.width = 20;
 	arg.precision = 10;
 	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
-	printf("WITH '+' and '-' FLAGS\n");
+	printf("WITH '#' and '-' FLAGS\n");
 	printf("The real printf: \n");
-	return_value = printf("\"%+-*.*x\"", arg.width, arg.precision, nbr);
+	return_value = printf("\"%#-*.*x\"", arg.width, arg.precision, nbr);
 	printf("\nreturn value = %d\n", return_value - 2);
 	printf("ft_printf: \n");
-	// ft_printf_hex_dev(&arg, nbr);
+	ft_printf_hex_dev(&arg, nbr);
 	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 
 	arg.n_bytes = 0;
 	arg.width = 20;
-	arg.precision = 10;
+	arg.precision = 9;
 	nbr = -32;
 	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
-	printf("WITH '+' and '-' FLAGS\n");
+	printf("WITH '#' and '-' FLAGS\n");
 	printf("The real printf: \n");
-	return_value = printf("\"%+-*.*x\"", arg.width, arg.precision, nbr);
+	return_value = printf("\"%#-*.*x\"", arg.width, arg.precision, nbr);
 	printf("\nreturn value = %d\n", return_value - 2);
 	printf("ft_printf: \n");
-	// ft_printf_hex_dev(&arg, nbr);
+	ft_printf_hex_dev(&arg, nbr);
 	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 
-	arg.flags &= ~FLAG_PLUS;
+	arg.flags &= ~FLAG_HASH;
 	arg.flags &= ~FLAG_MINUS;
 	arg.flags &= ~FLAG_PREC;
 	arg.flags |= FLAG_ZERO;
@@ -363,33 +396,33 @@ void	puthex_tester(void)
 	return_value = printf("\"%0*x\"", arg.width, nbr);
 	printf("\nreturn value = %d\n", return_value - 2);
 	printf("ft_printf: \n");
-	// ft_printf_hex_dev(&arg, nbr);
+	ft_printf_hex_dev(&arg, nbr);
 	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 
-	arg.flags |= FLAG_SPACE;
+	arg.flags |= FLAG_HASH;
 	arg.n_bytes = 0;
 	arg.width = 20;
 	arg.precision = 10;
 	nbr = 42;
 	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
-	printf("WITH ' ' and '0' FLAGS && NO PRECISION\n");
+	printf("WITH '#' and '0' FLAGS && NO PRECISION\n");
 	printf("The real printf: \n");
-	return_value = printf("\"% 0*x\"", arg.width, nbr);
+	return_value = printf("\"%#0*x\"", arg.width, nbr);
 	printf("\nreturn value = %d\n", return_value - 2);
 	printf("ft_printf: \n");
-	// ft_printf_hex_dev(&arg, nbr);
+	ft_printf_hex_dev(&arg, nbr);
 	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 
 	arg.width = 20;
 	arg.n_bytes = 0;
 	nbr = -42;
 	printf("for width = %1$d and prec = %2$d and d = %3$d\n", arg.width, arg.precision, nbr);
-	printf("WITH ' ' and '0' FLAGS && NO PRECISION\n");
+	printf("WITH '#' and '0' FLAGS && NO PRECISION\n");
 	printf("The real printf: \n");
-	return_value = printf("\"% 0*x\"", arg.width, nbr);
+	return_value = printf("\"%#0*x\"", arg.width, nbr);
 	printf("\nreturn value = %d\n", return_value - 2);
 	printf("ft_printf: \n");
-	// ft_printf_hex_dev(&arg, nbr);
+	ft_printf_hex_dev(&arg, nbr);
 	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 }
 
@@ -860,7 +893,7 @@ int main(void)
 {
 	// putchar_tester();
 	// putstr_tester();
-	putnbr_tester();
+	// putnbr_tester();
 	// putnbr_u_tester();
 	puthex_tester();
 

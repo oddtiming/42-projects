@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:12:08 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/10/22 14:12:09 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/11/01 19:01:52 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	ft_puthex_long(long i, t_arg *arg)
 }
 */
 
-void	ft_puthex_size_t(size_t i, t_arg *arg)
+void	ft_puthex_size_t(t_arg *arg, size_t i)
 {
 	char	*hex_base;
 
