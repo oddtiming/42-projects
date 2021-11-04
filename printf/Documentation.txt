@@ -247,4 +247,13 @@ Additional bonuses:
 
  Notes 3 novembre 2021: 
 	- Tout semble être fonctionnel, ne me reste qu'à tester.
-	- J'aurais dû tester au fur et à mesure, en utilisant les testerus à ma disposition. 
+	- J'aurais dû tester au fur et à mesure, en utilisant les testerus à ma disposition.
+
+Notes 4 novembre 2021:
+**TODO**
+	- Commencer par créer des sous-fonctions de padding, potentiellement changement de logique pour
+		créer un buffer pour chaque variable, puis l'intégrer au padding. 
+	- Deleter FLAG_WIDTH, useless
+	- Créer deux structs, une pour la partie obligatoire (fmt, index, var_type? (unless useful for padding))
+		, une pour le bonus (flags, n_bytes (unless I use buffer + char**))
+	- Clean-up functions + header files, function names, var names, etc.
