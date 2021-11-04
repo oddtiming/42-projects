@@ -244,3 +244,7 @@ Additional bonuses:
  */
 
  NOTE Oct 27th : arg_parse ne fonctionne pas pour precision = 0;
+
+ Notes 3 novembre 2021: 
+	- Tout semble être fonctionnel, ne me reste qu'à tester.
+	- J'aurais dû tester au fur et à mesure, en utilisant les testerus à ma disposition. 

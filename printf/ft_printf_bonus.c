@@ -1,6 +1,6 @@
 #include "ft_printf_bonus.h"
 
-void	arg_parse_dev(t_arg *arg)
+void	arg_parse_dev(t_arg *arg, va_list ap)
 {
 //	char	flags_arr[7] = {'-', '0', '.', '#', ' ', '+', 0};
 	int		flags_index[6] = {FLAG_MINUS, FLAG_ZERO, FLAG_PREC, FLAG_HASH, FLAG_SPACE, FLAG_PLUS};
@@ -25,30 +25,26 @@ void	arg_parse_dev(t_arg *arg)
 			arg->index += ft_log_calc(num_value, 10) - 1;
 		}
 	}
-	arg->var_type = arg->format[arg->index];
+	arg_dispatch(arg, ap);
 }
 
-static void	arg_dispatch(t_arg *arg, va_list ap)
+void	arg_dispatch(t_arg *arg, va_list ap)
 {
-	arg->index += 1;
 	arg->var_type = arg->format[arg->index];
 	if (arg->var_type == 'c')
-		arg->n_bytes += ft_putchar_ret((char)va_arg(ap, int));
+		ft_printf_char_dev(arg, (char)va_arg(ap, int));
 	else if (arg->var_type == 's')
-		arg->n_bytes += ft_putstr_ret(va_arg(ap, char *));
+		ft_printf_str_dev(arg, va_arg(ap, char *));
 	else if (arg->var_type == 'p')
-	{
-		arg->n_bytes += ft_putstr_ret("0x");
-		ft_puthex_size_t((size_t)va_arg(ap, void *), arg);
-	}
+		ft_printf_addr_dev(arg, (size_t)va_arg(ap, void *));
 	else if (is_set(arg->var_type, "di"))
-		arg->n_bytes += ft_putnbr_ret(va_arg(ap, int));
+		ft_printf_nbr_dev(arg, va_arg(ap, int));
 	else if (arg->var_type == 'u')
-		arg->n_bytes += ft_putnbr_unsigned_ret(va_arg(ap, int));
+		ft_printf_u_nbr_dev(arg, va_arg(ap, int));
 	else if (is_set(arg->var_type, "xX"))
-		ft_puthex_int(va_arg(ap, int), arg);
+		ft_printf_hex_dev(arg, va_arg(ap, int));
 	else if (arg->var_type == '%')
-		arg->n_bytes += ft_putchar_ret('%');
+		ft_printf_char_dev(arg, '%');
 	arg->index += 1;
 }
 
@@ -67,7 +63,7 @@ int	ft_printf(char const *format, ...)
 	while (format[arg.index])
 	{
 		if (format[arg.index] == '%')
-			arg_dispatch(&arg, ap);
+			arg_parse_dev(&arg, ap);
 		else
 		{
 			write(1, &format[arg.index], 1);

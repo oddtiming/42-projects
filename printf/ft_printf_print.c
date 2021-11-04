@@ -99,41 +99,38 @@ void	ft_printf_nbr_dev(t_arg *arg, int nbr)
 
 	str_len = ft_log_calc(nbr, 10);
 	write(1, "\"", 1);
-	if ((FLAG_ZERO & arg->flags) && !(FLAG_MINUS & arg->flags))
-	{
-		arg->precision = arg->width - str_len;
-		arg->flags |= FLAG_PREC;
-		arg->width = 0;
-	}
 	if ((FLAG_PREC & arg->flags) && (arg->precision > str_len))
 		str_len = arg->precision;
-	//The width needs to be adjusted based on whether '+', '-', or ' ' was printed in subfct
 	arg->width -= str_len;
+	//The width needs to be adjusted based on whether '+', '-', or ' ' was printed in subfct
+	//DONE
+	if (nbr < 0 || ((FLAG_PLUS | FLAG_SPACE) & arg->flags))
+		arg->width--;
 	// printf("In printf_nbr, flags = %s\n", byte_to_binary(arg->flags));
-	//Very bad practice of using var_type instead of declaring a new var
-	arg->var_type = ' ';
-	//The hex number represents, from right to left, FLAG_MINUS, FLAG_SPACE, and FLAG_PLUS
-	if ((FLAG_ZERO & arg->flags) && !((FLAG_MINUS + FLAG_PREC) & arg->flags))
-		arg->var_type = '0';
 	// printf("before printing in printf_nbr, width = %d\n", arg->width);
-	while (!(FLAG_MINUS & arg->flags) && arg->width-- > 1)
-		arg->n_bytes += ft_putchar_ret(arg->var_type);
+	while (!(FLAG_MINUS & arg->flags) && !((FLAG_ZERO & arg->flags) && \
+		!(FLAG_PREC & arg->flags)) && arg->width-- > 0)
+		arg->n_bytes += write(1, " ", 1);
 	// printf("after args in printf_nbr, width = %d\n", arg->width);
-	if (nbr>=0 && ((FLAG_PLUS + FLAG_SPACE) & arg->flags))
+	if (nbr < 0 || ((FLAG_PLUS | FLAG_SPACE) & arg->flags))
 	{
-		if (arg->flags & FLAG_PLUS)
+		if (nbr < 0)
+		{
+			arg->n_bytes += write(1, "-", 1);
+			nbr = -nbr;
+		}
+		else if (arg->flags & FLAG_PLUS)
 			arg->n_bytes += ft_putchar_ret('+');
 		else if ((arg->flags & FLAG_SPACE) || (!(FLAG_MINUS & arg->flags) && arg->width > 0))
 			arg->n_bytes += ft_putchar_ret(' ');
-		arg->width--;
 	}
+	while ((FLAG_ZERO & arg->flags) && \
+		!((FLAG_MINUS + FLAG_PREC) & arg->flags) && arg->width-- > 0)
+		arg->n_bytes += write(1, "0", 1);
 	// printf("after '+ ' flags in printf_nbr, width = %d\n", arg->width);
-	arg->n_bytes += ft_putnbr_n_ret(nbr, str_len);
-	//If statement to ensure the width is reduced if a '-' was printed in putnbr_n_ret
-	if (nbr < 0)
-		arg->width--;
+	arg->n_bytes += ft_putnbr_unsigned_n_ret(nbr, str_len);
 	while ((FLAG_MINUS & arg->flags) && (arg->width-- > 0))
-		arg->n_bytes += ft_putchar_ret(arg->var_type);
+		arg->n_bytes += write(1, " ", 1);
 	write(1, "\"", 1);
 }
 
@@ -165,7 +162,7 @@ void	ft_printf_u_nbr_dev(t_arg *arg, unsigned int nbr)
 	// printf("after '+ ' flags in printf_nbr, width = %d\n", arg->width);
 	arg->n_bytes += ft_putnbr_unsigned_n_ret(nbr, str_len);
 	while ((FLAG_MINUS & arg->flags) && (arg->width-- > 0))
-		arg->n_bytes += ft_putchar_ret(arg->var_type);
+		arg->n_bytes += write(1, " ", 1);
 	write(1, "\"", 1);
 }
 
@@ -185,13 +182,15 @@ void	ft_printf_hex_dev(t_arg *arg, unsigned int nbr)
 	arg->width -= str_len;
 	if (FLAG_HASH & arg->flags)
 		arg->width -= 2;
-	while (!((FLAG_MINUS + FLAG_PREC + FLAG_ZERO) & arg->flags) && arg->width-- > 0)
+	while (!(FLAG_MINUS & arg->flags) && !((FLAG_ZERO & arg->flags) && \
+		!(FLAG_PREC & arg->flags)) && arg->width-- > 0)
 		arg->n_bytes += write(1, " ", 1);
 	if ((FLAG_HASH & arg->flags) && arg->var_type == 'x')
 		arg->n_bytes += ft_putstr_ret("0x");
 	else if ((FLAG_HASH & arg->flags) && arg->var_type == 'X')
 		arg->n_bytes += ft_putstr_ret("0X");
-	while ((FLAG_ZERO & arg->flags) && !((FLAG_MINUS + FLAG_PREC) & arg->flags) && arg->width-- > 0)
+	while ((FLAG_ZERO & arg->flags) && \
+		!((FLAG_MINUS + FLAG_PREC) & arg->flags) && arg->width-- > 0)
 		arg->n_bytes += write(1, "0", 1);
 	str_len = ft_log_calc_size_t(nbr, 16);
 	while ((FLAG_PREC & arg->flags) && arg->precision-- > str_len)
@@ -323,7 +322,7 @@ void	puthex_tester(void)
 	return_value = printf("\"%0+*.*x\"", arg.width, arg.precision, nbr);
 	printf("\nreturn value = %d\n", return_value - 2);
 	printf("ft_printf: \n");
-	// ft_printf_hex_dev(&arg, nbr);
+	ft_printf_hex_dev(&arg, nbr);
 	printf("\nn_bytes = %d\n\n", arg.n_bytes);
 
 	arg.flags &= ~FLAG_PLUS;
@@ -893,9 +892,9 @@ int main(void)
 {
 	// putchar_tester();
 	// putstr_tester();
-	// putnbr_tester();
+	putnbr_tester();
 	// putnbr_u_tester();
-	puthex_tester();
+	// puthex_tester();
 
 	return (0);
 }

@@ -30,7 +30,7 @@ void	arg_parse(t_arg *arg, va_list ap)
 	arg->n_bytes += fct[is_set_ret(arg->var_type, CONVERSIONS)](ap, arg);
 }
 
-void	arg_parse_dev(t_arg *arg)
+void	arg_parse_dev(t_arg *arg, va_list ap)
 {
 //	char	flags_arr[7] = {'-', '0', '.', '#', ' ', '+', 0};
 	int		flags_index[6] = {FLAG_MINUS, FLAG_ZERO, FLAG_PREC, FLAG_HASH, FLAG_SPACE, FLAG_PLUS};

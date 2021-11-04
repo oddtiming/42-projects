@@ -19,63 +19,222 @@ const char *byte_to_binary (int x)
     return b;
 }
 
-int	main(void)
+void	s_tester(void)
 {
 	int	return_value;
-	t_arg	arg;
-	char	*format1 = "%#- +010.9s";
 
-	return_value = ft_putnbr_ret(INT_MIN);
-	printf("\nreturn value = %d\n", return_value);
-	return_value = ft_putstr_ret(NULL);
-	printf("\nreturn value = %d\n", return_value);
-	return_value = ft_putstr_ret("");
-	printf("\nreturn value = %d\n", return_value);
-	printf("printf's address of return_value: %p\nMine: ", &return_value);
-//	return_value = ft_putaddress_ret((long) &return_value);
-//	printf("\nreturn value = %d\n", return_value);
-	printf_struct_init(&arg, "test");
-	ft_puthex_size_t((long)&return_value, &arg);
-	printf("\nreturn value = %d\n", arg.n_bytes);
-	ft_puthex_size_t(LONG_MAX, &arg);
-	printf("\nAnd the real printf for LONG_MAX: %p\n", (void *) LONG_MAX);
-	ft_puthex_size_t(LONG_MIN, &arg);
-	printf("\nAnd the real printf for LONG_MIN: %p\n", (void *) LONG_MIN);
-	ft_puthex_size_t(ULONG_MAX, &arg);
-	printf("\nAnd the real printf for ULONG_MAX: %p\n", (void *) ULONG_MAX);
-	ft_puthex_size_t(-ULONG_MAX, &arg);
-	printf("\nAnd the real printf for -ULONG_MAX: %p\n", (void *) -ULONG_MAX);
+	return_value = 0;
+	printf("--------TESTS FOR STRINGS--------\n");
+	printf("*******************************\n");
+	printf("-------- TESTS FOR '.' --------\n");
+	printf("*******************************\n\n");
+	printf("format string = \" %%.2s %%.1s \"\n");
+	return_value = printf("\" %.2s %.1s \"", " - ", "");
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %.2s %.1s \"", "", "-");
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("format string = \" %%.3s %%.2s \"\n");
+	return_value = printf("\" %.3s %.2s \"", " - ", "");
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %.3s %.2s \"", " - ", "");
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("format string = \"%%.1s %%.2s %%.3s %%.4s \"\n");
+	return_value = printf("\" %.1s %.2s %.3s %.4s \"", " - ", "", "4", "");
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %.1s %.2s %.3s %.4s \"", " - ", "", "4", "");
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("format string = \" %%.2s %%.3s %%.4s %%.5s %%.1s \"\n");
+	return_value = printf("\" %.2s %.3s %.4s %.5s %.1s \"", " - ", "", "4", "", "2 ");
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %.2s %.3s %.4s %.5s %.1s \"", " - ", "", "4", "", "2 ");
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
 
-	printf("size of struct = %zu\n", sizeof(t_arg));
+	printf("*******************************\n");
+	printf("-------- TESTS FOR ' ' --------\n");
+	printf("*******************************\n\n");
+	printf("format string = \" %% s \", \"-\"\n");
+	return_value = printf("\" % s \"", "-");
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" % s \"", "-");
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("format string = \" %% s %% s \", \"\", \"-\"\"\n");
+	return_value = printf("\" % s % s \"", "", "-");
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" % s % s \"", "", "-");
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("format string = \" %% s %% s \", \" - \", \"\"\n");
+	return_value = printf("\" % s % s \"", " - ", "");
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" % s % s \"", " - ", "");
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("format string = \" %% s %% s %% s %% s \", \" - \", \"\", \"4\", \"\"\n");
+	return_value = printf("\" % s % s % s % s \"", " - ", "", "4", "");
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" % s % s % s % s \"", " - ", "", "4", "");
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("format string = \" %% s %% s %% s %% s %% s \", \" - \", \"\", \"4\", \"\", \"2 \"\n");
+	return_value = printf("\" % s % s % s % s % s \"", " - ", "", "4", "", "2 ");
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" % s % s % s % s % s \"", " - ", "", "4", "", "2 ");
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+}
 
-	printf("List of all the flags:\n");
-	printf("%#010x %#010x %#010x %#010x %#010x %#010x %#010x \n", FLAG_SPACE, FLAG_HASH, FLAG_PLUS, FLAG_WIDTH, FLAG_PREC, FLAG_ZERO, FLAG_MINUS);
+void	p_tester()
+{
+	int	return_value = 0;
 
-	printf("FLAG_SPACE: \t%s\n", byte_to_binary(FLAG_SPACE));
-	printf("FLAG_HASH: \t%s\n", byte_to_binary(FLAG_HASH));
-	printf("FLAG_PLUS: \t%s\n", byte_to_binary(FLAG_PLUS));
-	printf("FLAG_WIDTH: \t%s\n", byte_to_binary(FLAG_WIDTH));
-	printf("FLAG_PREC:\t%s\n", byte_to_binary(FLAG_PREC));
-	printf("FLAG_ZERO: \t%s\n", byte_to_binary(FLAG_ZERO));
-	printf("FLAG_MINUS: \t%s\n", byte_to_binary(FLAG_MINUS));
-	free (arg.format);
+	printf("**********************************\n");
+	printf("--------TESTS FOR POINTERS--------\n");
+	printf("**********************************\n\n");
+	printf("*******************************\n");
+	printf("-------- TESTS FOR '-' --------\n");
+	printf("*******************************\n\n");
+	printf("args = (\" %%-9p %%-10p \", LONG_MIN, LONG_MAX)\n");
+	return_value = printf("\" %-9p %-10p \"", LONG_MIN, LONG_MAX);
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %-9p %-10p \"", LONG_MIN, LONG_MAX);
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("args = (\" %%-13p %%-14p \", ULONG_MAX, -ULONG_MAX)\n");
+	return_value = printf("\" %-13p %-14p \"", ULONG_MAX, -ULONG_MAX);
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %-13p %-14p \"", ULONG_MAX, -ULONG_MAX);
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
 
-	printf("Let's test arg_parse_dev for format = \"%s\"\n", format1);
-	printf_struct_init(&arg, format1);
-	arg_parse_dev(&arg);
-	printf("arg->flags: \t%s\n", byte_to_binary(arg.flags));
-	printf("arg->flags in int value: %d\n", arg.flags);
-	printf("arg->width = %d\n", arg.width);
-	printf("arg->precision = %d\n", arg.precision);
-	printf("arg->var_type = %c\n", arg.var_type);
+}
 
-	// printf("\n--------TESTS for octal and hexa--------\n");
-	// return_value = printf("For printf: %d\n", 00032);
-	// printf("return value = %d\n", return_value);
-	// return_value = ft_printf("for ft_printf: %d\n", 00032);
-	// printf("return value = %d\n", return_value);
-	// return_value = printf("For printf: %d\n", 0xabc4);
-	// printf("return value = %d\n", return_value);
-	// return_value = ft_printf("for ft_printf: %d\n", 0xabc4);
-	// printf("return value = %d\n", return_value);
+void	d_tester()
+{
+	int	return_value = 0;
+
+	printf("**********************************\n");
+	printf("--------TESTS FOR INTEGERS(d)--------\n");
+	printf("**********************************\n\n");
+	// printf("*******************************\n");
+	// printf("-------- TESTS FOR '-' --------\n");
+	// printf("*******************************\n\n");
+	// printf("arg = (\"%%-3d\", -11)\n");
+	// return_value = printf("\"%-3d\"", -11);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\"%-3d\"", -11);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%-4d \", -14)\n");
+	// return_value = printf("\" %-4d \"", -14);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %-4d \"", -14);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%-5d \", -15)\n");
+	// return_value = printf("\" %-5d \"", -15);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %-5d \"", -15);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%-6d \", -16)\n");
+	// return_value = printf("\" %-6d \"", -16);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %-6d \"", -16);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%-3d \", -101)\n");
+	// return_value = printf("\" %-3d \"", -101);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %-3d \"", -101);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%-9d \", INT_MAX)\n");
+	// return_value = printf("\" %-9d \"", INT_MAX);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %-9d \"", INT_MAX);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%-10d \", INT_MIN)\n");
+	// return_value = printf("\" %-10d \"", INT_MIN);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %-10d \"", INT_MIN);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%-9d %%-10d %%-11d %%-12d %%-13d %%-14d %%-15d\", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42)\n");
+	// return_value = printf("\" %-9d %-10d %-11d %-12d %-13d %-14d %-15d\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %-9d %-10d %-11d %-12d %-13d %-14d %-15d\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	
+	printf("*******************************\n");
+	printf("-------- TESTS FOR '0' --------\n");
+	printf("*******************************\n\n");
+	printf("arg = (\"%%04d\", 9)\n");
+	return_value = printf("\"%04d\"", 9);
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\"%04d\"", 9);
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%03d \", 15)\n");
+	// return_value = printf("\" %03d \"", 15);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %03d \"", 15);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%04d \", 16)\n");
+	// return_value = printf("\" %04d \"", 16);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %04d \"", 16);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%05d \", 17)\n");
+	// return_value = printf("\" %05d \"", 17);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %05d \"", 17);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%012d \", LONG_MIN)\n");
+	// return_value = printf("\" %012d \"", LONG_MIN);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %012d \"", LONG_MIN);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%09d %%010d %%011d %%012d %%013d %%014d %%015d\", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42)\n");
+	// return_value = printf("\" %09d %010d %011d %012d %013d %014d %015d\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %09d %010d %011d %012d %013d %014d %015d\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+}
+
+void	x_tester()
+{
+	int	return_value = 0;
+
+	printf("******************************\n");
+	printf("--------TESTS FOR HEXA--------\n");
+	printf("******************************\n\n");
+	printf("*******************************\n");
+	printf("-------- TESTS FOR '#' --------\n");
+	printf("*******************************\n\n");
+	printf("arg = (\" %%#x \", 0)\n");
+	return_value = printf("\" %#x \"", 0);
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %#x \"", 0);
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("arg = (\" %%#x \", LONG_MIN)\n");
+	return_value = printf("\" %#x \"", LONG_MIN);
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %#x \"", LONG_MIN);
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("arg = (\" %%#x %%#x %%#x %%#x %%#x %%#x %%#x\", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42)\n");
+	return_value = printf("\" %#x %#x %#x %#x %#x %#x %#x\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %#x %#x %#x %#x %#x %#x %#x\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("arg = (\" %%#X \", 0)\n");
+	return_value = printf("\" %#X \"", 0);
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %#X \"", 0);
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("arg = (\" %%#X \", LONG_MIN)\n");
+	return_value = printf("\" %#X \"", LONG_MIN);
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %#X \"", LONG_MIN);
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("arg = (\" %%#X %%#X %%#X %%#X %%#X %%#X %%#X\", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42)\n");
+	return_value = printf("\" %#X %#X %#X %#X %#X %#X %#X\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %#X %#X %#X %#X %#X %#X %#X\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+
+}
+
+int	main(void)
+{
+	// s_tester();
+	// p_tester();
+	d_tester();
+	// x_tester();
 }

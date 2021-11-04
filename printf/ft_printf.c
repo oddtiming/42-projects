@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:07:21 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/10/22 14:07:22 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/11/03 12:01:15 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	arg_dispatch(t_arg *arg, va_list ap)
 	else if (arg->var_type == 'p')
 	{
 		arg->n_bytes += ft_putstr_ret("0x");
-		ft_puthex_size_t((size_t)va_arg(ap, void *), arg);
+		ft_puthex_size_t(arg, (size_t)va_arg(ap, void *));
 	}
 	else if (is_set(arg->var_type, "xX"))
 		ft_puthex_int(va_arg(ap, int), arg);

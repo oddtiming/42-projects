@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:12:08 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/11/01 19:01:52 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/11/03 12:02:25 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	ft_puthex_size_t(t_arg *arg, size_t i)
 
 	hex_base = "0123456789abcdef";
 	if (i > 15)
-		ft_puthex_size_t(i / 16, arg);
+		ft_puthex_size_t(arg, i / 16);
 	write(1, &hex_base[i % 16], 1);
 	arg->n_bytes += 1;
 }

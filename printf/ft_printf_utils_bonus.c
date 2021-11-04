@@ -175,7 +175,10 @@ int	ft_putstr_n_ret(const char *s, int prec)
 
 	i = 0;
 	while (s[i] && i < prec)
-		write(1, &s[i++], 1);
+	{
+		write(1, &s[i], 1);
+		i++;
+	}
 	return (i);
 }
 
@@ -185,7 +188,7 @@ void	ft_puthex_size_t(t_arg *arg, size_t i)
 
 	hex_base = "0123456789abcdef";
 	if (i > 15)
-		ft_puthex_size_t(i / 16, arg);
+		ft_puthex_size_t(arg, i / 16);
 	write(1, &hex_base[i % 16], 1);
 	arg->n_bytes += 1;
 }

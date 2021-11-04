@@ -35,6 +35,10 @@ typedef enum e_flags
 	FLAG_WIDTH = 0x40
 }	t_flags;
 
+int		ft_printf_bonus(const char *format, ...);
+void	arg_parse(t_arg *arg, va_list ap);
+void	arg_parse_dev(t_arg *arg, va_list ap);
+void	arg_dispatch(t_arg *arg, va_list ap);
 char	*c_to_s(int c);
 char	*ft_itoa_unsigned(unsigned int n);
 char	*ft_hextoa_int(unsigned int n, char c);
@@ -43,7 +47,6 @@ int		ft_printf(const char *format, ...);
 //char	*ft_strjoin_free(char *s1, char const *s2);
 //size_t	ft_strlen(const char *s);
 //size_t	strlen_c(char *s, char c);
-int		ft_printf_bonus(const char *format, ...);
 void	printf_struct_init(t_arg *arg, char const *format);
 int		ft_putchar_ret(const char c);
 int		ft_putstr_ret(const char *s);
@@ -58,8 +61,6 @@ void	ft_puthex_upperx_int(unsigned int i, t_arg *arg);
 //int		is_set_ret(char const c, char const *set);
 int		get_magnitude(int n);
 //int		ft_log_calc(int value, int radix);
-void	arg_parse(t_arg *arg, va_list ap);
-void	arg_parse_dev(t_arg *arg);
 void	ft_printf_char(t_arg *arg, va_list ap);
 void	ft_printf_str(t_arg *arg, va_list ap);
 
