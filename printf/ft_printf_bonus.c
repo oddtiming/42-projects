@@ -15,7 +15,7 @@ void	arg_parse_dev(t_arg *arg, va_list ap)
 		else if (arg->format[arg->index] >= '1' && arg->format[arg->index]<= '9')
 		{
 			num_value = ft_atoi(&arg->format[arg->index]);
-			if (arg->format[arg->index - 1] == '.')
+			if (FLAG_PREC & arg->flags)
 				arg->precision = num_value;
 			else
 			{
@@ -30,6 +30,7 @@ void	arg_parse_dev(t_arg *arg, va_list ap)
 
 void	arg_dispatch(t_arg *arg, va_list ap)
 {
+	// arg->index += 1;
 	arg->var_type = arg->format[arg->index];
 	if (arg->var_type == 'c')
 		ft_printf_char_dev(arg, (char)va_arg(ap, int));

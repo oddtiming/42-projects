@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:07:21 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/11/03 12:01:15 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/11/04 20:10:02 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ static void	arg_dispatch(t_arg *arg, va_list ap)
 	arg->index += 1;
 }
 
+void	arg_parse(t_arg *arg, va_list ap)
+{
+	arg_dispatch(arg, ap);
+}
+
 int	ft_printf(char const *format, ...)
 {
 	va_list	ap;
@@ -46,7 +51,7 @@ int	ft_printf(char const *format, ...)
 	while (format[arg.index])
 	{
 		if (format[arg.index] == '%')
-			arg_dispatch(&arg, ap);
+			arg_parse(&arg, ap);
 		else
 		{
 			write(1, &format[arg.index], 1);

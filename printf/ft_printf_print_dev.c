@@ -16,6 +16,10 @@ void	ft_printf_char_dev(t_arg *arg, char c)
 }
 
 //Corrected the workflow so that no two copies of arg_to_str can be printed.
+	// printf("in printf_str, arg_to_str = '%s'\n", arg_to_str);
+	// printf("arg->width = %d\n", arg->width);
+	// printf("arg->precision = %d\n", arg->precision);
+	// printf("arg->flags = %s\n", byte_to_binary(arg->flags));
 void	ft_printf_str_dev(t_arg *arg, char *arg_to_str)
 {
 	int		str_len;

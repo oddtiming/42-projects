@@ -1,8 +1,11 @@
 NAME	=	libftprintf.a
 
-SRCS	=	ft_printf.c \
-			ft_printf_utils.c \
-			ft_printf_utils2.c
+SRCS	=	ft_printf_bonus.c \
+			ft_printf_print_dev.c \
+			ft_printf_utils_bonus.c
+#			ft_printf.c \
+#			ft_printf_utils.c \
+#			ft_printf_utils2.c
 
 SRCS_B	=	ft_printf_bonus.c \
 			ft_printf_print_dev.c \

@@ -17,10 +17,10 @@ typedef struct s_arg
 {
 	char			*format;
 	int				index;
+	char			var_type;
 	int				n_bytes;
 	int				width;
 	int				precision;
-	char			var_type;
 	unsigned int	flags;
 }	t_arg;
 
@@ -68,8 +68,6 @@ void	ft_printf_str(t_arg *arg, va_list ap);
 int	ft_putstr_n_ret(const char *s, int prec);
 int	ft_putnbr_n_ret(int nbr, int prec);
 int	ft_putnbr_unsigned_n_ret(unsigned int n, int prec);
-
-//Functions to add:
 void	ft_printf_nbr(t_arg *arg, va_list ap);
 void	ft_printf_u_nbr(t_arg *arg, va_list ap);
 void	ft_printf_addr(t_arg *arg, va_list ap);

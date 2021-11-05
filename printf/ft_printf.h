@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:12:27 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/11/03 12:01:57 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/11/04 20:09:21 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ void	ft_puthex_upperx_int(unsigned int i, t_arg *arg);
 //int		is_set_ret(char const c, char const *set);
 int		get_magnitude(int n);
 //int		ft_log_calc(int value, int radix);
-void	arg_parse(t_arg *arg);
+void	arg_parse(t_arg *arg, va_list ap);
 
 #endif
