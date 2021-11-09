@@ -148,6 +148,14 @@ void	printf_struct_init(t_arg *arg, char const *format)
 	arg->format = ft_strdup(format);
 }
 
+void	printf_struct_reset(t_arg *arg)
+{
+	arg->precision = 0;
+	arg->width = 0;
+	arg->var_type = 0;
+	arg->flags = 0;
+}
+
 int	ft_putchar_ret(const char c)
 {
 	write(1, &c, 1);
@@ -204,5 +212,6 @@ void	ft_puthex_int(unsigned int i, t_arg *arg)
 	if (i > 15)
 		ft_puthex_int(i / 16, arg);
 	write(1, &hex_base[i % 16], 1);
+	// printf("got into ft_puthex_int\n");
 	arg->n_bytes += 1;
 }

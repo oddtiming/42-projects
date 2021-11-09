@@ -21,7 +21,9 @@
 			the maximum number of significant digits for g and G conversions, or the maximum num-
 			ber of characters to be printed from a string for s conversions." - man 3 printf
 		NOTES:	- The interaction of '.' and '0' only matters for types with a decimal (so a precision). e.g. float
-			'.' (precision) is UB with c and p
+					'.' (precision) is UB with c and p
+				- A Precision of 0 with values of 0 will not output anything. So unless a width is specified, the return
+					value will be affected.
 	- NOTE:	these seem to only be used in conjunction with a following digit specifier, otherwise a "width" of 0 
 			is taken by default.
 		- %[flag][digit][conversion specifier]
@@ -265,3 +267,7 @@ Notes 4 novembre 2021:
 			have a separate struct for the format, index and var_type that would only be passed 
 			to arg_parse and arg_dispatch
 	- [] correct output of %d for a precision of 0 and d == 0;
+	- [] add *.* variations.
+		PROBLEMS:
+		- "A negative precision argument is taken as if the precision were omitted."
+		- "A negative field width argument is taken as a - flag followed by a positive field width"

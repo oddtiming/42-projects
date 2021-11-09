@@ -340,4 +340,27 @@ int	main()
 	printf("%%#*p for width = %d, prec = %d and x = %p\n", width, prec, &x);
 	return_value = printf("\"%#*.*p\"", width, prec, &x);
 	printf("\nreturn_value = %d\n", return_value);
+
+	puts("*****************************************\n");
+	puts("-------TESTS FOR prec=0 CONVERSIONS------\n");
+	puts("*****************************************\n");
+
+	printf("%%.x | x = 0\n");
+	return_value = printf("\"%.*x\"\n", 0, 0);
+	printf("return_value = %d\n", return_value);
+	printf("%%.X | X = 0\n");
+	return_value = printf("\"%.*X\"\n", 0, 0);
+	printf("return_value = %d\n", return_value);
+	printf("%%.d | d = 0\n");
+	return_value = printf("\"%.*d\"\n", 0, 0);
+	printf("return_value = %d\n", return_value);
+	printf("%%.i | i = 0\n");
+	return_value = printf("\"%.*i\"\n", 0, 0);
+	printf("return_value = %d\n", return_value);
+	printf("%%.u | u = 0\n");
+	return_value = printf("\"%.*u\"\n", 0, 0);
+	printf("return_value = %d\n", return_value);
+	printf("%%.p | p = 0\n");
+	return_value = printf("\"%.*p\"\n", 0, (void *)0);
+	printf("return_value = %d\n", return_value);
 }

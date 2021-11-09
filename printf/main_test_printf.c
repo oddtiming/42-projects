@@ -5,7 +5,7 @@
 
 
 //Function to print bits taken from https://stackoverflow.com/questions/111928/is-there-a-printf-converter-to-print-in-binary-format
-const char *byte_to_binary (int x)
+const char *byte_to_binary(int x)
 {
     static char b[9];
     b[0] = '\0';
@@ -131,6 +131,13 @@ void	s_tester(void)
 	return_value = ft_printf("\"%-.09s\"", s_hidden);
 	printf("\nreturn value of ft_printf = %d\n\n", return_value);
 
+	printf("arg = (\"%%*s\", 32, \"abc\")\n");
+	return_value = printf("\"%*s\"", 32, "abc");
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\"%*s\"", 32, "abc");
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+
+// "%*s", 32, "abc"
 }
 
 void	p_tester()
@@ -240,49 +247,88 @@ void	d_tester()
 	printf("\nreturn value of printf = %d\n", return_value);
 	return_value = ft_printf("\" %09d %010d %011d %012d %013d %014d %015d\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
 	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+
+	printf("********************************\n");
+	printf("------ TESTS FOR prec = 0 ------\n");
+	printf("********************************\n\n");
+	printf("arg = (\" %%.0d \", 0)\n");
+	return_value = printf("\" %.0d \"", 0);
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %.0d \"", 0);
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("arg = (\" %%.d \", 0)\n");
+	return_value = printf("\" %.d \"", 0);
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %.d \"", 0);
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("arg = (\" %%.1d \", 0)\n");
+	return_value = printf("\" %.1d \"", 0);
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %.1d \"", 0);
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	printf("arg = (\" %%01.0d \", 0)\n");
+	return_value = printf("\" %01.0d \"", 0);
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\" %01.0d \"", 0);
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
+
 }
 
 void	x_tester()
 {
 	int	return_value = 0;
 
-	printf("******************************\n");
-	printf("--------TESTS FOR HEXA--------\n");
-	printf("******************************\n\n");
-	printf("*******************************\n");
-	printf("-------- TESTS FOR '#' --------\n");
-	printf("*******************************\n\n");
-	printf("arg = (\" %%#x \", 0)\n");
-	return_value = printf("\" %#x \"", 0);
+	// printf("******************************\n");
+	// printf("--------TESTS FOR HEXA--------\n");
+	// printf("******************************\n\n");
+	// printf("*******************************\n");
+	// printf("-------- TESTS FOR '#' --------\n");
+	// printf("*******************************\n\n");
+	// printf("arg = (\" %%#x \", 0)\n");
+	// return_value = printf("\" %#x \"", 0);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %#x \"", 0);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%#x \", LONG_MIN)\n");
+	// return_value = printf("\" %#x \"", LONG_MIN);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %#x \"", LONG_MIN);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%#x %%#x %%#x %%#x %%#x %%#x %%#x\", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42)\n");
+	// return_value = printf("\" %#x %#x %#x %#x %#x %#x %#x\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %#x %#x %#x %#x %#x %#x %#x\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%#X \", 0)\n");
+	// return_value = printf("\" %#X \"", 0);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %#X \"", 0);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%#X \", LONG_MIN)\n");
+	// return_value = printf("\" %#X \"", LONG_MIN);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %#X \"", LONG_MIN);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+	// printf("arg = (\" %%#X %%#X %%#X %%#X %%#X %%#X %%#X\", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42)\n");
+	// return_value = printf("\" %#X %#X %#X %#X %#X %#X %#X\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	// printf("\nreturn value of printf = %d\n", return_value);
+	// return_value = ft_printf("\" %#X %#X %#X %#X %#X %#X %#X\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	// printf("\nreturn value of ft_printf = %d\n\n", return_value);
+
+	printf("********************************\n");
+	printf("------ TESTS FOR prec = 0 ------\n");
+	printf("********************************\n\n");
+	printf("arg = (\"%%-10.X\", 0)\n");
+	return_value = printf("\"%-10.X\"", 0);
 	printf("\nreturn value of printf = %d\n", return_value);
-	return_value = ft_printf("\" %#x \"", 0);
-	printf("\nreturn value of ft_printf = %d\n\n", return_value);
-	printf("arg = (\" %%#x \", LONG_MIN)\n");
-	return_value = printf("\" %#x \"", LONG_MIN);
-	printf("\nreturn value of printf = %d\n", return_value);
-	return_value = ft_printf("\" %#x \"", LONG_MIN);
-	printf("\nreturn value of ft_printf = %d\n\n", return_value);
-	printf("arg = (\" %%#x %%#x %%#x %%#x %%#x %%#x %%#x\", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42)\n");
-	return_value = printf("\" %#x %#x %#x %#x %#x %#x %#x\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
-	printf("\nreturn value of printf = %d\n", return_value);
-	return_value = ft_printf("\" %#x %#x %#x %#x %#x %#x %#x\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
-	printf("\nreturn value of ft_printf = %d\n\n", return_value);
-	printf("arg = (\" %%#X \", 0)\n");
-	return_value = printf("\" %#X \"", 0);
-	printf("\nreturn value of printf = %d\n", return_value);
-	return_value = ft_printf("\" %#X \"", 0);
-	printf("\nreturn value of ft_printf = %d\n\n", return_value);
-	printf("arg = (\" %%#X \", LONG_MIN)\n");
-	return_value = printf("\" %#X \"", LONG_MIN);
-	printf("\nreturn value of printf = %d\n", return_value);
-	return_value = ft_printf("\" %#X \"", LONG_MIN);
-	printf("\nreturn value of ft_printf = %d\n\n", return_value);
-	printf("arg = (\" %%#X %%#X %%#X %%#X %%#X %%#X %%#X\", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42)\n");
-	return_value = printf("\" %#X %#X %#X %#X %#X %#X %#X\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
-	printf("\nreturn value of printf = %d\n", return_value);
-	return_value = ft_printf("\" %#X %#X %#X %#X %#X %#X %#X\"", INT_MAX, INT_MIN, LONG_MAX, LONG_MIN, ULONG_MAX, 0, -42);
+	return_value = ft_printf("\"%-10.X\"", 0);
 	printf("\nreturn value of ft_printf = %d\n\n", return_value);
 
+	printf("arg = (\"%%01.1X\", 0)\n");
+	return_value = printf("\"%01.1X\"", 0);
+	printf("\nreturn value of printf = %d\n", return_value);
+	return_value = ft_printf("\"%01.1X\"", 0);
+	printf("\nreturn value of ft_printf = %d\n\n", return_value);
 }
 
 int	main(void)

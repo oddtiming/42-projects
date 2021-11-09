@@ -17,9 +17,9 @@ void	ft_printf_char_dev(t_arg *arg, char c)
 
 //Corrected the workflow so that no two copies of arg_to_str can be printed.
 	// printf("in printf_str, arg_to_str = '%s'\n", arg_to_str);
-	// printf("arg->width = %d\n", arg->width);
-	// printf("arg->precision = %d\n", arg->precision);
 	// printf("arg->flags = %s\n", byte_to_binary(arg->flags));
+	// printf("arg->precision = %d\n", arg->precision);
+	// printf("arg->width = %d\n", arg->width);
 void	ft_printf_str_dev(t_arg *arg, char *arg_to_str)
 {
 	int		str_len;
@@ -29,7 +29,8 @@ void	ft_printf_str_dev(t_arg *arg, char *arg_to_str)
 	else
 		arg_to_str = ft_strdup(arg_to_str);
 	str_len = ft_strlen(arg_to_str);
-	if ((FLAG_PREC & arg->flags) && arg->precision < str_len)
+	//Added arg->precision >= 0 for cases where prec < 0 (when '.*' is used)
+	if ((FLAG_PREC & arg->flags) && arg->precision < str_len && arg->precision >= 0)
 		str_len = arg->precision;
 	arg->width -= str_len;
 	while (!(FLAG_MINUS & arg->flags) && arg->width-- > 0)
@@ -47,7 +48,8 @@ void	ft_printf_nbr_dev(t_arg *arg, int nbr)
 	str_len = ft_log_calc(nbr, 10);
 	if ((FLAG_PREC & arg->flags) && (arg->precision > str_len))
 		str_len = arg->precision;
-	arg->width -= str_len;
+	if (!((FLAG_PREC & arg->flags) && !arg->precision && !nbr))	
+		arg->width -= str_len;
 	if (nbr < 0 || ((FLAG_PLUS | FLAG_SPACE) & arg->flags))
 		arg->width--;
 	while (!(FLAG_MINUS & arg->flags) && !((FLAG_ZERO & arg->flags) && \
@@ -65,7 +67,8 @@ void	ft_printf_nbr_dev(t_arg *arg, int nbr)
 	while ((FLAG_ZERO & arg->flags) && \
 		!((FLAG_MINUS + FLAG_PREC) & arg->flags) && arg->width-- > 0)
 		arg->n_bytes += write(1, "0", 1);
-	arg->n_bytes += ft_putnbr_unsigned_n_ret(nbr, str_len);
+	if (!((FLAG_PREC & arg->flags) && !arg->precision && !nbr))
+		arg->n_bytes += ft_putnbr_unsigned_n_ret(nbr, str_len);
 	while ((FLAG_MINUS & arg->flags) && (arg->width-- > 0))
 		arg->n_bytes += write(1, " ", 1);
 }
@@ -77,7 +80,8 @@ void	ft_printf_u_nbr_dev(t_arg *arg, unsigned int nbr)
 	str_len = ft_log_calc_size_t(nbr, 10);
 	if ((FLAG_PREC & arg->flags) && (arg->precision > str_len))
 		str_len = arg->precision;
-	arg->width -= str_len;
+	if (!((FLAG_PREC & arg->flags) && !arg->precision && !nbr))	
+		arg->width -= str_len;
 	// printf("In printf_u_nbr, flags = %s\n", byte_to_binary(arg->flags));
 	//Very bad practice of using var_type instead of declaring a new var
 	arg->var_type = ' ';
@@ -89,7 +93,8 @@ void	ft_printf_u_nbr_dev(t_arg *arg, unsigned int nbr)
 		arg->n_bytes += ft_putchar_ret(arg->var_type);
 	// printf("after args in printf_u_nbr, width = %d\n", arg->width);
 	// printf("after '+ ' flags in printf_nbr, width = %d\n", arg->width);
-	arg->n_bytes += ft_putnbr_unsigned_n_ret(nbr, str_len);
+	if (!((FLAG_PREC & arg->flags) && !arg->precision && !nbr))
+		arg->n_bytes += ft_putnbr_unsigned_n_ret(nbr, str_len);
 	while ((FLAG_MINUS & arg->flags) && (arg->width-- > 0))
 		arg->n_bytes += write(1, " ", 1);
 }
@@ -98,11 +103,15 @@ void	ft_printf_u_nbr_dev(t_arg *arg, unsigned int nbr)
 void	ft_printf_hex_dev(t_arg *arg, unsigned int nbr)
 {
 	int	str_len;
-
+	// printf("arg->flags = %s\n", byte_to_binary(arg->flags));
 	str_len = ft_log_calc_size_t(nbr, 16);
+	// printf("at beginning, arg->width = %d\n", arg->width);
+	// printf("arg->precision = %d\n", arg->precision);
 	if ((FLAG_PREC & arg->flags) && arg->precision > str_len)
 		str_len = arg->precision;
-	arg->width -= str_len;
+	// printf("after first if, arg->width = %d\n", arg->width);
+	if (!((FLAG_PREC & arg->flags) && !arg->precision && !nbr))
+		arg->width -= str_len;
 	if (FLAG_HASH & arg->flags)
 		arg->width -= 2;
 	while (!(FLAG_MINUS & arg->flags) && !((FLAG_ZERO & arg->flags) && \
@@ -112,13 +121,24 @@ void	ft_printf_hex_dev(t_arg *arg, unsigned int nbr)
 		arg->n_bytes += ft_putstr_ret("0x");
 	else if ((FLAG_HASH & arg->flags) && arg->var_type == 'X' && nbr)
 		arg->n_bytes += ft_putstr_ret("0X");
+	// printf("after flag_hash, arg->width = %d\n", arg->width);
 	while ((FLAG_ZERO & arg->flags) && \
-		!((FLAG_MINUS + FLAG_PREC) & arg->flags) && arg->width-- > 0)
+		!((FLAG_MINUS + FLAG_PREC) & arg->flags) && arg->width > 0)
+	{
 		arg->n_bytes += write(1, "0", 1);
+		arg->width--;
+	}
 	str_len = ft_log_calc_size_t(nbr, 16);
-	while ((FLAG_PREC & arg->flags) && arg->precision-- > str_len)
+	while ((FLAG_PREC & arg->flags) && arg->precision > str_len)
+	{
 		arg->n_bytes += write(1, "0", 1);
-	ft_puthex_int(nbr, arg);
+		arg->precision--;
+	}
+	// printf("before ft_puthex_int, arg->width = %d\n", arg->width);
+	// if (!((FLAG_PREC & arg->flags) && arg->precision < 1 && !nbr))
+	// 	printf("condition is true\n");
+	if (!((FLAG_PREC & arg->flags) && !arg->precision && !nbr))
+		ft_puthex_int(nbr, arg);
 	while ((FLAG_MINUS & arg->flags) && arg->width-- > 0)
 		arg->n_bytes += write(1, " ", 1);
 }
@@ -128,11 +148,14 @@ void	ft_printf_addr_dev(t_arg *arg, size_t addr)
 	int	str_len;
 
 	str_len = ft_log_calc_size_t(addr, 16);
-	arg->width -= (str_len + 2);
+	if (!((FLAG_PREC & arg->flags) && !arg->precision && !addr))
+		arg->width -= (str_len);
+	arg->width -= 2;
 	while (!(FLAG_MINUS & arg->flags) && arg->width-- > 0)
 		arg->n_bytes += write(1, " ", 1);
 	arg->n_bytes += ft_putstr_ret("0x");
-	ft_puthex_size_t(arg, addr);
+	if (!((FLAG_PREC & arg->flags) && !arg->precision && !addr))
+		ft_puthex_size_t(arg, addr);
 	while ((FLAG_MINUS & arg->flags) && arg->width-- > 0)
 		arg->n_bytes += write(1, " ", 1);
 }

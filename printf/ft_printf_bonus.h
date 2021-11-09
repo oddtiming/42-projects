@@ -48,6 +48,7 @@ int		ft_printf(const char *format, ...);
 //size_t	ft_strlen(const char *s);
 //size_t	strlen_c(char *s, char c);
 void	printf_struct_init(t_arg *arg, char const *format);
+void	printf_struct_reset(t_arg *arg);
 int		ft_putchar_ret(const char c);
 int		ft_putstr_ret(const char *s);
 int		ft_putnbr_ret(int n);
