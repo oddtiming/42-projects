@@ -363,4 +363,16 @@ int	main()
 	printf("%%.p | p = 0\n");
 	return_value = printf("\"%.*p\"\n", 0, (void *)0);
 	printf("return_value = %d\n", return_value);
+	printf("%-20.m10d<\n", 4242);
+
+	printf("%%.15p | &return_value\n");
+	return_value = printf("\"%.15p\"\n", &return_value);
+	printf("return_value = %d\n", return_value);
+	printf("%%+u | &return_value\n");
+	return_value = printf("\"%+u\"\n", 5);
+	printf("return_value = %d\n", return_value);
+
+	printf("%%05c | 'a''\n");
+	return_value = printf("\"%05c\"\n", 'a');
+	printf("return_value = %d\n", return_value);
 }

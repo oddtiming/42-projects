@@ -1,5 +1,25 @@
 #include "ft_printf_bonus.h"
 
+void	printf_struct_init(t_arg *arg, char const *format)
+{
+	arg->n_bytes = 0;
+	arg->index = 0;
+	arg->precision = 0;
+	arg->width = 0;
+	arg->var_type = 0;
+	arg->flags = 0;
+	arg->format = ft_strdup(format);
+}
+
+void	printf_struct_reset(t_arg *arg)
+{
+	arg->precision = 0;
+	arg->width = 0;
+	arg->var_type = 0;
+	arg->flags = 0;
+}
+
+/*
 int	get_magnitude(int n)
 {
 	int	magnitude;
@@ -22,6 +42,21 @@ int	get_magnitude(int n)
 		}
 	}
 	return (magnitude);
+}
+*/
+
+int	get_magnitude(int n)
+{
+	int	magnitude;
+
+	magnitude = 0;
+	while (n)
+	{
+		magnitude *= 10;
+		n /= 10;
+	}
+	//+1, b/c 0<=numbers<=9 still need one char to represent them 
+	return (magnitude + 1);
 }
 
 static int	get_magnitude_unsigned(unsigned int n)
@@ -135,25 +170,6 @@ int	ft_putnbr_unsigned_n_ret(unsigned int n, int prec)
 		magnitude /= 10;
 	}
 	return (i);
-}
-
-void	printf_struct_init(t_arg *arg, char const *format)
-{
-	arg->n_bytes = 0;
-	arg->index = 0;
-	arg->precision = 0;
-	arg->width = 0;
-	arg->var_type = 0;
-	arg->flags = 0;
-	arg->format = ft_strdup(format);
-}
-
-void	printf_struct_reset(t_arg *arg)
-{
-	arg->precision = 0;
-	arg->width = 0;
-	arg->var_type = 0;
-	arg->flags = 0;
 }
 
 int	ft_putchar_ret(const char c)

@@ -333,8 +333,15 @@ void	x_tester()
 
 int	main(void)
 {
-	s_tester();
+	int	return_value;
+	// s_tester();
 	// p_tester();
-	// d_tester();
+	d_tester();
 	// x_tester();
+
+	printf("%%05c | 'a''\n");
+	return_value = printf("\"%05c\"\n", 'a');
+	printf("return_value = %d\n", return_value);
+	return_value = ft_printf("\"%05c\"\n", 'a');
+	printf("return_value = %d\n", return_value);
 }

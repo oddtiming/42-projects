@@ -32,7 +32,8 @@ typedef enum e_flags
 	FLAG_HASH = 0x8,
 	FLAG_SPACE = 0x10,
 	FLAG_PLUS = 0x20,
-	FLAG_WIDTH = 0x40
+	FLAG_WIDTH = 0x40,
+	FLAG_NEG = 0x80
 }	t_flags;
 
 int		ft_printf_bonus(const char *format, ...);
