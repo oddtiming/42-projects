@@ -16,17 +16,15 @@ void	arg_num_value(t_arg *arg, va_list ap)
 		arg->precision = num_value;
 		if (num_value < 0)
 			arg->flags &= ~FLAG_PREC;
+		return ;
 	}
-	else
+	if (num_value < 0)
 	{
-		if (num_value < 0)
-		{
-			num_value *= -1;
-			arg->flags |= FLAG_MINUS;
-		}
-		arg->width = num_value;
-		arg->flags |= FLAG_WIDTH;
+		num_value *= -1;
+		arg->flags |= FLAG_MINUS;
 	}
+	arg->width = num_value;
+	arg->flags |= FLAG_WIDTH;
 }
 
 void	arg_parse_dev(t_arg *arg, va_list ap)

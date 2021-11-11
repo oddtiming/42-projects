@@ -339,7 +339,7 @@ int	main(void)
 	d_tester();
 	// x_tester();
 
-	printf("%%05c | 'a''\n");
+	printf("%%05c | 'a'\n");
 	return_value = printf("\"%05c\"\n", 'a');
 	printf("return_value = %d\n", return_value);
 	return_value = ft_printf("\"%05c\"\n", 'a');

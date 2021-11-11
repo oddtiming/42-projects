@@ -375,4 +375,8 @@ int	main()
 	printf("%%05c | 'a''\n");
 	return_value = printf("\"%05c\"\n", 'a');
 	printf("return_value = %d\n", return_value);
+
+	printf("%%.*s | -10, \"test\"'\n");
+	return_value = printf("\"%.*s\"\n", -10, "test");
+	printf("return_value = %d\n", return_value);
 }

@@ -31,5 +31,17 @@ void	print_modifier(t_arg *arg)
 
 void	pad_filler(t_arg *arg)
 {
-
+	while (!(FLAG_MINUS & arg->flags) && !((FLAG_ZERO & arg->flags) && \
+		!(FLAG_PREC & arg->flags)) && arg->width > 0)
+	{
+		arg->n_bytes += write(1, " ", 1);
+		arg->width--;
+	}
+	print_modifier(arg);
+	while ((FLAG_ZERO & arg->flags) && \
+		!((FLAG_MINUS + FLAG_PREC) & arg->flags) && arg->width > 0)
+	{
+		arg->n_bytes += write(1, "0", 1);
+		arg->width--;
+	}
 }

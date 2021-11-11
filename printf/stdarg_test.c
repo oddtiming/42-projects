@@ -8,13 +8,17 @@ int	stdarg_test(char *str, ...)
 	int		i = 0;
 	int 	sum_total = 0;
 	char	*joined_string;
+	int		temp_int = 0;
+	void	*temp_ptr;
 
 	va_start(arg_ptr, str);
 	while (str[i])
 	{
 		if (str[i] == 'd')
 		{
-			sum_total += va_arg(arg_ptr, int);
+			//This is a valid way to store any and all types of variable in va_arg
+			temp_ptr = va_arg(arg_ptr, void *);
+			sum_total += (int)((int *)temp_ptr);
 		}
 		else if (str[i] == 's')
 		{

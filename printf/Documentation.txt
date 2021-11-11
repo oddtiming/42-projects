@@ -274,3 +274,9 @@ Notes 4 novembre 2021:
 	- [] implement conversion specifier managing similar to printf (e.g. ("%-20.m10d<\n", 4242) -> "m                   10d<$")
 		- Tu changes la condition dans ton while loop de parsing (while format[i] != {cspdiuxX%})-->(while format[i] == {flags + digits}) 
 		- Tu changes la condition pour ton % (if format[i] == '%') --> (else à la fin de tes if statements de dispatch)
+	- [] Decide how to manage negative numbers in conversion printing for pad_filler
+			(e.g. how do I know whether a '-' needs to be printed?)
+	- [x] Run printfdestructor
+	- [] Implement a flag_correction() function that, amongst opther things:
+		*Unsets FLAG_HASH if nbr==0
+		*Unsets FLAG_ZERO if (FLAG_MINUS | FLAG_PREC | )
