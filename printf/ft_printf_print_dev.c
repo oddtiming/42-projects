@@ -1,20 +1,15 @@
 #include "ft_printf_bonus.h"
 
-void	ft_printf_char_dev(t_arg *arg, char c)
+void	ft_print_c(t_arg *arg, char c)
 {
-	arg->width--;
+	arg->width -= 1;
 	pad_filler(arg);
 	arg->n_bytes += write(1, &c, 1);
 	while ((FLAG_MINUS & arg->flags) && arg->width-- > 0)
 		arg->n_bytes += write(1, " ", 1);
 }
 
-//Corrected the workflow so that no two copies of arg_to_str can be printed.
-	// printf("in printf_str, arg_to_str = '%s'\n", arg_to_str);
-	// printf("arg->flags = %s\n", byte_to_binary(arg->flags));
-	// printf("arg->precision = %d\n", arg->precision);
-	// printf("arg->width = %d\n", arg->width);
-void	ft_printf_str_dev(t_arg *arg, char *arg_to_str)
+void	ft_print_s(t_arg *arg, char *arg_to_str)
 {
 	int		str_len;
 
@@ -34,7 +29,7 @@ void	ft_printf_str_dev(t_arg *arg, char *arg_to_str)
 	free (arg_to_str);
 }
 
-void	ft_printf_nbr_dev(t_arg *arg, int nbr)
+void	ft_print_di(t_arg *arg, int nbr)
 {
 	int		str_len;
 
@@ -57,7 +52,7 @@ void	ft_printf_nbr_dev(t_arg *arg, int nbr)
 		arg->n_bytes += write(1, " ", 1);
 }
 
-void	ft_printf_u_nbr_dev(t_arg *arg, unsigned int nbr)
+void	ft_print_u(t_arg *arg, unsigned int nbr)
 {
 	int		str_len;
 
@@ -77,9 +72,10 @@ void	ft_printf_u_nbr_dev(t_arg *arg, unsigned int nbr)
 	// printf("after flag_hash, arg->width = %d\n", arg->width);
 	// printf("before ft_puthex_int, arg->width = %d\n", arg->width);
 	// printf("after first if, arg->width = %d\n", arg->width);
-void	ft_printf_hex_dev(t_arg *arg, unsigned int nbr)
+void	ft_print_xX(t_arg *arg, unsigned int nbr)
 {
 	int	str_len;
+	
 	str_len = ft_log_calc_size_t(nbr, 16);
 	if ((FLAG_PREC & arg->flags) && arg->precision > str_len)
 		str_len = arg->precision;
@@ -98,12 +94,12 @@ void	ft_printf_hex_dev(t_arg *arg, unsigned int nbr)
 		arg->precision--;
 	}
 	if (!((FLAG_PREC & arg->flags) && !arg->precision && !nbr))
-		ft_puthex_int(nbr, arg);
+		ft_puthex_size_t(arg, nbr);
 	while ((FLAG_MINUS & arg->flags) && arg->width-- > 0)
 		arg->n_bytes += write(1, " ", 1);
 }
 
-void	ft_printf_addr_dev(t_arg *arg, size_t addr)
+void	ft_print_p(t_arg *arg, size_t addr)
 {
 	int	str_len;
 

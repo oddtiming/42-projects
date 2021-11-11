@@ -253,14 +253,17 @@ Additional bonuses:
 
 Notes 4 novembre 2021:
 **TODO**
-	- [] Commencer par créer des sous-fonctions de padding, potentiellement changement de logique pour
+	- [x] Commencer par créer des sous-fonctions de padding, potentiellement changement de logique pour
 		créer un buffer pour chaque variable, puis l'intégrer au padding. 
-	- [] Delete FLAG_WIDTH, useless
+			**Implemented pad_filler that does initial null_padding and zero_padding
+	- [x] Delete FLAG_WIDTH, useless
 	- [] Créer deux structs, une pour la partie obligatoire (fmt, index, var_type? (unless useful for padding))
 		, une pour le bonus (flags, n_bytes (unless I use buffer + char**))
+			**CHANGED MY MIND
 	- [] Clean-up functions + header files, function names, var names, etc.
-	- [] Modify the parser so that the 0 flag does not get confused with a prec = 0, or for a prec with 
+	- [x] Modify the parser so that the 0 flag does not get confused with a prec = 0, or for a prec with 
 		a leading 0 (e.g. "%.02s")
+			**No need, the zero_padding conditions take care fo that.
 	- [x] The struct needs to be reinitialized between every iteration of the loop to reset width etc.
 			That doesn't work when I remalloc the format everytime.
 			Could use a singleton function to initialize it only once, or a better idea would be to
@@ -271,15 +274,15 @@ Notes 4 novembre 2021:
 		PROBLEMS:
 		- "A negative precision argument is taken as if the precision were omitted."
 		- "A negative field width argument is taken as a - flag followed by a positive field width"
-	- [] implement conversion specifier managing similar to printf (e.g. ("%-20.m10d<\n", 4242) -> "m                   10d<$")
+	- [x] implement conversion specifier managing similar to printf (e.g. ("%-20.m10d<\n", 4242) -> "m                   10d<$")
 		- Tu changes la condition dans ton while loop de parsing (while format[i] != {cspdiuxX%})-->(while format[i] == {flags + digits}) 
 		- Tu changes la condition pour ton % (if format[i] == '%') --> (else à la fin de tes if statements de dispatch)
-	- [] Decide how to manage negative numbers in conversion printing for pad_filler
+	- [x] Decide how to manage negative numbers in conversion printing for pad_filler
 			(e.g. how do I know whether a '-' needs to be printed?)
 	- [x] Run printfdestructor
 	- [] Implement a flag_correction() function that, amongst opther things:
 		*Unsets FLAG_HASH if nbr==0
-		*Unsets FLAG_ZERO if (FLAG_MINUS | FLAG_PREC | )
+		*Unsets FLAG_ZERO if (FLAG_MINUS | FLAG_PREC)
 
 	- Idea : could all transfer to strings(implement case for c==0) and have the pad_filler
 		print everything including the string. In that case, the arg_dispatch function would do nothing more

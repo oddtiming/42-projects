@@ -32,8 +32,7 @@ typedef enum e_flags
 	FLAG_HASH = 0x8,
 	FLAG_SPACE = 0x10,
 	FLAG_PLUS = 0x20,
-	FLAG_WIDTH = 0x40,
-	FLAG_NEG = 0x80
+	FLAG_NEG = 0x40
 }	t_flags;
 
 int		ft_printf_bonus(const char *format, ...);
@@ -61,7 +60,7 @@ void	ft_puthex_size_t(t_arg *arg, size_t i);
 void	ft_puthex_int(unsigned int i, t_arg *arg);
 void	ft_puthex_upperx_int(unsigned int i, t_arg *arg);
 //int		is_set_ret(char const c, char const *set);
-int		get_magnitude(int n);
+//int		get_magnitude(int n);
 //int		ft_log_calc(int value, int radix);
 void	ft_printf_char(t_arg *arg, va_list ap);
 void	ft_printf_str(t_arg *arg, va_list ap);
@@ -77,12 +76,12 @@ void	ft_printf_hex(t_arg *arg, va_list ap);
 void	pad_filler(t_arg *arg);
 
 //DEV FUNCTIONS
-void	ft_printf_char_dev(t_arg *arg, char c);
-void	ft_printf_str_dev(t_arg *arg, char *arg_to_str);
-void	ft_printf_nbr_dev(t_arg *arg, int nbr);
-void	ft_printf_u_nbr_dev(t_arg *arg, unsigned int nbr);
-void	ft_printf_hex_dev(t_arg *arg, unsigned int nbr);
-void	ft_printf_addr_dev(t_arg *arg, size_t addr);
+void	ft_print_c(t_arg *arg, char c);
+void	ft_print_s(t_arg *arg, char *arg_to_str);
+void	ft_print_di(t_arg *arg, int nbr);
+void	ft_print_u(t_arg *arg, unsigned int nbr);
+void	ft_print_xX(t_arg *arg, unsigned int nbr);
+void	ft_print_p(t_arg *arg, size_t addr);
 const char *byte_to_binary(int x);
 
 #endif

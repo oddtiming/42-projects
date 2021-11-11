@@ -24,15 +24,20 @@ void	arg_num_value(t_arg *arg, va_list ap)
 		arg->flags |= FLAG_MINUS;
 	}
 	arg->width = num_value;
-	arg->flags |= FLAG_WIDTH;
 }
 
 void	arg_parse_dev(t_arg *arg, va_list ap)
 {
-	int		flags_index[6] = {FLAG_MINUS, FLAG_ZERO, FLAG_PREC, FLAG_HASH, FLAG_SPACE, FLAG_PLUS};
+	int		flags_index[6];// = {FLAG_MINUS, FLAG_ZERO, FLAG_PREC, FLAG_HASH, FLAG_SPACE, FLAG_PLUS};
 	int		num_value;
 
-	while (!is_set(arg->format[++arg->index], CONVERSIONS) \
+	num_value = 0;
+	while (num_value < 6)
+	{
+		flags_index[num_value] = 1 << num_value;
+		num_value++;
+	}
+	while (is_set(arg->format[++arg->index], "-0.# +123456789*") \
 		&& arg->format[arg->index])
 	{
 		num_value = is_set_ret(arg->format[arg->index], FLAGS);
@@ -50,19 +55,19 @@ void	arg_dispatch(t_arg *arg, va_list ap)
 {
 	arg->var_type = arg->format[arg->index];
 	if (arg->var_type == 'c')
-		ft_printf_char_dev(arg, (char)va_arg(ap, int));
+		ft_print_c(arg, (char)va_arg(ap, int));
 	else if (arg->var_type == 's')
-		ft_printf_str_dev(arg, va_arg(ap, char *));
+		ft_print_s(arg, va_arg(ap, char *));
 	else if (arg->var_type == 'p')
-		ft_printf_addr_dev(arg, (size_t)va_arg(ap, void *));
+		ft_print_p(arg, (size_t)va_arg(ap, void *));
 	else if (is_set(arg->var_type, "di"))
-		ft_printf_nbr_dev(arg, va_arg(ap, int));
+		ft_print_di(arg, va_arg(ap, int));
 	else if (arg->var_type == 'u')
-		ft_printf_u_nbr_dev(arg, va_arg(ap, int));
+		ft_print_u(arg, va_arg(ap, int));
 	else if (is_set(arg->var_type, "xX"))
-		ft_printf_hex_dev(arg, va_arg(ap, int));
-	else if (arg->var_type == '%')
-		ft_printf_char_dev(arg, '%');
+		ft_print_xX(arg, va_arg(ap, int));
+	else
+		ft_print_c(arg, arg->var_type);
 	arg->index += 1;
 }
 

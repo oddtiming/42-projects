@@ -37,7 +37,7 @@ all:	${NAME}
 libft: 
 #		${MAKE} -C ../libft re &&
 		cd ./libft && make
-		mv ./libft/libft.a ${NAME}
+		cp ./libft/libft.a ${NAME}
 
 #NOTE : cd is relative in Makefile and will return to main root folder 
 
