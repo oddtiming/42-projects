@@ -283,6 +283,7 @@ Notes 4 novembre 2021:
 	- [] Implement a flag_correction() function that, amongst opther things:
 		*Unsets FLAG_HASH if nbr==0
 		*Unsets FLAG_ZERO if (FLAG_MINUS | FLAG_PREC)
+	- [] Install libft as a git submodule
 
 	- Idea : could all transfer to strings(implement case for c==0) and have the pad_filler
 		print everything including the string. In that case, the arg_dispatch function would do nothing more

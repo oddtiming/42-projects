@@ -380,4 +380,10 @@ int	main()
 	printf("%%.*s | -10, \"test\"'\n");
 	return_value = printf("\"%.*s\"\n", -10, "test");
 	printf("return_value = %d\n", return_value);
+
+	printf("%%.*p | 15, \"test\"'\n");
+	return_value = printf("\"%.*p\"\n", 15, (void *)123);
+	printf("return_value = %d\n", return_value);
+	return_value = ft_printf("\"%.*p\"\n", 15, (void *)123);
+	printf("return_value = %d\n", return_value);
 }

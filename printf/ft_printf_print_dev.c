@@ -84,7 +84,8 @@ void	ft_print_xX(t_arg *arg, unsigned int nbr)
 	//Could be added to flag_correction
 	if (!nbr)
 		arg->flags &= ~FLAG_HASH;
-	if (FLAG_HASH & arg->flags)
+	//Second cond is to try and condense xX and p; WIP
+	if (FLAG_HASH & arg->flags || arg->var_type == 'p')
 		arg->width -= 2;
 	pad_filler(arg);
 	str_len = ft_log_calc_size_t(nbr, 16);

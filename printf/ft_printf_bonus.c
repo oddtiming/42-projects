@@ -37,11 +37,14 @@ void	arg_parse_dev(t_arg *arg, va_list ap)
 		flags_index[num_value] = 1 << num_value;
 		num_value++;
 	}
+	//Hard-coded the values of possible strings to better imitate behaviour
+	//of printf for chars that are not part of acceptable flags.
 	while (is_set(arg->format[++arg->index], "-0.# +123456789*") \
 		&& arg->format[arg->index])
 	{
 		num_value = is_set_ret(arg->format[arg->index], FLAGS);
-		if (num_value != -1)
+		//The second cond if to make sure that no flag  is set after prec
+		if (num_value != -1 && !(FLAG_MINUS & arg->flags))
 			arg->flags |= flags_index[num_value];
 		else if ((arg->format[arg->index] >= '1' && \
 			arg->format[arg->index] <= '9') || arg->format[arg->index] == '*')
@@ -59,7 +62,7 @@ void	arg_dispatch(t_arg *arg, va_list ap)
 	else if (arg->var_type == 's')
 		ft_print_s(arg, va_arg(ap, char *));
 	else if (arg->var_type == 'p')
-		ft_print_p(arg, (size_t)va_arg(ap, void *));
+		ft_print_xX(arg, (size_t)va_arg(ap, void *));
 	else if (is_set(arg->var_type, "di"))
 		ft_print_di(arg, va_arg(ap, int));
 	else if (arg->var_type == 'u')
