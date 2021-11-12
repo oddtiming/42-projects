@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:07:21 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/11/04 20:10:02 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:09:58 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	arg_dispatch(t_arg *arg, va_list ap)
 {
 	arg->index += 1;
-	arg->var_type = arg->format[arg->index];
+	arg->var_type = arg->fmt[arg->index];
 	if (arg->var_type == 'c')
 		arg->n_bytes += ft_putchar_ret((char)va_arg(ap, int));
 	else if (arg->var_type == '%')
@@ -60,6 +60,6 @@ int	ft_printf(char const *format, ...)
 		}
 	}
 	va_end(ap);
-	free(arg.format);
+	free(arg.fmt);
 	return (arg.n_bytes);
 }

@@ -381,9 +381,13 @@ int	main()
 	return_value = printf("\"%.*s\"\n", -10, "test");
 	printf("return_value = %d\n", return_value);
 
-	printf("%%.*p | 15, \"test\"'\n");
+	printf("%%.*p | 15, (void *)123'\n");
 	return_value = printf("\"%.*p\"\n", 15, (void *)123);
 	printf("return_value = %d\n", return_value);
 	return_value = ft_printf("\"%.*p\"\n", 15, (void *)123);
+	printf("return_value = %d\n", return_value);
+
+	printf("%%*30$.*15$p | (void *)123'\n");
+	return_value = printf("\"%*30$.*15$p\"\n", (void *)123);
 	printf("return_value = %d\n", return_value);
 }

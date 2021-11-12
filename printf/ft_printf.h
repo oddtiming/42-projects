@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:12:27 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/11/04 20:09:21 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:10:23 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 typedef struct s_arg
 {
-	char			*format;
+	char			*fmt;
 	int				index;
 	int				n_bytes;
 	int				width;

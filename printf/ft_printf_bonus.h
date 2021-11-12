@@ -15,7 +15,7 @@
 
 typedef struct s_arg
 {
-	char			*format;
+	char			*fmt;
 	int				index;
 	char			var_type;
 	int				n_bytes;
@@ -38,7 +38,6 @@ typedef enum e_flags
 int		ft_printf_bonus(const char *format, ...);
 int		ft_printf(const char *format, ...);
 void	arg_parse(t_arg *arg, va_list ap);
-void	arg_parse_dev(t_arg *arg, va_list ap);
 void	arg_dispatch(t_arg *arg, va_list ap);
 char	*c_to_s(int c);
 char	*ft_itoa_unsigned(unsigned int n);
@@ -84,6 +83,5 @@ void	ft_print_u(t_arg *arg, unsigned int nbr);
 void	ft_print_xX(t_arg *arg, unsigned int nbr);
 void	ft_print_p(t_arg *arg, size_t addr);
 const char *byte_to_binary(int x);
-int	get_magnitude_unsigned(unsigned int n);
 
 #endif

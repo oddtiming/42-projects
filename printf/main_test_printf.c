@@ -334,8 +334,8 @@ void	x_tester()
 int	main(void)
 {
 	int	return_value;
-	// s_tester();
-	// p_tester();
+	s_tester();
+	p_tester();
 	d_tester();
 	// x_tester();
 

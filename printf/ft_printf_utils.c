@@ -6,7 +6,7 @@
 /*   By: iyahoui- <iyahoui-@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 14:12:08 by iyahoui-          #+#    #+#             */
-/*   Updated: 2021/11/03 12:02:25 by iyahoui-         ###   ########.fr       */
+/*   Updated: 2021/11/12 16:14:34 by iyahoui-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	printf_struct_init(t_arg *arg, char const *format)
 	arg->width = 0;
 	arg->var_type = 0;
 	arg->flags = 0;
-	arg->format = ft_strdup(format);
+	arg->fmt = ft_strdup(format);
 }
 
 int	ft_putchar_ret(const char c)

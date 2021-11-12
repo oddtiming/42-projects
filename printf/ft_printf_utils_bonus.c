@@ -8,7 +8,7 @@ void	printf_struct_init(t_arg *arg, char const *format)
 	arg->width = 0;
 	arg->var_type = 0;
 	arg->flags = 0;
-	arg->format = ft_strdup(format);
+	arg->fmt = ft_strdup(format);
 }
 
 void	printf_struct_reset(t_arg *arg)
