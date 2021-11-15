@@ -73,7 +73,8 @@ void	ft_printf_nbr(t_arg *arg, va_list ap);
 void	ft_printf_u_nbr(t_arg *arg, va_list ap);
 void	ft_printf_addr(t_arg *arg, va_list ap);
 void	ft_printf_hex(t_arg *arg, va_list ap);
-void	pad_filler(t_arg *arg);
+void	front_pad(t_arg *arg);
+void	print_modifier(t_arg *arg);
 
 //DEV FUNCTIONS
 void	ft_print_c(t_arg *arg, char c);

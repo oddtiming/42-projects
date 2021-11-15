@@ -25,13 +25,13 @@ void	arg_num_value(t_arg *arg, va_list ap)
 		//This is to stop the parsing if the num_value was to modify precision
 		return ;
 	}
+	//Will only be reached if num_value does not modify precision, therefore if it modifies width
 	//A negative field width argument is taken as a - flag followed by a positive field width
 	if (num_value < 0)
 	{
 		num_value *= -1;
 		arg->flags |= FLAG_MINUS;
 	}
-	//Will only be reached if num_value does not modify precision, therefore if it modifies width
 	arg->width = num_value;
 }
 
@@ -59,7 +59,7 @@ void	arg_parse(t_arg *arg, va_list ap)
 		if (num_value != -1)
 			arg->flags |= flags_index[num_value];
 		//The conditions of this if statement suck balls, because it will treat
-		//"%.0" as a FLAG_ZERO, but this is treated downstream in pad_filler()
+		//"%.0" as a FLAG_ZERO, but this is treated downstream in front_pad()
 		else if ((arg->fmt[arg->index] >= '1' && \
 			arg->fmt[arg->index] <= '9') || arg->fmt[arg->index] == '*')
 			arg_num_value(arg, ap);
