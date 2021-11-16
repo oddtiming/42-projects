@@ -390,4 +390,8 @@ int	main()
 	printf("%%p | (void *)0'\n");
 	return_value = printf("\"%p\"\n", (void *)0);
 	printf("return_value = %d\n", return_value);
+	
+	printf("%%#x | LONG_MIN\n");
+	return_value = printf("\"%#x\"\n", LONG_MAX);
+	printf("return_value = %d\n", return_value);
 }
